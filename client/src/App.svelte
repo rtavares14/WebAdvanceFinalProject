@@ -14,6 +14,7 @@
     page = Home;
     currentRoute = ctx.pathname;
   });
+
   router('/about', (ctx) => {
     page = About;
     currentRoute = ctx.pathname;
