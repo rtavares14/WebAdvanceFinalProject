@@ -1,11 +1,11 @@
 import express from "express";
-import * as cardController from "../controllers/userController.js";
+import * as cardController from "../controllers/cardController.js";
 
 const cardRouter = express.Router()
 
 cardRouter.get("/",cardController.getAllCards);
 cardRouter.get("/:cardID",cardController.getCardByID);
-cardRouter.get("/:cardID/bids",cardController.getBidsFromCard);
+cardRouter.get("/:cardID/bids",cardController.getAllBidsFromCard);
 cardRouter.get("/:cardID/bids/:bidID",cardController.getBidIDFromCard);
 
 cardRouter.post("/:cardID/bids",cardController.createNewCardBid);

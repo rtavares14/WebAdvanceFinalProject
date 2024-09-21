@@ -5,7 +5,7 @@ const userRouter = express.Router()
 
 userRouter.get("/",userController.getAllUsers);
 userRouter.get("/:userID",userController.getUserByID);
-userRouter.get("/:userID/bids",userController.getBidsFromUser);
+userRouter.get("/:userID/bids",userController.getAllBidsFromUser);
 userRouter.get("/:userID/bids/:bidID",userController.getBidIDFromUser);
 
 userRouter.post("/login",userController.loginUser);
