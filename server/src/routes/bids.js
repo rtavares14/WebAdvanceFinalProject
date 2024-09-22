@@ -1,5 +1,5 @@
 import express from "express";
-import * as bidsController from "../controllers/userController.js";
+import * as bidsController from "../controllers/bidController.js";
 
 const bidRouter = express.Router()
 

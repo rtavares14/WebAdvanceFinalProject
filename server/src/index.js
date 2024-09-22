@@ -7,10 +7,12 @@ import users from "./routes/users.js";
 const app = express()
 const port = 3000
 
-app.use("/auth", auth);
-app.use("/bids", bids);
-app.use("/cads", cards);
-app.use("/users", users);
+app.use(express.json());
+
+app.use('/auth', auth);
+app.use('/bids', bids);
+app.use('/cards', cards);
+app.use('/users', users);
 
 app.get('/', (req, res) => {
   console.log(req);
