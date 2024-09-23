@@ -1,7 +1,7 @@
-export function deleteBid() {
+export function deleteBid(req, res) {
 
 }
 
-export function updateBid() {
+export function updateBid(req, res) {
 
 }

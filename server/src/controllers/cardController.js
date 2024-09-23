@@ -16,7 +16,7 @@ export function deleteCard(req, res) {
     res.status(200).json({ message: "Card deleted successfully." });
 }
 
-export function updateCard() {
+export function updateCard(req, res) {
 
 }
 

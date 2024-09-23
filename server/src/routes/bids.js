@@ -1,10 +1,10 @@
 import express from "express";
 import * as bidsController from "../controllers/bidController.js";
 
-const bidRouter = express.Router()
+const bidRouter = express.Router();
 
-bidRouter.patch("/:bidID",bidsController.updateBid);
+bidRouter.patch("/:bidID", bidsController.updateBid);
 
-bidRouter.delete("/:bidID",bidsController.deleteBid);
+bidRouter.delete("/:bidID", bidsController.deleteBid);
 
-export default bidRouter();
+export default bidRouter;

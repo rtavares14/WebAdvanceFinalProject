@@ -11,8 +11,8 @@ cardRouter.get("/:cardID/bids/:bidID",cardController.getBidIDFromCard);
 cardRouter.post("/:cardID/bids",cardController.createNewCardBid);
 cardRouter.post("/",cardController.createNewCard);
 
-cardRouter.post("/:cardID",cardController.updateCard)
+cardRouter.patch("/:cardID",cardController.updateCard)
 
 cardRouter.delete("/:cardID",cardController.deleteCard);
 
-export default cardRouter();
+export default cardRouter;

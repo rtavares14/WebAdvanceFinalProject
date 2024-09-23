@@ -1,7 +1,7 @@
 import {data} from "../dummyData/dummyData.js";
 
 export function deleteUser(req, res) {
-    const userID = req.params.albumID;
+    const userID = req.params.userID;
 
     // Find the User by its ID
     const user = data.users.find(user => user.id === userID);
@@ -17,22 +17,22 @@ export function deleteUser(req, res) {
 }
 
 
-export function updateUser() {
+export function updateUser(req, res) {
 
 }
 
 
-export function createUser() {
+export function createUser(req, res) {
 
 }
 
 
-export function loginUser() {
+export function loginUser(req, res) {
 
 }
 
 
-export function getBidIDFromUser() {
+export function getBidIDFromUser(req, res) {
 
 }
 
