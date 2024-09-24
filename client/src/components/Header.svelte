@@ -1,5 +1,5 @@
 <script>
-    import pokeball from '../assets/pokeball3.png';
+    import pokeball from '../assets/pokeball.png';
     export let active;
 </script>
 
@@ -41,6 +41,10 @@
         height: 22px;
         margin: 0 1px;
         vertical-align: middle;
+    }
+
+    a.active , .hover\:text-pokeYellow:hover {
+        color: #facc15;
     }
 
 </style>
