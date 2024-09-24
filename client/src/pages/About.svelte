@@ -1,54 +1,70 @@
 <script>
-    import { onMount } from 'svelte';
-    export let params;
+    import pokemons from '../assets/pokemons.jpg';
+    import pokeball from "../assets/pokeball3.png";
 
-    onMount(() => {
-        const queryParams = new URLSearchParams(params.querystring);
-        if (queryParams.has("dit")) {
-            console.log(queryParams.get('dit'));
-        } else{
-            console.log("`dit` not found");
-        }
-        console.log(params);
-        console.log(queryParams)
+    document.addEventListener('DOMContentLoaded', function () {
+        // Set the background image dynamically
+
+        document.body.style.backgroundImage = `url(${pokemons})`;
+        document.body.style.backgroundSize = 'cover';  // Ensure it covers the entire screen
+
     });
 </script>
 
-<h1>About</h1>
-
-<p>This page shows the use of query parameters on the client side. In <code>App.svelte</code> you can find the following code</p>
-<p>
-    <code>
-        router('/about', (ctx) => &lcub;<br>
-        page = About;<br>
-        currentRoute = ctx.pathname;<br>
-        params = ctx;<br>
-        &rcub;);
-    </code>
-</p>
-<p>
-    the <code>params = ctx;</code> part stores the routing context in the params variable.
-</p>
-<p>
-    This variable is then passed into the component that is called for the page which is <code>About</code>
-</p>
-<p>
-    Inside <code>About</code> the value can be read from the <code>params</code> like so <code>params.querystring</code>.
-</p>
-<p>
-    It can be used to populate a <code>URLSearchParams</code> object.
-</p>
-<p>
-    <code>
-        const queryParams = new URLSearchParams(params.querystring);
-    </code>
-</p>
-<p>
-    The manual for <code>URLSearchParams</code> can be found <a href="https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams">here</a>.
-</p>
+<div class="about-container">
+    <div class="about-header">
+        <h1>P<span class="pokeball"><img src={pokeball} alt="Pokéball"/></span>KEBID</h1>
+    </div>
+    <div class="about-content">
+        <p>Welcome to P<span class="pokeball"><img src={pokeball} alt="Pokéball"/></span>KEBID
+            – the ultimate online platform for collectors and trainers! Discover rare and unique Pokémon cards through
+            our competitive and secure auction process.</p>
+        <p>Founded by Rafael Tavares and Gerralt Gottemaker in 2024, we bring together Pokémon fans who love trading and
+            bidding on rare cards and collectibles. Each listing is checked to make sure it's real and exciting.</p>
+        <p>Whether you're an experienced collector or just starting out, Pokémon Auction is the perfect place to grow
+            your collection. Start bidding, collecting, and trading now!</p>
+    </div>
+</div>
 
 <style>
-    p {
-        text-align: left;
+    body {
+        margin: 0;
+        font-family: 'Arial', sans-serif;
+        background-size: cover;
+        background-attachment: fixed;
+        background-position: center;
+    }
+
+    .about-container {
+        max-width: 800px;
+        padding: 2em;
+        background-color: rgba(0, 58, 112, 0.9); /* Slight transparency */
+        border-radius: 12px;
+        margin: 5em auto;
+    }
+
+    .about-header h1 {
+        color: #FB1B1B;
+        text-align: center;
+        margin-bottom: 1em;
+        font-size: 2.5em;
+    }
+
+    .pokeball img {
+        width: 0.75em;
+        vertical-align: central;
+        margin: 0 3px;
+    }
+
+    .about-content p {
+        color: #FB1B1B;
+        line-height: 1.8;
+        margin-bottom: 1.5em;
+        font-size: 1.1em;
+    }
+
+    /* Navbar link styles */
+    .nav-items a.active, .nav-items a:hover, .user-options a:hover {
+        color: #ffcb05; /* Pokémon Yellow */
     }
 </style>

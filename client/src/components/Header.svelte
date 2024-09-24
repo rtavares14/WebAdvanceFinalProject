@@ -27,7 +27,7 @@
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        padding: 10px 20px 10px 50px;
+        padding: 10px 20px 10px 20px;
         background: #003a70;
         width: 100vw;
         height: 60px;

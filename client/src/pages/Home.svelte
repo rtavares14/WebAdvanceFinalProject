@@ -4,4 +4,4 @@
     export let params;
 </script>
 
-<Counter />
+

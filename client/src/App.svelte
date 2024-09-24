@@ -1,5 +1,4 @@
 <script>
-  import logo from './assets/svelte.png'
   import router from 'page';
 
   import Home from "./pages/Home.svelte";
@@ -25,7 +24,6 @@
 </script>
 
 <main>
-  <img src={logo} alt="Svelte Logo" />
   <Header active={currentRoute} />
   <svelte:component this={page} {params} />
 </main>
