@@ -107,5 +107,5 @@ export function getCardByID(req, res) {
 
 export function getAllCards(req, res) {
     // Return all Cards
-    res.status(200).json({ cards: data.cards });
+    res.status(200).json(data.cards);
 }
