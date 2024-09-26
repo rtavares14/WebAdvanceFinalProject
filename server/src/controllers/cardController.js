@@ -1,4 +1,4 @@
-import {data} from "../dummyData/dummyData.js";
+import {data} from "../dummyData/dummyData.js" ;
 
 export function deleteCard(req, res) {
     const cardID = req.params.cardID;

@@ -1,4 +1,6 @@
 import express from 'express';
+import cors from 'cors';
+
 import auth from './routes/auth.js';
 import bids from "./routes/bids.js";
 import cards from "./routes/cards.js";
@@ -6,6 +8,8 @@ import users from "./routes/users.js";
 
 const app = express()
 const port = 3000
+
+app.use(cors({origin: 'http://localhost:5173'}));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -23,4 +27,4 @@ app.get('/', (req, res) => {
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
-})
+}) //applause

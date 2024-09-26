@@ -22,7 +22,6 @@
         </ul>
     </div>
 
-    <!-- Right side (Login and Register) -->
     <div class="ml-auto flex space-x-6">
         <a href="/login" class="hover:text-pokeYellow">Login</a>
         <a href="/register" class="hover:text-pokeYellow">Register</a>
