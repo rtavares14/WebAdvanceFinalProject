@@ -1,8 +1,7 @@
 body {
     background-image: url('../assets/pokemons3.jpg');
     background-size: cover;
-    background-attachment: fixed;
     background-position: center;
-    height: 100vh;
-    overflow: hidden;
+    background-attachment: fixed;
+    overflow-y: auto;
 }
