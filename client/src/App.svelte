@@ -1,6 +1,7 @@
 <script>
   import router from 'page';
   import Home from "./pages/Home.svelte";
+  import Cards from "./pages/Cards.svelte";
   import About from "./pages/About.svelte";
   import Login from "./pages/Login.svelte";
   import Register from "./pages/Register.svelte";
@@ -16,22 +17,32 @@
     currentRoute = ctx.pathname;
   });
 
+  router('/cards', (ctx) => {
+    page = Cards;
+    currentRoute = ctx.pathname;
+    params = ctx.params
+  });
+
+  router('/card/:id', (ctx) => {
+
+  })
+
   router('/about', (ctx) => {
     page = About;
     currentRoute = ctx.pathname;
-    params = ctx;
+    params = ctx.params
   });
 
   router('/login', (ctx) => {
     page = Login;
     currentRoute = ctx.pathname;
-    params = ctx;
+    params = ctx.params
   });
 
   router('/register', (ctx) => {
     page = Register;
     currentRoute = ctx.pathname;
-    params = ctx;
+    params = ctx.params
   });
 
   router.start();
