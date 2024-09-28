@@ -3,7 +3,7 @@
     export let active;
 </script>
 
-<nav class="bg-pokeDarkBlue text-white fixed w-full top-0 left-0 h-16 flex items-center px-6">
+<nav class="bg-pokeDarkBlue text-white fixed w-full top-0 left-0 h-16 flex items-center px-6 z-50">
     <!-- Left side (Logo and menu items) -->
     <div class="flex items-center space-x-10">
         <div class="text-pokeRed font-bold text-3xl flex items-center relative">
