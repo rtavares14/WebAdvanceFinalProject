@@ -1,10 +1,40 @@
 <script>
+    import page from "page";
+
     let email = '';
     let password = '';
     let error = '';
 
     const handleSubmit = async (event) => {
+        event.preventDefault();
 
+        error = '';
+
+        try {
+            const response = await fetch('http://localhost:3000/users/tokens', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                const token = data.token;
+
+                localStorage.setItem('token', token);
+
+                page('/');
+
+            } else {
+                const errorData = await response.json();
+                error = errorData.message || 'Login failed. Please try again.';
+            }
+        } catch (err) {
+            error = 'An error occurred try again later.';
+            console.error('Login error:', err);
+        }
     };
 </script>
 
@@ -19,14 +49,15 @@
         <div class="mb-4">
             <label for="email" class="block text-sm font-medium">Email</label>
             <input type="email" id="email" bind:value={email}
-                    class="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded focus:outline-none
-                    focus:ring-2 focus:ring-pokeYellow" required/>
+                   class="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded focus:outline-none
+                focus:ring-2 focus:ring-pokeYellow" required />
         </div>
 
         <div class="mb-4">
             <label for="password" class="block text-sm font-medium">Password</label>
-            <input type="password" id="password" bind:value={password} class="mt-1 block w-full p-2 bg-gray-700
-                border border-gray-600 rounded focus:outline-none focus:ring-2 focus:ring-pokeYellow" required/>
+            <input type="password" id="password" bind:value={password}
+                   class="mt-1 block w-full p-2 bg-gray-700 border border-gray-600 rounded focus:outline-none
+                focus:ring-2 focus:ring-pokeYellow" required />
         </div>
 
         <button type="submit" class="w-full p-2 bg-pokeRed text-white font-bold rounded hover:bg-pokeYellow

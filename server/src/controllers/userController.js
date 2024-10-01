@@ -1,4 +1,7 @@
 import {data} from "../dummyData/dummyData.js";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import secret from '../verrySecretDoNotEnter/verrySecret.js';
 
 export function deleteUser(req, res) {
     const userID = req.params.userID;
@@ -8,12 +11,12 @@ export function deleteUser(req, res) {
 
     if (!user) {
         // If no User is found, send a 404 error
-        return res.status(404).json({ error: "User not found" });
+        return res.status(404).json({error: "User not found"});
     }
 
     // Remove and send success response if the User is found
     data.users = data.users.filter(user => user.id !== userID);
-    res.status(200).json({ message: "User deleted successfully." });
+    res.status(200).json({message: "User deleted successfully."});
 }
 
 
@@ -23,12 +26,39 @@ export function updateUser(req, res) {
 
 
 export function createUser(req, res) {
+    //lets myPlaintextPassword  = req.boddy.pass
+
+    // bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
+    //cretae new user
+    //add new user
+    // });
 
 }
 
 
 export function loginUser(req, res) {
+    const { email, password } = req.body;
 
+    const user = data.users.find(user => user.userEmail === email); //look for email
+
+    if (!user) {
+        return res.status(404).json({ message: 'Email or Password not found' });
+    }
+
+    bcrypt.compare(password, user.userPass, (err, isMatch) => {
+
+        if (isMatch) {
+            const token = jwt.sign(
+                { id: user.id, email: user.email },
+                secret,
+                { expiresIn: '20m' }
+            );
+
+            return res.json({ token, message: 'Login successful' });
+        } else {
+            return res.status(401).json({ message: 'Email or Password not found' });
+        }
+    });
 }
 
 
@@ -50,14 +80,14 @@ export function getUserByID(req, res) {
 
     if (!user) {
         // If User is not found, send a 404 error
-        return res.status(404).json({ error: "User not found" });
+        return res.status(404).json({error: "User not found"});
     }
 
     // Return the user data
-    res.status(200).json({ user })
+    res.status(200).json({user})
 }
 
 export function getAllUsers(req, res) {
     // Return all Users
-    res.status(200).json({ users: data.users });
+    res.status(200).json({users: data.users});
 }

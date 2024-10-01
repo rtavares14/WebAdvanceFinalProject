@@ -1,11 +1,18 @@
 <script>
   import router from 'page';
   import Home from "./pages/Home.svelte";
-  import Cards from "./pages/Cards.svelte";
+  import Header from "./components/Header.svelte";
   import About from "./pages/About.svelte";
+
+  import Cards from "./pages/Cards.svelte";
+  import Card from "./pages/Card.svelte";
+
   import Login from "./pages/Login.svelte";
   import Register from "./pages/Register.svelte";
-  import Header from "./components/Header.svelte";
+
+  import {isLoggedIn} from "./mans/isLoggedIn.js";
+  import {isNotLoggedIn} from "./mans/isNotLoggedIn.js";
+  //import {isAdmin} from "./mans/isAdmin.js";
 
 
   let page;
@@ -17,14 +24,16 @@
     currentRoute = ctx.pathname;
   });
 
-  router('/cards', (ctx) => {
+  router('/cards', isLoggedIn , (ctx) => {
     page = Cards;
     currentRoute = ctx.pathname;
     params = ctx.params
   });
 
-  router('/card/:id', (ctx) => {
-
+  router('/cards/:id', isLoggedIn , (ctx) => {
+    page = Card;
+    currentRoute = ctx.pathname;
+    params = ctx.params
   })
 
   router('/about', (ctx) => {
@@ -33,13 +42,13 @@
     params = ctx.params
   });
 
-  router('/login', (ctx) => {
+  router('/login', isNotLoggedIn , (ctx) => {
     page = Login;
     currentRoute = ctx.pathname;
     params = ctx.params
   });
 
-  router('/register', (ctx) => {
+  router('/register', isNotLoggedIn , (ctx) => {
     page = Register;
     currentRoute = ctx.pathname;
     params = ctx.params

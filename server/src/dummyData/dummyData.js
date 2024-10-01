@@ -804,43 +804,37 @@ export const data = {
         {
             userID: 1,
             isAdmin: true,
-            userName: "KisaLisa",
-            userPass: "Pipipupu69",
-            userEmail: "kisaLisa@gmail.com"
+            userPass: "$2a$10$UNubya/7SbOC3xkGW/LiYOvh1h9Ac7bc/MMgUxYDN4Z6JcszHIvAC", //Pipipupu69
+            userEmail: "KisaAlisa@gmail.com"
         },
         {
             userID: 2,
             isAdmin: true,
-            userName: "Gerralt",
-            userPass: "G-T",
+            userPass: "$2a$10$8CsJGh9d43KYGV7FipXDTOQMpieMzwH6p.EjGHtpGUlu2DL0uD3qO", //Gt123
             userEmail: "gt@gmail.com"
         },
         {
             userID: 3,
             isAdmin: false,
-            userName: "RT14",
-            userPass: "RT14",
+            userPass: "$2a$10$NXfbjhhouscrAKwNDSbgf.K9FWyKLQWcba6RYu6DJnGDmiJjOyngm", // Rt14
             userEmail: "rt14@gmail.com"
         },
         {
             userID: 4,
             isAdmin: false,
-            userName: "RT10",
-            userPass: "RT10",
+            userPass: "$2a$10$msMlORDzIt22RW1TICP6aeMDI8No.NiuT1454s1vfFfyN5Fpmw0Yy", //Rt10
             userEmail: "rt10@gmail.com"
         },
         {
             userID: 5,
             isAdmin: false,
-            userName: "RT6",
-            userPass: "RT6",
+            userPass: "$2a$10$TpgB6oD14psKN/Gk421.Ru0vy1MZOQkjjF3WRfRgNYy9J4Icns4ku",  //Rt6
             userEmail: "rt6@gmail.com"
         },
         {
             userID: 6,
             isAdmin: false,
-            userName: "RT2",
-            userPass: "RT2",
+            userPass: "$2a$10$gtntej7QymxcqGAhkFALIemi9W7r/qKWL965gabT7fT7JGgKwtTm2", //Rt2
             userEmail: "rt2@gmail.com"
         }]
 }

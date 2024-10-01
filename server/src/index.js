@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 
-import auth from './routes/auth.js';
+import auth from './routes/tokens.js';
 import bids from "./routes/bids.js";
 import cards from "./routes/cards.js";
 import users from "./routes/users.js";
