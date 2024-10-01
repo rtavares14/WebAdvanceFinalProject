@@ -12,7 +12,7 @@
 
   import {isLoggedIn} from "./mans/isLoggedIn.js";
   import {isNotLoggedIn} from "./mans/isNotLoggedIn.js";
-  //import {isAdmin} from "./mans/isAdmin.js";
+  import {isAdmin} from "./mans/isAdmin.js";
 
 
   let page;

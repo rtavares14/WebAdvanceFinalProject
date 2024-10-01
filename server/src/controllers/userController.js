@@ -49,7 +49,7 @@ export function loginUser(req, res) {
 
         if (isMatch) {
             const token = jwt.sign(
-                { id: user.id, email: user.email },
+                { id: user.userID, email: user.userEmail , isAdmin: user.isAdmin},
                 secret,
                 { expiresIn: '20m' }
             );
