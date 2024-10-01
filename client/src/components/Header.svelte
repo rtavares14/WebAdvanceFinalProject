@@ -32,13 +32,13 @@
     .pokeball {
         display: inline-block;
         position: relative;
-        top: 1.5px;
+        top: 0.094rem;
     }
 
     .pokeball-img {
-        width: 22px;
-        height: 22px;
-        margin: 0 1px;
+        width: 1.375rem;
+        height: 1.375rem;
+        margin: 0 0.0625rem;
         vertical-align: middle;
     }
 

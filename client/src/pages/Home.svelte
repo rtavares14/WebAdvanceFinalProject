@@ -29,18 +29,20 @@
 <main class="container mx-auto p-4">
     <h1 class="text-2xl font-bold mb-4 text-center">Random Cards</h1>
 
-    <p class="text-center mb-4">Some of our cards</p>
+    <div class="bg-pokeDarkBlue bg-opacity-70 text-white rounded-lg shadow-md p-4 mb-6 mt-12 mx-auto text-center" style="max-width: 45rem;">
+        <p class="text-2xl font-bold">Check out 5 random cards currently being auctioned!</p>
+    </div>
 
     {#await promise}
         <div class="text-center">
             <p>Loading cards...</p>
         </div>
     {:then data}
-        <div class="flex justify-center gap-4">
+        <div class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-5 gap-4 justify-center">
             {#each data as card}
                 <a href={`/cards/${card.cardID}`} class="no-underline">
-                    <div class="bg-pokeDarkBlue bg-opacity-70 text-white rounded-lg shadow-md overflow-hidden"
-                         style="width: 25rex;">
+                    <div class="bg-pokeDarkBlue bg-opacity-70 text-white rounded-lg shadow-md overflow-hidden mx-auto"
+                         style="width: 30rex;">
                         <div class="p-4">
                             <h2 class="text-xl font-semibold text-center mb-2">{card.cardName}</h2>
 

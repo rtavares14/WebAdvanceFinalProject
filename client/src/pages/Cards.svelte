@@ -17,7 +17,9 @@
 <main class="container mx-auto p-4">
     <h1 class="text-2xl font-bold mb-4 text-center">All Cards</h1>
 
-    <p class="text-center mb-4">All of our cards</p>
+    <div class="bg-pokeDarkBlue bg-opacity-70 text-white rounded-lg shadow-md p-4 mb-6 mt-12 mx-auto text-center" style="max-width: 45rem;">
+        <p class="text-2xl font-bold">Check out all of our cards currently being auctioned!</p>
+    </div>
 
     {#await promise}
         <div class="text-center">
