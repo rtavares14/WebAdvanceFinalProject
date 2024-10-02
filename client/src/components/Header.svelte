@@ -1,23 +1,24 @@
 <script>
     import pokeball from '../assets/pokeball.png';
-    import {jwtDecode} from "jwt-decode";
+    import page from 'page';
+    import { jwtDecode } from "jwt-decode";
+    import { candyStore } from '../candyStore.js';
 
     export let active;
 
-    let token = localStorage.getItem('token');
+    let token = null;
     let isAdmin = false;
 
-    if (token) {
-        try {
-            const decodedToken = jwtDecode(token);
-            console.log('Decoded Token:', decodedToken);
-            isAdmin = decodedToken?.isAdmin || false;
-        } catch (error) {
-            console.error('Error decoding token:', error);
-        }
-    }
+    $: candyStore.subscribe(value => {
+        token = value;
+        isAdmin = token ? jwtDecode(token)?.isAdmin || false : false;
+    });
 
-    console.log('Is Admin:', isAdmin);
+    function logout() {
+        candyStore.set(null); // Clear token from the store
+        localStorage.removeItem('token');
+        page.redirect('/')
+    }
 </script>
 
 <!-- Navigation Bar -->
@@ -31,7 +32,6 @@
             <span>KEBID</span>
         </div>
 
-        <!-- Menu items -->
         <ul class="flex space-x-6 text-lg">
             <li><a class:active={active === "/"} href="/" class="hover:text-pokeYellow">Home</a></li>
             <li><a class:active={active === "/cards"} href="/cards" class="hover:text-pokeYellow">Cards</a></li>
@@ -40,20 +40,21 @@
     </div>
 
     <div class="ml-auto flex space-x-6">
-        {#if token}
-            <li><a class:active={active === "/mypage"} href="/mypage" class="hover:text-pokeYellow">My Page</a></li>
-            <li><a class:active={active === "/logout"} href="/logout" class="hover:text-pokeYellow">Logout</a></li>
-            {#if isAdmin}
-                <li><a class:active={active === "/dashboard"} href="/dashboard" class="hover:text-pokeYellow">Admin Dashboard</a></li>
+        <ul class="flex space-x-6 text-lg">
+            {#if token}
+                <li><a class:active={active === "/mypage"} href="/mypage" class="hover:text-pokeYellow">My Account</a></li>
+                <li><a class="hover:text-pokeYellow" on:click={logout}>Logout</a></li>
+                {#if isAdmin}
+                    <li><a class:active={active === "/dashboard"} href="/dashboard" class="hover:text-pokeYellow">Admin Dashboard</a></li>
+                {/if}
+            {:else}
+                <li><a class:active={active === "/login"} href="/login" class="hover:text-pokeYellow">Login</a></li>
+                <li><a class:active={active === "/register"} href="/register" class="hover:text-pokeYellow">Register</a></li>
             {/if}
-        {:else}
-            <li><a class:active={active === "/login"} href="/login" class="hover:text-pokeYellow">Login</a></li>
-            <li><a class:active={active === "/register"} href="/register" class="hover:text-pokeYellow">Register</a></li>
-        {/if}
+        </ul>
     </div>
 </nav>
 
-<!-- Style Section -->
 <style>
     .pokeball {
         display: inline-block;

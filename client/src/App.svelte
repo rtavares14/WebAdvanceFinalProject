@@ -24,17 +24,17 @@
     currentRoute = ctx.pathname;
   });
 
-  router('/cards', isLoggedIn , (ctx) => {
+  router('/cards', isLoggedIn, (ctx) => {
     page = Cards;
     currentRoute = ctx.pathname;
-    params = ctx.params
+    params = ctx.params;
   });
 
-  router('/cards/:id', isLoggedIn , (ctx) => {
+  router('/cards/:id', isLoggedIn, (ctx) => {
     page = Card;
     currentRoute = ctx.pathname;
-    params = ctx.params
-  })
+    params = ctx.params;
+  });
 
   router('/about', (ctx) => {
     page = About;
@@ -42,10 +42,10 @@
     params = ctx.params
   });
 
-  router('/login', isNotLoggedIn , (ctx) => {
+  router('/login', isNotLoggedIn, (ctx) => {
     page = Login;
     currentRoute = ctx.pathname;
-    params = ctx.params
+    params = ctx.params;
   });
 
   router('/register', isNotLoggedIn , (ctx) => {

@@ -8,7 +8,6 @@
             const dataLength = data.length;
             const randomIndices = getRandomIndices(5, dataLength);
             return randomIndices.map(index => data[index]);
-
         } else {
             console.error(`Failed to fetch cards data: ${response.status}`);
         }
@@ -30,7 +29,15 @@
     <h1 class="text-2xl font-bold mb-4 text-center">Random Cards</h1>
 
     <div class="bg-pokeDarkBlue bg-opacity-70 text-white rounded-lg shadow-md p-4 mb-6 mt-12 mx-auto text-center" style="max-width: 45rem;">
-        <p class="text-2xl font-bold">Check out 5 random cards currently being auctioned!</p>
+        <h2 class="text-2xl font-bold mb-4">Popular Cards</h2>
+        <p class="text-lg">Check out the most popular cards being bid on right now.</p>
+
+        <div class="mt-4">
+            <a href="/cards"
+               class="bg-pokeYellow bg-opacity-80 text-pokeDarkBlue font-bold py-2 px-4 rounded hover:bg-pokeDarkBlue hover:text-pokeYellow hover:bg-opacity-60 transition">
+                See All Cards
+            </a>
+        </div>
     </div>
 
     {#await promise}
@@ -58,8 +65,7 @@
 
                             <div class="mt-4 text-center">
                                 <p><strong>Starting Bid:</strong> ${card.auctionStartingBid}</p>
-                                <p><strong>Auction
-                                    Starts:</strong> {new Date(card.actionStartingDate).toLocaleDateString()}</p>
+                                <p><strong>Auction Starts:</strong> {new Date(card.actionStartingDate).toLocaleDateString()}</p>
                             </div>
                         </div>
                     </div>
@@ -75,7 +81,6 @@
 </main>
 
 <style>
-
     a.no-underline:hover {
         transform: scale(1.05);
         transition: transform 0.3s ease-in-out;

@@ -75,7 +75,7 @@ export function getBidIDFromCard(req, res) {
 
 
 export function getAllBidsFromCard(req, res) {
-    const cardID = req.params.cardID;
+    const cardID = Number(req.params.cardID); // Convert the cardID to a number
 
     // Find the card by ID
     const card = data.cards.find(card => card.cardID === cardID);
@@ -89,12 +89,11 @@ export function getAllBidsFromCard(req, res) {
     res.status(200).json({ bids: card.bids });
 }
 
-
 export function getCardByID(req, res) {
-    const cardID = req.params.cardID;
+    const cardID = Number(req.params.cardID); // Convert the cardID to a number
 
     // Find the Card by its ID
-    const card = data.cards.find(card => card.id === cardID);
+    const card = data.cards.find(card => card.cardID === cardID); // Compare with number
 
     if (!card) {
         // If Card is not found, send a 404 error
@@ -102,7 +101,7 @@ export function getCardByID(req, res) {
     }
 
     // Return the Card data
-    res.status(200).json({ card })
+    res.status(200).json({ card });
 }
 
 export function getAllCards(req, res) {
