@@ -1,29 +1,26 @@
 <script>
     import pokeball from '../assets/pokeball.png';
-    import page from 'page';
-    import { get } from 'svelte/store';
-    import { jwtToken } from '../candyStore.js';
-
+    import {jwtDecode} from "jwt-decode";
 
     export let active;
 
-    function isLoggedIn() {
-        return get(jwtToken);
+    let token = localStorage.getItem('token');
+    let isAdmin = false;
+
+    if (token) {
+        try {
+            const decodedToken = jwtDecode(token);
+            console.log('Decoded Token:', decodedToken);
+            isAdmin = decodedToken?.isAdmin || false;
+        } catch (error) {
+            console.error('Error decoding token:', error);
+        }
     }
 
-    // Function to handle navigation
-    function navigateTo(path) {
-        page.redirect(path);
-    }
-
-    function logout() {
-        jwtToken.set(null); // Assuming jwtToken is a writable store
-        navigateTo('/'); // Redirect to home or another page
-    }
-
-    $: loggedIn = isLoggedIn();
+    console.log('Is Admin:', isAdmin);
 </script>
 
+<!-- Navigation Bar -->
 <nav class="bg-pokeDarkBlue text-white fixed w-full top-0 left-0 h-16 flex items-center px-6 z-50">
     <div class="flex items-center space-x-10">
         <div class="text-pokeRed font-bold text-3xl flex items-center relative">
@@ -43,16 +40,20 @@
     </div>
 
     <div class="ml-auto flex space-x-6">
-        {#if !loggedIn}
-            <button on:click={() => navigateTo("/mypage")} class="hover:text-pokeYellow">My Page</button>
-            <button on:click={logout} class="hover:text-pokeYellow">Logout</button>
+        {#if token}
+            <li><a class:active={active === "/mypage"} href="/mypage" class="hover:text-pokeYellow">My Page</a></li>
+            <li><a class:active={active === "/logout"} href="/logout" class="hover:text-pokeYellow">Logout</a></li>
+            {#if isAdmin}
+                <li><a class:active={active === "/dashboard"} href="/dashboard" class="hover:text-pokeYellow">Admin Dashboard</a></li>
+            {/if}
         {:else}
-            <button on:click={() => navigateTo("/login")} class="hover:text-pokeYellow">Login</button>
-            <button on:click={() => navigateTo("/register")} class="hover:text-pokeYellow">Register</button>
+            <li><a class:active={active === "/login"} href="/login" class="hover:text-pokeYellow">Login</a></li>
+            <li><a class:active={active === "/register"} href="/register" class="hover:text-pokeYellow">Register</a></li>
         {/if}
     </div>
 </nav>
 
+<!-- Style Section -->
 <style>
     .pokeball {
         display: inline-block;
@@ -71,11 +72,4 @@
         color: #facc15;
     }
 
-    button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        color: inherit; /* Inherit color from parent */
-        font: inherit; /* Inherit font from parent */
-    }
 </style>
