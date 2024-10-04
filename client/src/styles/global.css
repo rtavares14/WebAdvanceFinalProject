@@ -5,3 +5,7 @@ body {
     background-attachment: fixed;
     overflow-y: auto;
 }
+
+main {
+    margin-top: 2rem;
+}

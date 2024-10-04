@@ -1,8 +1,8 @@
 <script>
     import pokeball from '../assets/pokeball.png';
     import page from 'page';
-    import { jwtDecode } from "jwt-decode";
-    import { candyStore } from '../candyStore.js';
+    import {jwtDecode} from "jwt-decode";
+    import {candyStore} from '../candyStore.js';
 
     export let active;
 
@@ -27,7 +27,7 @@
         <div class="text-pokeRed font-bold text-3xl flex items-center relative">
             <span>P</span>
             <span class="pokeball">
-                <img src={pokeball} alt="Pokéball" class="pokeball-img" />
+                <img src={pokeball} alt="Pokéball" class="pokeball-img"/>
             </span>
             <span>KEBID</span>
         </div>
@@ -42,14 +42,23 @@
     <div class="ml-auto flex space-x-6">
         <ul class="flex space-x-6 text-lg">
             {#if token}
-                <li><a class:active={active === "/mypage"} href="/mypage" class="hover:text-pokeYellow">My Account</a></li>
-                <li><a class="hover:text-pokeYellow" on:click={logout}>Logout</a></li>
+                {#if !isAdmin}
+                    <li><a class:active={active === "/mypage"} href="/mypage" class="hover:text-pokeYellow">My
+                        Account</a></li>
+                {/if}
                 {#if isAdmin}
-                    <li><a class:active={active === "/dashboard"} href="/dashboard" class="hover:text-pokeYellow">Admin Dashboard</a></li>
+                    <li><a class:active={active === "/dashboard"} href="/dashboard" class="hover:text-pokeYellow">Admin
+                        Dashboard</a></li>
                 {/if}
             {:else}
                 <li><a class:active={active === "/login"} href="/login" class="hover:text-pokeYellow">Login</a></li>
-                <li><a class:active={active === "/register"} href="/register" class="hover:text-pokeYellow">Register</a></li>
+                <li><a class:active={active === "/register"} href="/register" class="hover:text-pokeYellow">Register</a>
+                </li>
+            {/if}
+
+            <!-- one more if to always have the logout at the right -->
+            {#if token}
+                <li><a class="hover:text-pokeYellow" on:click={logout}>Logout</a></li>
             {/if}
         </ul>
     </div>

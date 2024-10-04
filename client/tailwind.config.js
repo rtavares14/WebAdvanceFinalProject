@@ -8,6 +8,7 @@ export default {
         pokeYellow: '#ffcb05',  // Pokémon yellow
         pokeDarkBlue: '#003a70',    // Pokémon dark blue
         pokeLightBlue: '#3d7dca',    // Pokémon  light blue
+        pokeGreen: '#03C04A', // Just green
       },
     }
   },

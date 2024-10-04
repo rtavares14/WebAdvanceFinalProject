@@ -26,9 +26,9 @@
 </script>
 
 <main class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4 text-center">Random Cards</h1>
 
-    <div class="bg-pokeDarkBlue bg-opacity-70 text-white rounded-lg shadow-md p-4 mb-6 mt-12 mx-auto text-center" style="max-width: 45rem;">
+    <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-4 mb-6 mt-12 mx-auto text-center"
+         style="max-width: 45rem;">
         <h2 class="text-2xl font-bold mb-4">Popular Cards</h2>
         <p class="text-lg">Check out the most popular cards being bid on right now.</p>
 
@@ -48,7 +48,7 @@
         <div class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-5 gap-4 justify-center">
             {#each data as card}
                 <a href={`/cards/${card.cardID}`} class="no-underline">
-                    <div class="bg-pokeDarkBlue bg-opacity-70 text-white rounded-lg shadow-md overflow-hidden mx-auto"
+                    <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md overflow-hidden mx-auto"
                          style="width: 30rex;">
                         <div class="p-4">
                             <h2 class="text-xl font-semibold text-center mb-2">{card.cardName}</h2>
@@ -65,7 +65,8 @@
 
                             <div class="mt-4 text-center">
                                 <p><strong>Starting Bid:</strong> ${card.auctionStartingBid}</p>
-                                <p><strong>Auction Starts:</strong> {new Date(card.actionStartingDate).toLocaleDateString()}</p>
+                                <p><strong>Auction
+                                    Starts:</strong> {new Date(card.actionStartingDate).toLocaleDateString()}</p>
                             </div>
                         </div>
                     </div>

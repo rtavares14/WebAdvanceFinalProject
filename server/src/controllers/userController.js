@@ -51,8 +51,7 @@ export function loginUser(req, res) {
             const token = jwt.sign(
                 { id: user.userID, email: user.userEmail , isAdmin: user.isAdmin},
                 secret,
-                { expiresIn: '20m' }
-            );
+                { expiresIn: '1h' });
 
             return res.json({ token, message: 'Login successful' });
         } else {

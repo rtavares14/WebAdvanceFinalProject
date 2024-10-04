@@ -33,7 +33,7 @@
   router('/cards/:id', isLoggedIn, (ctx) => {
     page = Card;
     currentRoute = ctx.pathname;
-    params = ctx.params;
+    params = { id: ctx.params.id };
   });
 
   router('/about', (ctx) => {

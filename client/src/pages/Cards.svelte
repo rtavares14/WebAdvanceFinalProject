@@ -15,9 +15,9 @@
 </script>
 
 <main class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4 text-center">All Cards</h1>
 
-    <div class="bg-pokeDarkBlue bg-opacity-70 text-white rounded-lg shadow-md p-4 mb-6 mt-12 mx-auto text-center" style="max-width: 45rem;">
+    <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-4 mb-6 mt-12 mx-auto text-center"
+         style="max-width: 45rem;">
         <p class="text-2xl font-bold">Check out all of our cards currently being auctioned!</p>
     </div>
 
@@ -29,7 +29,7 @@
         <div class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-5 gap-4 justify-center">
             {#each data as card}
                 <a href={`/cards/${card.cardID}`} class="no-underline">
-                    <div class="bg-pokeDarkBlue bg-opacity-70 text-white rounded-lg shadow-md overflow-hidden mx-auto"
+                    <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md overflow-hidden mx-auto"
                          style="width: 30rex;">
                         <div class="p-4">
                             <h2 class="text-xl font-semibold text-center mb-2">{card.cardName}</h2>
@@ -46,15 +46,21 @@
 
                             <div class="mt-4 text-center">
                                 <p><strong>Starting Bid:</strong> ${card.auctionStartingBid}</p>
-                                <p><strong>Auction Starts:</strong> {new Date(card.actionStartingDate).toLocaleDateString()}</p>
-                                <p><strong>Auction Ends:</strong> {new Date(card.auctionEndDate).toLocaleDateString()}</p>
+                                <p><strong>Auction
+                                    Starts:</strong> {new Date(card.actionStartingDate).toLocaleDateString()}</p>
+                                <p><strong>Auction Ends:</strong> {new Date(card.auctionEndDate).toLocaleDateString()}
+                                </p>
 
                                 {#if new Date() < new Date(card.actionStartingDate)}
-                                    <p><strong>Starting in:</strong> {Math.ceil((new Date(card.actionStartingDate) - new Date()) / (1000 * 60 * 60 * 24))} days</p>
+                                    <p class="text-pokeYellow"><strong>Starting
+                                        in:</strong> {Math.ceil((new Date(card.actionStartingDate) - new Date()) / (1000 * 60 * 60 * 24))}
+                                        days</p>
                                 {:else if new Date() < new Date(card.auctionEndDate)}
-                                    <p><strong>Days Left:</strong> {Math.ceil((new Date(card.auctionEndDate) - new Date()) / (1000 * 60 * 60 * 24))} days</p>
+                                    <p class="text-pokeGreen"><strong>Days
+                                        Left:</strong> {Math.ceil((new Date(card.auctionEndDate) - new Date()) / (1000 * 60 * 60 * 24))}
+                                        days</p>
                                 {:else}
-                                    <p class="text-red-500"><strong>Auction has ended</strong></p>
+                                    <p class="text-pokeRed"><strong>Auction has ended</strong></p>
                                 {/if}
 
                             </div>
