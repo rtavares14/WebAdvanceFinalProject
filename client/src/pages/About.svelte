@@ -4,11 +4,11 @@
 
 <div class="max-w-4xl mx-auto mt-20 p-8 bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg">
     <div class="text-center mb-5">
-        <h1 class="text-pokeRed text-4xl font-bold">
+        <h1 class="text-pokeRed text-4xl md:text-5xl font-bold">
             P<span class="inline-block align-middle"><img src={pokeball} alt="Pokéball" class="pokeball-text"/></span>KEBID
         </h1>
     </div>
-    <div class="space-y-6 text-lg">
+    <div class="space-y-6 text-lg md:text-xl">
         <p>Welcome to the ultimate online platform for collectors and trainers! Discover rare and unique Pokémon cards
             through our competitive and secure auction process.</p>
         <p>Founded by Rafael Tavares and Gerralt Gottemaker in 2024, we bring together Pokémon fans who love trading and
@@ -26,5 +26,4 @@
         position: relative;
         top: -0.1em;
     }
-
 </style>

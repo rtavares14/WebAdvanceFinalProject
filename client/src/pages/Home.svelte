@@ -49,7 +49,7 @@
             {#each data as card}
                 <a href={`/cards/${card.cardID}`} class="no-underline">
                     <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md overflow-hidden mx-auto"
-                         style="width: 30rex;">
+                         style="width: 16rem;">
                         <div class="p-4">
                             <h2 class="text-xl font-semibold text-center mb-2">{card.cardName}</h2>
 

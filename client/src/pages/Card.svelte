@@ -1,10 +1,11 @@
 <script>
-    import Timer from '../components/Timer.svelte'; // Import your Timer component
+    import Timer from '../components/Timer.svelte';
     export let params;
 
     let cardID = params.id;
     let cardDetails = null;
     let bids = [];
+    let auctionActive = false;
 
     $: if (cardID) {
         fetchCardDetails(cardID);
@@ -16,6 +17,18 @@
         if (response.ok) {
             const data = await response.json();
             cardDetails = data.card;
+
+            const now = new Date();
+            const start = new Date(cardDetails.actionStartingDate);
+            const end = new Date(cardDetails.auctionEndDate);
+
+            if (now >= start && now <= end) {
+                auctionActive = true;
+            } else if (now > end) {
+                auctionActive = false;
+            } else {
+                auctionActive = false;
+            }
         } else {
             console.error('Error fetching card details:', response.status);
         }
@@ -32,16 +45,22 @@
         }
     }
 
-    // Function to check if the auction is active
-    function isAuctionActive(startDate, endDate) {
-        const now = new Date();
-        return now >= new Date(startDate) && now <= new Date(endDate);
+
+    function handleAuctionStatus(event) {
+        auctionActive = event.detail;
     }
+
+    let bidAmount = 100;
+
+    function handleBidClick() {
+        console.log(`Bid placed: $${bidAmount}`);
+        // bid function here
+    }
+
 </script>
 
 <main class="flex justify-center p-6 mt-16">
     <div class="w-full max-w-4xl flex space-x-6">
-
         <!-- Card Details -->
         <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-6 w-2/3">
             {#if cardDetails}
@@ -59,29 +78,26 @@
                     <p><strong>Auction Starts:</strong> {new Date(cardDetails.actionStartingDate).toLocaleDateString()}</p>
                     <p><strong>Auction Ends:</strong> {new Date(cardDetails.auctionEndDate).toLocaleDateString()}</p>
 
-                    <!-- Timer and Bid Button inside the same container -->
-                    <div class="flex justify-between items-center bg-gray-800 rounded p-4 my-4">
-                        <Timer
-                                startDate={cardDetails.actionStartingDate}
-                                endDate={cardDetails.auctionEndDate}
-                                auctionActive={isAuctionActive(cardDetails.actionStartingDate, cardDetails.auctionEndDate)}
-                        />
+                    <!-- Timer Component -->
+                    <Timer
+                            startDate={new Date(cardDetails.actionStartingDate)}
+                            endDate={new Date(cardDetails.auctionEndDate)}
+                            on:auctionStatus={handleAuctionStatus} /> <!-- auction status changes -->
 
-                        <!-- Bid Button -->
-                        <button
-                                class="ml-4 px-4 py-2 font-bold text-lg rounded transition duration-200
-                            {isAuctionActive(cardDetails.actionStartingDate, cardDetails.auctionEndDate) ? 'bg-pokeYellow hover:bg-pokeYellow-dark text-pokeDarkBlue' : 'bg-gray-500 text-gray-300 cursor-not-allowed'}"
-                                disabled={!isAuctionActive(cardDetails.actionStartingDate, cardDetails.auctionEndDate)}
-                        >
-                            {#if isAuctionActive(cardDetails.actionStartingDate, cardDetails.auctionEndDate)}
-                                Place a Bid
-                            {:else if new Date() < new Date(cardDetails.actionStartingDate)}
-                                Auction hasn’t started
-                            {:else}
-                                Auction has ended
-                            {/if}
-                        </button>
-                    </div>
+                    <button
+                            class="px-4 py-2 font-bold text-lg rounded transition duration-200
+    {auctionActive ? 'bg-pokeYellow hover:bg-pokeYellow-dark text-pokeDarkBlue hover:scale-105 shadow-lg' : 'bg-gray-500 text-gray-300 cursor-not-allowed'}"
+                            disabled={!auctionActive}
+                            on:click={handleBidClick}
+                    >
+                        {#if auctionActive}
+                            Place a Bid
+                        {:else if new Date() < new Date(cardDetails.actionStartingDate)}
+                            Auction hasn't started
+                        {:else}
+                            Auction has ended
+                        {/if}
+                    </button>
                 </div>
             {:else}
                 <p>Loading card details...</p>
@@ -103,3 +119,7 @@
         </div>
     </div>
 </main>
+
+<style>
+
+</style>

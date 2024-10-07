@@ -1,9 +1,12 @@
 <script>
+    import { createEventDispatcher } from 'svelte';
+
     export let startDate;
     export let endDate;
-    export let auctionActive;
     let countdown = "";
+    let auctionActive = false;
     let intervalID;
+    const dispatch = createEventDispatcher(); // Create event dispatcher
 
     $: if (startDate && endDate) {
         setCountdown();
@@ -19,11 +22,14 @@
         if (now < start) {
             auctionActive = false;
             updateCountdown(start - now);
+            dispatch('auctionStatus', auctionActive); // Notify parent about auction status
+
             intervalID = setInterval(() => {
                 const timeRemaining = start - new Date();
                 if (timeRemaining <= 0) {
                     clearInterval(intervalID);
                     auctionActive = true;
+                    dispatch('auctionStatus', auctionActive); // Auction has started
                     startAuctionTimer(end);
                 } else {
                     updateCountdown(timeRemaining);
@@ -31,9 +37,11 @@
             }, 1000);
         } else if (now >= start && now <= end) {
             auctionActive = true;
+            dispatch('auctionStatus', auctionActive); // Auction is active
             startAuctionTimer(end);
         } else {
             auctionActive = false;
+            dispatch('auctionStatus', auctionActive); // Auction has ended
             countdown = "Auction has ended.";
         }
     }
@@ -46,7 +54,8 @@
             if (timeRemaining <= 0) {
                 clearInterval(intervalID);
                 countdown = "Auction has ended.";
-                auctionActive = false; // Ensure auctionActive is set to false here
+                auctionActive = false;
+                dispatch('auctionStatus', auctionActive); // Auction has ended
             } else {
                 updateCountdown(timeRemaining);
             }
