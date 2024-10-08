@@ -1,6 +1,6 @@
 <script>
     import CardDetails from '../components/cards components/CardDetails.svelte';
-    import BidList from '../components/BidList.svelte';
+    import BidList from '../components/bids components/BidList.svelte';
     export let params;
 
     let cardID = params.id;
@@ -71,7 +71,9 @@
                     <p>Loading bids...</p>
                 </div>
             {:then bids}
-                <BidList {bids} />
+                <div class="bid-list-container overflow-y-auto ">
+                    <BidList {bids} />
+                </div>
             {:catch error}
                 <div class="text-center">
                     <p class="text-red-500">Error fetching bids: {error.message}</p>
@@ -82,5 +84,8 @@
 </main>
 
 <style>
-
+    .bid-list-container {
+        height: 35.5rem;
+        overflow-y: auto;
+    }
 </style>

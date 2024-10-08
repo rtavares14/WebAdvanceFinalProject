@@ -97,66 +97,6 @@ export const data = {
             bidID: 10, userID: 4, bidAmount: 10000.00, bidDate: new Date("2024-10-07")
         }, {
             bidID: 11, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-10")
-        },{
-            bidID: 7, userID: 3, bidAmount: 7550.00, bidDate: new Date("2024-10-06")
-        }, {
-            bidID: 8, userID: 4, bidAmount: 7650.00, bidDate: new Date("2024-10-06")
-        }, {
-            bidID: 9, userID: 3, bidAmount: 8550.00, bidDate: new Date("2024-10-07")
-        }, {
-            bidID: 10, userID: 4, bidAmount: 10000.00, bidDate: new Date("2024-10-07")
-        }, {
-            bidID: 11, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-10")
-        },{
-            bidID: 7, userID: 3, bidAmount: 7550.00, bidDate: new Date("2024-10-06")
-        }, {
-            bidID: 8, userID: 4, bidAmount: 7650.00, bidDate: new Date("2024-10-06")
-        }, {
-            bidID: 9, userID: 3, bidAmount: 8550.00, bidDate: new Date("2024-10-07")
-        }, {
-            bidID: 10, userID: 4, bidAmount: 10000.00, bidDate: new Date("2024-10-07")
-        }, {
-            bidID: 11, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-10")
-        },{
-            bidID: 7, userID: 3, bidAmount: 7550.00, bidDate: new Date("2024-10-06")
-        }, {
-            bidID: 8, userID: 4, bidAmount: 7650.00, bidDate: new Date("2024-10-06")
-        }, {
-            bidID: 9, userID: 3, bidAmount: 8550.00, bidDate: new Date("2024-10-07")
-        }, {
-            bidID: 10, userID: 4, bidAmount: 10000.00, bidDate: new Date("2024-10-07")
-        }, {
-            bidID: 11, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-10")
-        },{
-            bidID: 7, userID: 3, bidAmount: 7550.00, bidDate: new Date("2024-10-06")
-        }, {
-            bidID: 8, userID: 4, bidAmount: 7650.00, bidDate: new Date("2024-10-06")
-        }, {
-            bidID: 9, userID: 3, bidAmount: 8550.00, bidDate: new Date("2024-10-07")
-        }, {
-            bidID: 10, userID: 4, bidAmount: 10000.00, bidDate: new Date("2024-10-07")
-        }, {
-            bidID: 11, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-10")
-        },{
-            bidID: 7, userID: 3, bidAmount: 7550.00, bidDate: new Date("2024-10-06")
-        }, {
-            bidID: 8, userID: 4, bidAmount: 7650.00, bidDate: new Date("2024-10-06")
-        }, {
-            bidID: 9, userID: 3, bidAmount: 8550.00, bidDate: new Date("2024-10-07")
-        }, {
-            bidID: 10, userID: 4, bidAmount: 10000.00, bidDate: new Date("2024-10-07")
-        }, {
-            bidID: 11, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-10")
-        },{
-            bidID: 7, userID: 3, bidAmount: 7550.00, bidDate: new Date("2024-10-06")
-        }, {
-            bidID: 8, userID: 4, bidAmount: 7650.00, bidDate: new Date("2024-10-06")
-        }, {
-            bidID: 9, userID: 3, bidAmount: 8550.00, bidDate: new Date("2024-10-07")
-        }, {
-            bidID: 10, userID: 4, bidAmount: 10000.00, bidDate: new Date("2024-10-07")
-        }, {
-            bidID: 11, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-10")
         },]
     }, {
         cardID: 12,
