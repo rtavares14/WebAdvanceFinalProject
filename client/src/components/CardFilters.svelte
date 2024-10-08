@@ -1,85 +1,81 @@
 <script>
-    export let searchQuery = '';
-    export let filterRating = '';
-    export let filterEnergy = '';
-    export let filterCardType = '';
-    export let filterActionStatus = '';
-    export let updateCards;
+    export let searchQuery;
+    export let filterRating;
+    export let filterEnergy;
+    export let filterCardType;
+    export let filterActionStatus;
 
-    function clearFilters() {
-        searchQuery = '';
-        filterRating = '';
-        filterEnergy = '';
-        filterCardType = '';
-        filterActionStatus = ''; // Clear action status filter
-        updateCards(); // Update cards after clearing
+    import { createEventDispatcher } from "svelte";
+    const dispatch = createEventDispatcher();
+
+    function handleClearFilters() {
+        dispatch('clearFilters');
     }
+
+    $: searchQuery, dispatch('updateSearchQuery', { value: searchQuery });
+    $: filterRating, dispatch('updateFilterRating', { value: filterRating });
+    $: filterEnergy, dispatch('updateFilterEnergy', { value: filterEnergy });
+    $: filterCardType, dispatch('updateFilterCardType', { value: filterCardType });
+    $: filterActionStatus, dispatch('updateFilterActionStatus', { value: filterActionStatus });
 </script>
 
 <div class="flex flex-wrap justify-center items-center space-x-4 mb-6">
-    <!-- Search Bar -->
     <div class="flex-grow">
         <input
                 type="text"
                 bind:value={searchQuery}
                 placeholder="Search for a card..."
-                class="p-2 rounded-md bg-pokeDarkBlue text-white placeholder-white border-none w-full"
-                on:input={updateCards}
+                class="p-2 rounded-md  bg-pokeDarkBlue bg-opacity-85 text-white placeholder-white border-none w-full"
         />
     </div>
 
-    <!-- Filter by Rating -->
     <div class="flex-shrink-0">
         <label for="filterRating" class="block text-white"></label>
-        <select id="filterRating" bind:value={filterRating} class="p-2 rounded-md bg-pokeDarkBlue text-white border-none" on:change={updateCards}>
+        <select id="filterRating" bind:value={filterRating} class="p-2 rounded-md  bg-pokeDarkBlue bg-opacity-85 text-white border-none">
             <option value="">All Ratings</option>
             <option value="10">10</option>
-            <option value="9.0-9.9">From 9 to 9.9</option>
-            <option value="8.0-8.9">From 8 to 8.9</option>
-            <option value="7.0-7.9">From 7 to 7.9</option>
-            <option value="6.9">6.9 and lower</option>
+            <option value="9.0-9.9">9-9.9</option>
+            <option value="8.0-8.9">8-8.9</option>
+            <option value="7.0-7.9">7-7.9</option>
+            <option value="6.9">0-6.9</option>
         </select>
     </div>
 
-    <!-- Filter by Energy Type -->
     <div class="flex-shrink-0">
         <label for="filterEnergy" class="block text-white"></label>
-        <select id="filterEnergy" bind:value={filterEnergy} class="p-2 rounded-md bg-pokeDarkBlue text-white border-none" on:change={updateCards}>
+        <select id="filterEnergy" bind:value={filterEnergy} class="p-2 rounded-md  bg-pokeDarkBlue bg-opacity-85 text-white border-none">
             <option value="">All Energy Types</option>
+            <option value="Grass">Grass</option>
             <option value="Fire">Fire</option>
             <option value="Water">Water</option>
-            <option value="Grass">Grass</option>
             <option value="Electric">Electric</option>
+            <option value="Normal">Normal</option>
+            <option value="Psychic">Psychic</option>
+            <option value="Fighting">Fighting</option>
         </select>
     </div>
 
-    <!-- Filter by Card Type -->
     <div class="flex-shrink-0">
         <label for="filterCardType" class="block text-white"></label>
-        <select id="filterCardType" bind:value={filterCardType} class="p-2 rounded-md bg-pokeDarkBlue text-white border-none" on:change={updateCards}>
+        <select id="filterCardType" bind:value={filterCardType} class="p-2 rounded-md  bg-pokeDarkBlue bg-opacity-85 text-white border-none">
             <option value="">All Card Types</option>
             <option value="Pokemon">Pokemon</option>
             <option value="Energy">Energy</option>
+            <option value="Trainer">Trainer</option>
         </select>
     </div>
 
-    <!-- Filter by Action Status -->
     <div class="flex-shrink-0">
         <label for="filterActionStatus" class="block text-white"></label>
-        <select id="filterActionStatus" bind:value={filterActionStatus} class="p-2 rounded-md bg-pokeDarkBlue text-white border-none" on:change={updateCards}>
+        <select id="filterActionStatus" bind:value={filterActionStatus} class="p-2 rounded-md  bg-pokeDarkBlue bg-opacity-85 text-white border-none">
             <option value="">All Actions</option>
+            <option value="Waiting">Waiting</option>
             <option value="Started">Started</option>
             <option value="Ended">Ended</option>
-            <option value="Waiting">Waiting</option>
         </select>
     </div>
 
-    <!-- Clear Filters Button -->
-    <button on:click={clearFilters} class="bg-pokeYellow bg-opacity-80 text-pokeDarkBlue font-bold py-2 px-4 rounded hover:bg-pokeDarkBlue hover:text-pokeYellow hover:bg-opacity-60 transition">
+    <button on:click={handleClearFilters} class="bg-pokeYellow bg-opacity-80 text-pokeDarkBlue font-bold py-2 px-4 rounded hover:bg-pokeDarkBlue hover:text-pokeYellow hover:bg-opacity-60 transition">
         Clear Filters
     </button>
 </div>
-
-<style>
-    /* Add any necessary styles here */
-</style>

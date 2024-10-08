@@ -1,4 +1,5 @@
 <script>
+    import Card from '../components/Card.svelte';
     let promise;
 
     async function fetchCards() {
@@ -47,30 +48,7 @@
     {:then data}
         <div class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-5 gap-4 justify-center">
             {#each data as card}
-                <a href={`/cards/${card.cardID}`} class="no-underline">
-                    <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md overflow-hidden mx-auto"
-                         style="width: 16rem;">
-                        <div class="p-4">
-                            <h2 class="text-xl font-semibold text-center mb-2">{card.cardName}</h2>
-
-                            <div class="flex justify-center mb-2">
-                                <img src={card.cardImg} alt={card.cardName} class="h-32 w-auto object-cover">
-                            </div>
-
-                            <div class="text-center">
-                                <p><strong>Type:</strong> {card.cardType}</p>
-                                <p><strong>Energy Type:</strong> {card.energyType}</p>
-                                <p><strong>Rating:</strong> {card.cardRate}</p>
-                            </div>
-
-                            <div class="mt-4 text-center">
-                                <p><strong>Starting Bid:</strong> ${card.auctionStartingBid}</p>
-                                <p><strong>Auction
-                                    Starts:</strong> {new Date(card.actionStartingDate).toLocaleDateString()}</p>
-                            </div>
-                        </div>
-                    </div>
-                </a>
+                <Card {card} />
             {/each}
         </div>
     {:catch error}

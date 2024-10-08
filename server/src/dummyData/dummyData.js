@@ -252,8 +252,8 @@ export const data = {
         cardID: 36,
         cardName: "Magmar",
         cardImg: "https://den-cards.pokellector.com/119/Magmar.BS.36.png",
-        actionStartingDate: new Date("2024-11-13T00:00:00"),
-        auctionEndDate: new Date("2024-11-23T00:00:00"),
+        actionStartingDate: new Date("2024-10-07T23:49:30"),
+        auctionEndDate: new Date("2024-10-07T23:49:40"),
         auctionStartingBid: 300.00,
         cardType: "Pokemon",
         energyType: "Fire",
@@ -290,7 +290,7 @@ export const data = {
         auctionStartingBid: 1000.00,
         cardType: "Pokemon",
         energyType: "Electric",
-        cardRate: 9.5,
+        cardRate: 10.0,
         bids: [{
             bidID: 18, userID: 4, bidAmount: 1300.00, bidDate: new Date("2024-10-06")
         }, {
@@ -386,6 +386,17 @@ export const data = {
         cardType: "Energy",
         energyType: "Water",
         cardRate: 7.5,
+        bids: []
+    }, {
+        cardID: 123,
+        cardName: "Trainer Gerralt",
+        cardImg: "",
+        actionStartingDate: new Date("2024-11-07T13:03:00"),
+        auctionEndDate: new Date("2024-12-07T13:03:15"),
+        auctionStartingBid: 1000000000000,
+        cardType: "Trainer",
+        energyType: null,
+        cardRate: 10,
         bids: []
     }],
 
