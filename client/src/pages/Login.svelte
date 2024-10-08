@@ -1,6 +1,6 @@
 <script>
     import page from "page";
-    import { candyStore } from '../candyStore.js';
+    import { tokenShop } from '../shops/tokenShop.js';
 
     let email = '';
     let password = '';
@@ -25,7 +25,7 @@
                 const token = data.token;
 
                 localStorage.setItem('token', token);
-                candyStore.set(token);
+                tokenShop.set(token);
 
                 page('/');
 

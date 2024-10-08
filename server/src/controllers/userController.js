@@ -39,7 +39,7 @@ export function createUser(req, res) {
 export function loginUser(req, res) {
     const { email, password } = req.body;
 
-    const user = data.users.find(user => user.userEmail === email); //look for email
+    const user = data.users.find(user => user.userEmail === email);
 
     if (!user) {
         return res.status(404).json({ message: 'Email or Password not found' });
@@ -74,19 +74,15 @@ export function getAllBidsFromUser(req, res) {
 export function getUserByID(req, res) {
     const userID = req.params.userID;
 
-    // Find the User by its ID
     const user = data.users.find(user => user.id === userID);
 
     if (!user) {
-        // If User is not found, send a 404 error
         return res.status(404).json({error: "User not found"});
     }
 
-    // Return the user data
     res.status(200).json({user})
 }
 
 export function getAllUsers(req, res) {
-    // Return all Users
     res.status(200).json({users: data.users});
 }

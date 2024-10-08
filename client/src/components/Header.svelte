@@ -1,21 +1,21 @@
 <script>
-    import pokeball from '../assets/pokeball.png';
+    import pokeball from '../assets/pokeballLogo.png';
     import page from 'page';
     import {jwtDecode} from "jwt-decode";
-    import {candyStore} from '../candyStore.js';
+    import {tokenShop} from '../shops/tokenShop.js';
 
     export let active;
 
     let token = null;
     let isAdmin = false;
 
-    $: candyStore.subscribe(value => {
+    $: tokenShop.subscribe(value => {
         token = value;
         isAdmin = token ? jwtDecode(token)?.isAdmin || false : false;
     });
 
     function logout() {
-        candyStore.set(null);
+        tokenShop.set(null);
         localStorage.removeItem('token');
         page.redirect('/');
     }
@@ -43,7 +43,7 @@
             <ul class="hidden md:flex space-x-6 text-lg">
                 {#if token}
                     {#if !isAdmin}
-                        <li><a class:active={active === "/mypage"} href="/mypage" class="hover:text-pokeYellow">My Account</a></li>
+                        <li><a class:active={active === "/myaccount"} href="/myaccount" class="hover:text-pokeYellow">My Account</a></li>
                     {/if}
                     {#if isAdmin}
                         <li><a class:active={active === "/dashboard"} href="/dashboard" class="hover:text-pokeYellow">Admin Dashboard</a></li>

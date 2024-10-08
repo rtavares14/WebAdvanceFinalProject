@@ -13,6 +13,7 @@
   import {isLoggedIn} from "./mans/isLoggedIn.js";
   import {isNotLoggedIn} from "./mans/isNotLoggedIn.js";
   import {isAdmin} from "./mans/isAdmin.js";
+  import MyAccount from "./pages/MyAccount.svelte";
 
 
   let page;
@@ -38,6 +39,12 @@
 
   router('/about', (ctx) => {
     page = About;
+    currentRoute = ctx.pathname;
+    params = ctx.params
+  });
+
+  router('/myaccount', (ctx) => {
+    page = MyAccount;
     currentRoute = ctx.pathname;
     params = ctx.params
   });

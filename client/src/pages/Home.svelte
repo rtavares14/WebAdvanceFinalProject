@@ -1,5 +1,5 @@
 <script>
-    import Card from '../components/Card.svelte';
+    import Card from '../components/cards components/Card.svelte';
     let promise;
 
     async function fetchCards() {

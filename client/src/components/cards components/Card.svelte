@@ -1,6 +1,5 @@
-<!-- Card.svelte -->
 <script>
-    export let card; // This will be passed in from CardsPage
+    export let card;
 </script>
 
 <a href={`/cards/${card.cardID}`} class="no-underline">

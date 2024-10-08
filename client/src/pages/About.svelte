@@ -1,5 +1,5 @@
 <script>
-    import pokeball from "../assets/pokeball.png";
+    import pokeball from "../assets/pokeballLogo.png";
 </script>
 
 <div class="max-w-4xl mx-auto mt-20 p-8 bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg">

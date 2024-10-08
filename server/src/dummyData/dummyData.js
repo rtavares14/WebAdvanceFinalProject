@@ -97,6 +97,66 @@ export const data = {
             bidID: 10, userID: 4, bidAmount: 10000.00, bidDate: new Date("2024-10-07")
         }, {
             bidID: 11, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-10")
+        },{
+            bidID: 7, userID: 3, bidAmount: 7550.00, bidDate: new Date("2024-10-06")
+        }, {
+            bidID: 8, userID: 4, bidAmount: 7650.00, bidDate: new Date("2024-10-06")
+        }, {
+            bidID: 9, userID: 3, bidAmount: 8550.00, bidDate: new Date("2024-10-07")
+        }, {
+            bidID: 10, userID: 4, bidAmount: 10000.00, bidDate: new Date("2024-10-07")
+        }, {
+            bidID: 11, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-10")
+        },{
+            bidID: 7, userID: 3, bidAmount: 7550.00, bidDate: new Date("2024-10-06")
+        }, {
+            bidID: 8, userID: 4, bidAmount: 7650.00, bidDate: new Date("2024-10-06")
+        }, {
+            bidID: 9, userID: 3, bidAmount: 8550.00, bidDate: new Date("2024-10-07")
+        }, {
+            bidID: 10, userID: 4, bidAmount: 10000.00, bidDate: new Date("2024-10-07")
+        }, {
+            bidID: 11, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-10")
+        },{
+            bidID: 7, userID: 3, bidAmount: 7550.00, bidDate: new Date("2024-10-06")
+        }, {
+            bidID: 8, userID: 4, bidAmount: 7650.00, bidDate: new Date("2024-10-06")
+        }, {
+            bidID: 9, userID: 3, bidAmount: 8550.00, bidDate: new Date("2024-10-07")
+        }, {
+            bidID: 10, userID: 4, bidAmount: 10000.00, bidDate: new Date("2024-10-07")
+        }, {
+            bidID: 11, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-10")
+        },{
+            bidID: 7, userID: 3, bidAmount: 7550.00, bidDate: new Date("2024-10-06")
+        }, {
+            bidID: 8, userID: 4, bidAmount: 7650.00, bidDate: new Date("2024-10-06")
+        }, {
+            bidID: 9, userID: 3, bidAmount: 8550.00, bidDate: new Date("2024-10-07")
+        }, {
+            bidID: 10, userID: 4, bidAmount: 10000.00, bidDate: new Date("2024-10-07")
+        }, {
+            bidID: 11, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-10")
+        },{
+            bidID: 7, userID: 3, bidAmount: 7550.00, bidDate: new Date("2024-10-06")
+        }, {
+            bidID: 8, userID: 4, bidAmount: 7650.00, bidDate: new Date("2024-10-06")
+        }, {
+            bidID: 9, userID: 3, bidAmount: 8550.00, bidDate: new Date("2024-10-07")
+        }, {
+            bidID: 10, userID: 4, bidAmount: 10000.00, bidDate: new Date("2024-10-07")
+        }, {
+            bidID: 11, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-10")
+        },{
+            bidID: 7, userID: 3, bidAmount: 7550.00, bidDate: new Date("2024-10-06")
+        }, {
+            bidID: 8, userID: 4, bidAmount: 7650.00, bidDate: new Date("2024-10-06")
+        }, {
+            bidID: 9, userID: 3, bidAmount: 8550.00, bidDate: new Date("2024-10-07")
+        }, {
+            bidID: 10, userID: 4, bidAmount: 10000.00, bidDate: new Date("2024-10-07")
+        }, {
+            bidID: 11, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-10")
         },]
     }, {
         cardID: 12,
@@ -388,14 +448,14 @@ export const data = {
         cardRate: 7.5,
         bids: []
     }, {
-        cardID: 123,
+        cardID: 88,
         cardName: "Trainer Gerralt",
-        cardImg: "",
+        cardImg: "https://den-cards.pokellector.com/119/Professor-Oak.BS.88.png",
         actionStartingDate: new Date("2024-11-07T13:03:00"),
         auctionEndDate: new Date("2024-12-07T13:03:15"),
         auctionStartingBid: 1000000000000,
         cardType: "Trainer",
-        energyType: null,
+        energyType: "Human",
         cardRate: 10,
         bids: []
     }],
