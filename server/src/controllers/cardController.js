@@ -83,27 +83,71 @@ export function getCardByID(req, res) {
 
 export function getAllCards(req, res) {
     res.status(200).json(data.cards);
-    console.log("cancro");
 }
 
 export function getRequestedCards(req, res) {
-    const query = req.query.cards;
+    const query = req.query.search;
+    let filteredCards = data.cards;
 
-    if (!query) {
-        return res.status(200).json(data.cards);
+    if (query) {
+        const options = {
+            includeScore: true,
+            keys: ['cardName'],
+            threshold: 0.3,
+        };
+
+        const fuse = new Fuse(data.cards, options);
+        const result = fuse.search(query);
+
+        filteredCards = result.map(r => r.item);
     }
 
-    const options = {
-        includeScore: true,
-        keys: ['cardName'],
-        threshold: 0.2,
-    };
+    filteredCards = filterCards(filteredCards, req.query);
 
-    const fuse = new Fuse(data.cards, options);
+    res.status(200).json({ matchedCards: filteredCards });
+}
 
-    const result = fuse.search(query);
+function filterCards(cards, query) {
+    const { rating, energy, type, status } = query;
+    const now = new Date();
 
-    const matchedCards = result.map(r => r.item);
+    let filteredCards = cards;
 
-    res.status(200).json({ matchedCards });
+    if (rating) {
+        filteredCards = filteredCards.filter(card => {
+            if (rating.includes('-')) {
+                const [minRating, maxRating] = rating.split('-').map(parseFloat);
+                return card.cardRate >= minRating && card.cardRate <= maxRating;
+            }
+            return card.cardRate == rating;
+        });
+    }
+
+    if (energy) {
+        filteredCards = filteredCards.filter(card =>
+            card.energyType.toLowerCase() === energy.toLowerCase()
+        );
+    }
+
+    if (type) {
+        filteredCards = filteredCards.filter(card =>
+            card.cardType.toLowerCase() === type.toLowerCase()
+        );
+    }
+
+    if (status) {
+        filteredCards = filteredCards.filter(card => {
+            const startDate = new Date(card.actionStartingDate);
+            const endDate = new Date(card.auctionEndDate);
+
+            if (status === "Waiting") {
+                return startDate > now;
+            } else if (status === "Started") {
+                return startDate <= now && endDate > now;
+            } else if (status === "Ended") {
+                return endDate <= now;
+            }
+        });
+    }
+    return filteredCards;
 }

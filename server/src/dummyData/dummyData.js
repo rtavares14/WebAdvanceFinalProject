@@ -14,7 +14,7 @@ export const data = {
         }, {
             bidID: 2, userID: 4, bidAmount: 250.00, bidDate: new Date("2024-06-07")
         }, {
-            bidID: 3, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-07-07")
+            bidID: 3, userID: 5, bidAmount: 275.00, bidDate: new Date("2024-07-07")
         },]
     }, {
         cardID: 2,
@@ -26,7 +26,13 @@ export const data = {
         cardType: "Pokemon",
         energyType: "Water",
         cardRate: 8.5,
-        bids: []
+        bids: [{
+            bidID: 1, userID: 3, bidAmount: 5200.00, bidDate: new Date("2024-06-06")
+        }, {
+            bidID: 2, userID: 4, bidAmount: 5250.00, bidDate: new Date("2024-06-07")
+        }, {
+            bidID: 3, userID: 6, bidAmount: 5275.00, bidDate: new Date("2024-07-07")
+        },]
     }, {
         cardID: 3,
         cardName: "Chansey",
@@ -37,7 +43,13 @@ export const data = {
         cardType: "Pokemon",
         energyType: "Normal",
         cardRate: 7.5,
-        bids: []
+        bids: [{
+            bidID: 1, userID: 3, bidAmount: 150.00, bidDate: new Date("2024-06-06")
+        }, {
+            bidID: 2, userID: 4, bidAmount: 160.00, bidDate: new Date("2024-06-07")
+        }, {
+            bidID: 3, userID: 6, bidAmount: 175.00, bidDate: new Date("2024-07-07")
+        },]
     }, {
         cardID: 4,
         cardName: "Charizard",
@@ -96,7 +108,7 @@ export const data = {
         }, {
             bidID: 10, userID: 4, bidAmount: 10000.00, bidDate: new Date("2024-10-07")
         }, {
-            bidID: 11, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-10")
+            bidID: 11, userID: 3, bidAmount: 22275.00, bidDate: new Date("2024-10-10")
         },]
     }, {
         cardID: 12,
@@ -108,13 +120,7 @@ export const data = {
         cardType: "Pokemon",
         energyType: "Fire",
         cardRate: 8.0,
-        bids: [{
-            bidID: 1, userID: 3, bidAmount: 200.00, bidDate: new Date("2024-10-06")
-        }, {
-            bidID: 2, userID: 4, bidAmount: 250.00, bidDate: new Date("2024-10-07")
-        }, {
-            bidID: 3, userID: 3, bidAmount: 275.00, bidDate: new Date("2024-10-07")
-        },]
+        bids: []
     }, {
         cardID: 14,
         cardName: "Raichu",
@@ -152,7 +158,7 @@ export const data = {
         }, {
             bidID: 13, userID: 5, bidAmount: 1450.00, bidDate: new Date("2024-10-09")
         }, {
-            bidID: 14, userID: 3, bidAmount: 1575.00, bidDate: new Date("2024-10-10")
+            bidID: 14, userID: 4, bidAmount: 1575.00, bidDate: new Date("2024-10-10")
         },]
     }, {
         cardID: 18,
@@ -258,7 +264,11 @@ export const data = {
         cardType: "Pokemon",
         energyType: "Fire",
         cardRate: 7.5,
-        bids: []
+        bids: [{
+            bidID: 1, userID: 3, bidAmount: 310.00, bidDate: new Date("2024-06-06")
+        }, {
+            bidID: 2, userID: 4, bidAmount: 350.00, bidDate: new Date("2024-06-07")
+        },]
     }, {
         cardID: 46,
         cardName: "Charmander",
@@ -319,7 +329,7 @@ export const data = {
         }, {
             bidID: 25, userID: 5, bidAmount: 101.00, bidDate: new Date("2024-10-06")
         }, {
-            bidID: 26, userID: 3, bidAmount: 102.00, bidDate: new Date("2024-10-10")
+            bidID: 26, userID: 6, bidAmount: 102.00, bidDate: new Date("2024-10-10")
         },]
     }, {
         cardID: 97,
@@ -386,7 +396,11 @@ export const data = {
         cardType: "Energy",
         energyType: "Water",
         cardRate: 7.5,
-        bids: []
+        bids: [{
+            bidID: 1, userID: 6, bidAmount: 80.00, bidDate: new Date("2024-06-06")
+        }, {
+            bidID: 2, userID: 4, bidAmount: 90.00, bidDate: new Date("2024-06-07")
+        },]
     }, {
         cardID: 88,
         cardName: "Trainer Gerralt",

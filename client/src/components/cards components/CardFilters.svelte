@@ -25,13 +25,13 @@
                 type="text"
                 bind:value={searchQuery}
                 placeholder="Search for a card..."
-                class="p-2 rounded-md  bg-pokeDarkBlue bg-opacity-85 text-white placeholder-white border-none w-full"
+                class="p-2 rounded-md bg-pokeDarkBlue bg-opacity-85 text-white placeholder-white border-none w-full"
         />
     </div>
 
     <div class="flex-shrink-0">
         <label for="filterRating" class="block text-white"></label>
-        <select id="filterRating" bind:value={filterRating} class="p-2 rounded-md  bg-pokeDarkBlue bg-opacity-85 text-white border-none">
+        <select id="filterRating" bind:value={filterRating} class="p-2 rounded-md bg-pokeDarkBlue bg-opacity-85 text-white border-none">
             <option value="">All Ratings</option>
             <option value="10">10</option>
             <option value="9.0-9.9">9-9.9</option>
@@ -43,7 +43,7 @@
 
     <div class="flex-shrink-0">
         <label for="filterEnergy" class="block text-white"></label>
-        <select id="filterEnergy" bind:value={filterEnergy} class="p-2 rounded-md  bg-pokeDarkBlue bg-opacity-85 text-white border-none">
+        <select id="filterEnergy" bind:value={filterEnergy} class="p-2 rounded-md bg-pokeDarkBlue bg-opacity-85 text-white border-none">
             <option value="">All Energy Types</option>
             <option value="Grass">Grass</option>
             <option value="Fire">Fire</option>
@@ -57,7 +57,7 @@
 
     <div class="flex-shrink-0">
         <label for="filterCardType" class="block text-white"></label>
-        <select id="filterCardType" bind:value={filterCardType} class="p-2 rounded-md  bg-pokeDarkBlue bg-opacity-85 text-white border-none">
+        <select id="filterCardType" bind:value={filterCardType} class="p-2 rounded-md bg-pokeDarkBlue bg-opacity-85 text-white border-none">
             <option value="">All Card Types</option>
             <option value="Pokemon">Pokemon</option>
             <option value="Energy">Energy</option>
@@ -67,7 +67,7 @@
 
     <div class="flex-shrink-0">
         <label for="filterActionStatus" class="block text-white"></label>
-        <select id="filterActionStatus" bind:value={filterActionStatus} class="p-2 rounded-md  bg-pokeDarkBlue bg-opacity-85 text-white border-none">
+        <select id="filterActionStatus" bind:value={filterActionStatus} class="p-2 rounded-md bg-pokeDarkBlue bg-opacity-85 text-white border-none">
             <option value="">All Actions</option>
             <option value="Waiting">Waiting</option>
             <option value="Started">Started</option>

@@ -1,19 +1,21 @@
 import express from "express";
 import isAdmin from "../middleware/isAdmin.js";
+import isLoggedIn from "../middleware/isLoggedIn.js";
 import * as cardController from "../controllers/cardController.js";
 
 const cardRouter = express.Router()
 
+cardRouter.get("/hot", cardController.getAllCards);
 cardRouter.get("/", cardController.getRequestedCards);
-cardRouter.get("/:cardID",cardController.getCardByID);
-cardRouter.get("/:cardID/bids",cardController.getAllBidsFromCard);
-cardRouter.get("/:cardID/bids/:bidID",cardController.getBidIDFromCard);
+cardRouter.get("/:cardID",isLoggedIn,cardController.getCardByID);
+cardRouter.get("/:cardID/bids",isLoggedIn,cardController.getAllBidsFromCard);
+cardRouter.get("/:cardID/bids/:bidID",isLoggedIn,cardController.getBidIDFromCard);
 
-cardRouter.post("/:cardID/bids",cardController.createNewCardBid);
-cardRouter.post("/",cardController.createNewCard);
+cardRouter.post("/:cardID/bids",isLoggedIn,cardController.createNewCardBid);
+cardRouter.post("/",isLoggedIn,isAdmin,cardController.createNewCard);
 
-cardRouter.patch("/:cardID",cardController.updateCard)
+cardRouter.patch("/:cardID",isLoggedIn,isAdmin,cardController.updateCard)
 
-cardRouter.delete("/:cardID",cardController.deleteCard);
+cardRouter.delete("/:cardID",isLoggedIn,isAdmin,cardController.deleteCard);
 
 export default cardRouter;

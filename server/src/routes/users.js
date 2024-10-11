@@ -1,18 +1,18 @@
 import express from "express";
+import isAdmin from "../middleware/isAdmin.js";
+import isLoggedIn from "../middleware/isLoggedIn.js";
 import * as userController from "../controllers/userController.js"
 
 const userRouter = express.Router()
 
-userRouter.get("/",userController.getAllUsers);
-userRouter.get("/:userID",userController.getUserByID);
-userRouter.get("/:userID/bids",userController.getAllBidsFromUser);
-userRouter.get("/:userID/bids/:bidID",userController.getBidIDFromUser);
+//when login alrady have id
+
+userRouter.get("/",isLoggedIn,isAdmin,userController.getAllUsers);
+userRouter.get("/cards",isLoggedIn,userController.getWonByID);
 
 userRouter.post("/tokens",userController.loginUser);
 userRouter.post("/",userController.createUser);
 
-userRouter.patch("/:userID",userController.updateUser);
-
-userRouter.delete("/:userID",userController.deleteUser);
+userRouter.delete("/:userID",isLoggedIn,isAdmin,userController.deleteUser);
 
 export default userRouter;

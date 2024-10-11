@@ -1,6 +1,8 @@
 <script>
     import CardDetails from '../components/cards components/CardDetails.svelte';
     import BidList from '../components/bids components/BidList.svelte';
+    import {fetchCardDetails} from "../api/allAPIRequests.js";
+    import {fetchBids} from "../api/allAPIRequests.js";
     export let params;
 
     let cardID = params.id;
@@ -13,40 +15,11 @@
         bidsPromise = fetchBids(cardID);
     }
 
-    async function fetchCardDetails(cardID) {
-        const response = await fetch(`http://localhost:3000/cards/${cardID}`);
-        if (response.ok) {
-            const data = await response.json();
-            const cardDetails = data.card;
-
-            const now = new Date();
-            const start = new Date(cardDetails.actionStartingDate);
-            const end = new Date(cardDetails.auctionEndDate);
-
-            auctionActive = now >= start && now <= end;
-            return cardDetails; // Return the card details here
-        } else {
-            console.error('Error fetching card details:', response.status);
-            throw new Error('Failed to fetch card details.');
-        }
-    }
-
-    async function fetchBids(cardID) {
-        const response = await fetch(`http://localhost:3000/cards/${cardID}/bids`);
-        if (response.ok) {
-            const data = await response.json();
-            return data.bids.sort((a, b) => b.bidAmount - a.bidAmount);
-        } else {
-            console.error('Error fetching bids:', response.status);
-            return [];
-        }
-    }
 
     function handleAuctionStatus(event) {
         auctionActive = event.detail;
     }
 
-    let bidAmount = 100;
 </script>
 
 <main class="flex justify-center p-6 mt-16">

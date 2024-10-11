@@ -1,119 +1,50 @@
 <script>
-    import { onMount } from 'svelte';
-    import { tokenShop } from '../shops/tokenShop.js';
+    import CardWon from '../components/cards components/CardWon.svelte';
+    import { fetchCardsWon } from "../api/allAPIRequests.js";
 
-    let bids = [];
-    let wonCards = [];
+    let cardsWonPromise;
     let error = '';
-    let loading = true;
 
-    async function fetchAccountDetails() {
-        const token = localStorage.getItem('token');
-
-        if (!token) {
-            error = 'You need to log in to view your account details.';
-            loading = false;
-            return;
-        }
-
-        try {
-            const response = await fetch('http://localhost:3000/users/account', {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                bids = data.bids || [];
-                wonCards = data.wonCards || [];
-            } else {
-                error = 'Failed to fetch account details. Please try again later.';
-            }
-        } catch (err) {
-            error = 'An error occurred while fetching your account details.';
-            console.error('Account details fetch error:', err);
-        } finally {
-            loading = false;
-        }
-    }
-
-    onMount(fetchAccountDetails);
+    $: cardsWonPromise = fetchCardsWon();
 </script>
 
 <main class="container mx-auto p-4">
-    <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-4 mb-6 mt-12 mx-auto text-center">
-        <h1 class="text-3xl font-bold mb-4">Your Account Details</h1>
-        {#if loading}
-            <p>Loading your account details...</p>
-        {:else if error}
-            <p class="text-red-500">{error}</p>
-        {:else}
-            <section class="mt-4">
-                <h2 class="text-2xl font-semibold mb-2">Total Bids</h2>
-                <div class="bg-gray-800 rounded-lg p-4">
-                    <p class="text-lg">Total Bids: ${bids.reduce((total, bid) => total + bid.amount, 0).toFixed(2) || 0}</p>
+    <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-4 mb-6 mt-12 mx-auto text-center"
+         style="max-width: 45rem;">
+        <h2 class="text-3xl font-bold mb-4">Obtain Cards</h2>
+        <p class="text-lg">All the cards obtain by you, congratulations!</p>
+
+        <div class="mt-4">
+            <a href="/cards"
+               class="bg-pokeYellow bg-opacity-80 text-pokeDarkBlue font-bold py-2 px-4 rounded hover:bg-pokeDarkBlue hover:text-pokeYellow hover:bg-opacity-60 transition">
+                Bid More Here
+            </a>
+        </div>
+    </div>
+
+    <div class="w-full max-w-4xl mx-auto">
+        {#await cardsWonPromise}
+            <p class="text-center">Loading won cards...</p>
+        {:then data}
+            {#if data.wonCards && data.wonCards.length > 0}
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    {#each data.wonCards as card}
+                        <div class="flex justify-center">
+                            <CardWon {card} />
+                        </div>
+                    {/each}
                 </div>
-            </section>
-
-            <section class="mt-4">
-                <h2 class="text-2xl font-semibold mb-2">Your Bids</h2>
-                {#if bids.length > 0}
-                    <div class="bg-gray-800 rounded-lg p-4">
-                        <ul>
-                            {#each bids as bid}
-                                <li>{bid.cardName} - Bid Amount: ${bid.amount}</li>
-                            {/each}
-                        </ul>
-                    </div>
-                {:else}
-                    <div class="bg-gray-800 rounded-lg p-4">
-                        <p>No bids placed yet.</p>
-                    </div>
-                {/if}
-            </section>
-
-            <section class="mt-4">
-                <h2 class="text-2xl font-semibold mb-2">Cards You Won</h2>
-                {#if wonCards.length > 0}
-                    <div class="bg-gray-800 rounded-lg p-4">
-                        <ul>
-                            {#each wonCards as card}
-                                <li>{card.cardName} - Won on: {card.dateWon}</li>
-                            {/each}
-                        </ul>
-                    </div>
-                {:else}
-                    <div class="bg-gray-800 rounded-lg p-4">
-                        <p>No cards won yet.</p>
-                    </div>
-                {/if}
-            </section>
-        {/if}
+            {:else}
+                <p class="text-center">You haven't won any cards yet.</p>
+            {/if}
+        {:catch fetchError}
+            <p class="text-red-500 text-center">Error fetching won cards: {fetchError.message}</p>
+        {/await}
     </div>
 </main>
 
 <style>
-    /* Add any additional styles here */
-    main {
-        background-color: #f0f0f0;
-        padding: 20px;
-    }
-
-    .bg-pokeDarkBlue {
-        background-color: #1d3557;
-    }
-
-    .bg-gray-800 {
-        background-color: #2c3e50;
-    }
-
-    .text-pokeRed {
-        color: #e63946;
-    }
-
-    .text-pokeYellow {
-        color: #f1faee;
+    .grid {
+        justify-items: center;
     }
 </style>

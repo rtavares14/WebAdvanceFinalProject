@@ -1,29 +1,11 @@
 <script>
     import Card from '../components/cards components/Card.svelte';
+    import {fetch5Cards} from "../api/allAPIRequests.js";
     let promise;
 
-    async function fetchCards() {
-        const response = await fetch(`http://localhost:3000/cards`);
-        if (response.ok) {
-            const data = await response.json();
-            const dataLength = data.length;
-            const randomIndices = getRandomIndices(5, dataLength);
-            return randomIndices.map(index => data[index]);
-        } else {
-            console.error(`Failed to fetch cards data: ${response.status}`);
-        }
-    }
+    promise = fetch5Cards();
+    console.log(promise);
 
-    promise = fetchCards();
-
-    function getRandomIndices(count, max) {
-        const indices = new Set();
-        while (indices.size < count) {
-            const randomIndex = Math.floor(Math.random() * max);
-            indices.add(randomIndex);
-        }
-        return [...indices];
-    }
 </script>
 
 <main class="container mx-auto p-4">
@@ -60,9 +42,8 @@
 </main>
 
 <style>
-    a.no-underline:hover {
+    a:hover {
         transform: scale(1.05);
         transition: transform 0.3s ease-in-out;
     }
-
 </style>

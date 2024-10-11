@@ -1,7 +1,7 @@
-<script>
+cardpage:<script>
     import CardFilters from '../components/cards components/CardFilters.svelte';
     import Card from '../components/cards components/Card.svelte';
-    import { applyFilters } from '../utils/filters';
+    import page from 'page';
 
     let promise;
     let searchQuery = '';
@@ -11,11 +11,21 @@
     let filterActionStatus = '';
     let errorMessage = '';
 
-    async function fetchCards(query) {
-        let url = `http://localhost:3000/cards`;
-        if (query) {
-            url += `?cards=${encodeURIComponent(query)}`;
-        }
+    function constructQueryString() {
+        const queryParams = new URLSearchParams();
+
+        if (searchQuery) queryParams.append('search', searchQuery);
+        if (filterRating) queryParams.append('rating', filterRating);
+        if (filterEnergy) queryParams.append('energy', filterEnergy);
+        if (filterCardType) queryParams.append('type', filterCardType);
+        if (filterActionStatus) queryParams.append('status', filterActionStatus);
+
+        return queryParams.toString();
+    }
+
+    async function fetchCards() {
+        const queryString = constructQueryString();
+        const url = `http://localhost:3000/cards?${queryString}`;
 
         const response = await fetch(url);
         if (response.ok) {
@@ -28,17 +38,18 @@
 
     async function updateCards() {
         try {
-            const data = await fetchCards(searchQuery);
-            return applyFilters(data.matchedCards || data, filterRating, filterEnergy, filterCardType, filterActionStatus);
+            const data = await fetchCards();
+            return data.matchedCards || data;
         } catch (error) {
             errorMessage = error.message;
             throw error;
         }
     }
 
-
     function updatePromise() {
-        promise = updateCards();
+        const queryString = constructQueryString();
+        page(`/cards?${queryString}`);
+        promise = updateCards();       // Fetches cards from the backend
     }
 
     function clearFilters() {
@@ -47,6 +58,7 @@
         filterEnergy = '';
         filterCardType = '';
         filterActionStatus = '';
+        updatePromise();
     }
 
     $: searchQuery, updatePromise();
@@ -61,9 +73,7 @@
 <main class="container mx-auto p-4">
     <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-4 mb-6 mt-12 mx-auto text-center" style="max-width: 100rem;">
         <p class="text-2xl font-bold">Check out all of our cards currently being auctioned!</p>
-        <p class="mt-2 text-lg"> Discover a variety of unique cards, their energy types, ratings, and auction statuses.</p>
-        <p class="mt-2 text-lg"> Whether you're looking to buy, bid, or simply explore, you'll find all the information you need right here.</p>
-        <p style="font-size: 0.25rem;" class="mt-2"> By the way, there is an easter egg planted on my cards.</p>
+        <p class="mt-2 text-lg">Discover a variety of unique cards, their energy types, ratings, and auction statuses.</p>
     </div>
 
     <CardFilters
@@ -101,9 +111,5 @@
 <style>
     input, select {
         transition: background-color 0.3s ease;
-    }
-
-    input:focus, select:focus {
-        background-color: #1d3557;
     }
 </style>
