@@ -20,8 +20,8 @@ export const data = {
         cardID: 2,
         cardName: "Blastoise",
         cardImg: "https://den-cards.pokellector.com/119/Blastoise.BS.2.png",
-        actionStartingDate: new Date("2024-11-10T00.00.00"),
-        auctionEndDate: new Date("2024-12-20T00.00.00"),
+        actionStartingDate: new Date("2024-06-03T00:00:00"),
+        auctionEndDate: new Date("2024-08-03T00:00:00"),
         auctionStartingBid: 5000.00,
         cardType: "Pokemon",
         energyType: "Water",
@@ -130,7 +130,7 @@ export const data = {
         auctionStartingBid: 300.00,
         cardType: "Pokemon",
         energyType: "Electric",
-        cardRate: 7.0,
+        cardRate: 0.5,
         bids: []
     }, {
         cardID: 15,

@@ -15,7 +15,6 @@
         bidsPromise = fetchBids(cardID);
     }
 
-
     function handleAuctionStatus(event) {
         auctionActive = event.detail;
     }

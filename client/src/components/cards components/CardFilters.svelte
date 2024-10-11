@@ -9,9 +9,18 @@
     const dispatch = createEventDispatcher();
 
     function handleClearFilters() {
+        // Reset all filter values to their default states
+        searchQuery = '';
+        filterRating = '';
+        filterEnergy = '';
+        filterCardType = '';
+        filterActionStatus = '';
+
+        // Dispatch the clearFilters event to the parent component
         dispatch('clearFilters');
     }
 
+    // Dispatch updated filter values to the parent whenever they change
     $: searchQuery, dispatch('updateSearchQuery', { value: searchQuery });
     $: filterRating, dispatch('updateFilterRating', { value: filterRating });
     $: filterEnergy, dispatch('updateFilterEnergy', { value: filterEnergy });
@@ -37,7 +46,7 @@
             <option value="9.0-9.9">9-9.9</option>
             <option value="8.0-8.9">8-8.9</option>
             <option value="7.0-7.9">7-7.9</option>
-            <option value="6.9">0-6.9</option>
+            <option value="0-6.9">0-6.9</option>
         </select>
     </div>
 

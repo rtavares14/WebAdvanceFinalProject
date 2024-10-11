@@ -1,11 +1,10 @@
 <script>
     import Card from '../components/cards components/Card.svelte';
-    import {fetch5Cards} from "../api/allAPIRequests.js";
+    import { fetchPopularCards } from "../api/allAPIRequests.js";
+
     let promise;
 
-    promise = fetch5Cards();
-    console.log(promise);
-
+    promise = fetchPopularCards();
 </script>
 
 <main class="container mx-auto p-4">
@@ -27,12 +26,18 @@
         <div class="text-center">
             <p>Loading cards...</p>
         </div>
-    {:then data}
-        <div class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-5 gap-4 justify-center">
-            {#each data as card}
-                <Card {card} />
-            {/each}
-        </div>
+    {:then result}
+        {#if result.popularCards.length > 0}
+            <div class="grid grid-cols-2 sm:grid-cols-2 xl:grid-cols-5 gap-4 justify-center">
+                {#each result.popularCards as card}
+                    <Card {card} />
+                {/each}
+            </div>
+        {:else}
+            <div class="text-center">
+                <p>No popular cards available...</p>
+            </div>
+        {/if}
     {:catch error}
         <div class="text-center">
             <p>No cards available... Please try again</p>

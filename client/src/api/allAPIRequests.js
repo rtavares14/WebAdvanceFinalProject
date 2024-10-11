@@ -1,4 +1,5 @@
 import { tokenShop } from '../shops/tokenShop.js';
+//import {constructQueryString} from "../utils/helper.js";
 
 let token;
 tokenShop.subscribe(value => token = value);
@@ -17,19 +18,17 @@ async function request(url, params) {
 
 
 //home page
-export async function fetch5Cards() {
-    const response = await request("cards/hot");
+export async function fetchPopularCards() {
+    const response = await request("cards/popular");
     if (response.ok) {
-        const data = await response.json();
-        const dataLength = data.length;
-        const randomIndices = getRandomIndices(5, dataLength);
-        return randomIndices.map(index => data[index]);
+        return response.json();
     } else {
         console.error(`Failed to fetch cards data: ${response.status}`);
     }
 }
 
 //cards page
+
 
 
 
@@ -56,7 +55,7 @@ export async function fetchBids(cardID) {
     const response = await request(`cards/${cardID}/bids`);
     if (response.ok) {
         const data = await response.json();
-        return data.bids.sort((a, b) => b.bidAmount - a.bidAmount);
+        return data.bids;
     } else {
         console.error('Error fetching bids:', response.status);
         return [];
@@ -83,16 +82,4 @@ export async function fetchAllCards() {
     } else {
         console.error(`Failed to fetch cards data: ${response.status}`);
     }
-}
-
-
-
-
-function getRandomIndices(count, max) {
-    const indices = new Set();
-    while (indices.size < count) {
-        const randomIndex = Math.floor(Math.random() * max);
-        indices.add(randomIndex);
-    }
-    return [...indices];
 }

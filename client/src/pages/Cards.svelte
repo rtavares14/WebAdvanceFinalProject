@@ -1,4 +1,5 @@
-cardpage:<script>
+<script>
+    import { updateCards, clearFilters , constructQueryString} from '../utils/helper.js';
     import CardFilters from '../components/cards components/CardFilters.svelte';
     import Card from '../components/cards components/Card.svelte';
     import page from 'page';
@@ -11,54 +12,9 @@ cardpage:<script>
     let filterActionStatus = '';
     let errorMessage = '';
 
-    function constructQueryString() {
-        const queryParams = new URLSearchParams();
-
-        if (searchQuery) queryParams.append('search', searchQuery);
-        if (filterRating) queryParams.append('rating', filterRating);
-        if (filterEnergy) queryParams.append('energy', filterEnergy);
-        if (filterCardType) queryParams.append('type', filterCardType);
-        if (filterActionStatus) queryParams.append('status', filterActionStatus);
-
-        return queryParams.toString();
-    }
-
-    async function fetchCards() {
-        const queryString = constructQueryString();
-        const url = `http://localhost:3000/cards?${queryString}`;
-
-        const response = await fetch(url);
-        if (response.ok) {
-            return response.json();
-        } else {
-            console.error(`Failed to fetch cards data: ${response.status}`);
-            throw new Error('Failed to fetch cards');
-        }
-    }
-
-    async function updateCards() {
-        try {
-            const data = await fetchCards();
-            return data.matchedCards || data;
-        } catch (error) {
-            errorMessage = error.message;
-            throw error;
-        }
-    }
-
     function updatePromise() {
-        const queryString = constructQueryString();
-        page(`/cards?${queryString}`);
-        promise = updateCards();       // Fetches cards from the backend
-    }
-
-    function clearFilters() {
-        searchQuery = '';
-        filterRating = '';
-        filterEnergy = '';
-        filterCardType = '';
-        filterActionStatus = '';
-        updatePromise();
+        page(`/cards?${constructQueryString(searchQuery, filterRating, filterEnergy, filterCardType, filterActionStatus)}`);
+        promise = updateCards(searchQuery, filterRating, filterEnergy, filterCardType, filterActionStatus);
     }
 
     $: searchQuery, updatePromise();

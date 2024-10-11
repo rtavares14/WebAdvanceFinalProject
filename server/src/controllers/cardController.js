@@ -1,5 +1,6 @@
 import {data} from "../dummyData/dummyData.js" ;
 import Fuse from "fuse.js";
+import * as helper from "../utils/controllersHelper.js";
 
 export function deleteCard(req, res) {
     const cardID = req.params.cardID;
@@ -81,8 +82,25 @@ export function getCardByID(req, res) {
     res.status(200).json({ card });
 }
 
-export function getAllCards(req, res) {
-    res.status(200).json(data.cards);
+export function getPopularCards(req, res) {
+    const cards = data.cards;
+    const dataLength = cards.length;
+
+    const randomIndices = getRandomIndices(5, dataLength);
+    const randomCards = randomIndices.map(index => cards[index]);
+
+    res.status(200).json({ popularCards: randomCards });
+}
+
+export function getRandomIndices(amount, max) {
+    const indices = [];
+    while (indices.length < amount) {
+        const index = Math.floor(Math.random() * max);
+        if (!indices.includes(index)) {
+            indices.push(index);
+        }
+    }
+    return indices;
 }
 
 export function getRequestedCards(req, res) {
@@ -102,52 +120,7 @@ export function getRequestedCards(req, res) {
         filteredCards = result.map(r => r.item);
     }
 
-    filteredCards = filterCards(filteredCards, req.query);
+    filteredCards = helper.filterCards(filteredCards, req.query);
 
     res.status(200).json({ matchedCards: filteredCards });
-}
-
-function filterCards(cards, query) {
-    const { rating, energy, type, status } = query;
-    const now = new Date();
-
-    let filteredCards = cards;
-
-    if (rating) {
-        filteredCards = filteredCards.filter(card => {
-            if (rating.includes('-')) {
-                const [minRating, maxRating] = rating.split('-').map(parseFloat);
-                return card.cardRate >= minRating && card.cardRate <= maxRating;
-            }
-            return card.cardRate == rating;
-        });
-    }
-
-    if (energy) {
-        filteredCards = filteredCards.filter(card =>
-            card.energyType.toLowerCase() === energy.toLowerCase()
-        );
-    }
-
-    if (type) {
-        filteredCards = filteredCards.filter(card =>
-            card.cardType.toLowerCase() === type.toLowerCase()
-        );
-    }
-
-    if (status) {
-        filteredCards = filteredCards.filter(card => {
-            const startDate = new Date(card.actionStartingDate);
-            const endDate = new Date(card.auctionEndDate);
-
-            if (status === "Waiting") {
-                return startDate > now;
-            } else if (status === "Started") {
-                return startDate <= now && endDate > now;
-            } else if (status === "Ended") {
-                return endDate <= now;
-            }
-        });
-    }
-    return filteredCards;
 }

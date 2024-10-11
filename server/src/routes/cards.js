@@ -5,7 +5,7 @@ import * as cardController from "../controllers/cardController.js";
 
 const cardRouter = express.Router()
 
-cardRouter.get("/hot", cardController.getAllCards);
+cardRouter.get("/popular", cardController.getPopularCards);
 cardRouter.get("/", cardController.getRequestedCards);
 cardRouter.get("/:cardID",isLoggedIn,cardController.getCardByID);
 cardRouter.get("/:cardID/bids",isLoggedIn,cardController.getAllBidsFromCard);
