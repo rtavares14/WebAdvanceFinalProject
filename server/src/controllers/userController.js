@@ -17,6 +17,7 @@ export function deleteUser(req, res) {
     // Remove and send success response if the User is found
     data.users = data.users.filter(user => user.id !== userID);
     res.status(200).json({message: "User deleted successfully."});
+    console.log("User deleted successfully.");
 }
 
 export function createUser(req, res) {
@@ -47,6 +48,7 @@ export function loginUser(req, res) {
                 {expiresIn: '10000h'});
 
             return res.json({token, message: 'Login successful'});
+            console.log("User logged in successfully.");
         } else {
             return res.status(401).json({message: 'Email or Password not found'});
         }
@@ -69,9 +71,11 @@ export function getWonByID(req, res) {
 
         if (wonCards.length === 0) {
             return res.status(200).json({wonCards: [], message: "No won cards found for this user."});
+            console.log("No won cards found for this user.");
         }
 
         return res.status(200).json({wonCards});
+        console.log("Won cards fetched successfully.");
     } catch (error) {
         console.error('Error in getWonByID:', error);
         return res.status(500).json({message: 'Server error occurred while fetching won cards.'});
@@ -80,4 +84,5 @@ export function getWonByID(req, res) {
 
 export function getAllUsers(req, res) {
     res.status(200).json({users: data.users});
+    console.log("All users fetched successfully.");
 }

@@ -1,12 +1,11 @@
 <script>
   import router from 'page';
+
   import Home from "./pages/Home.svelte";
   import Header from "./components/Header.svelte";
   import About from "./pages/About.svelte";
-
   import Cards from "./pages/Cards.svelte";
   import Card from "./pages/Card.svelte";
-
   import Login from "./pages/Login.svelte";
   import Register from "./pages/Register.svelte";
 
@@ -15,7 +14,6 @@
   import {isAdmin} from "./mans/isAdmin.js";
   import MyAccount from "./pages/MyAccount.svelte";
   import Dashboard from "./pages/Dashboard.svelte";
-
 
   let page;
   let params;
@@ -44,13 +42,13 @@
     params = ctx.params
   });
 
-  router('/myaccount', (ctx) => {
+  router('/myaccount', isLoggedIn, (ctx) => {
     page = MyAccount;
     currentRoute = ctx.pathname;
     params = ctx.params
   });
 
-  router('/dashboard', (ctx) => {
+  router('/dashboard', isLoggedIn , isAdmin, (ctx) => {
     page = Dashboard;
     currentRoute = ctx.pathname;
     params = ctx.params

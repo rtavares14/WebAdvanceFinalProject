@@ -1,5 +1,4 @@
 import { tokenShop } from '../shops/tokenShop.js';
-//import {constructQueryString} from "../utils/helper.js";
 
 let token;
 tokenShop.subscribe(value => token = value);
@@ -26,6 +25,7 @@ export async function fetchPopularCards() {
         console.error(`Failed to fetch cards data: ${response.status}`);
     }
 }
+
 
 //cards page
 
@@ -74,6 +74,7 @@ export async function fetchCardsWon() {
     }
 }
 
+
 //dashboard
 export async function fetchAllCards() {
     const response = await request("cards");
@@ -83,3 +84,38 @@ export async function fetchAllCards() {
         console.error(`Failed to fetch cards data: ${response.status}`);
     }
 }
+
+
+//login
+export async function login(email, password) {
+    try {
+        const response = await fetch('http://localhost:3000/users/tokens', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email, password })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const token = data.token;
+
+            localStorage.setItem('token', token);
+            tokenShop.set(token);
+
+            return { success: true, token };
+        } else {
+            const errorData = await response.json();
+            return { success: false, message: errorData.message || 'Login failed. Please try again.' };
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        return { success: false, message: 'An error occurred. Please try again later.' };
+    }
+}
+
+
+
+//register
+

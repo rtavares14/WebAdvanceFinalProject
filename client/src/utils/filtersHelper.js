@@ -22,7 +22,3 @@ export async function updateCards(searchQuery, filterRating, filterEnergy, filte
         throw new Error('Failed to fetch cards');
     }
 }
-
-export function clearFilters(updatePromise) {
-    updatePromise('');
-}

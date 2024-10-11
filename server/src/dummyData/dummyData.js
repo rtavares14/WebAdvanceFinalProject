@@ -432,6 +432,9 @@ export const data = {
     }, {
         userID: 6, isAdmin: false, userPass: "$2a$10$gtntej7QymxcqGAhkFALIemi9W7r/qKWL965gabT7fT7JGgKwtTm2", //Rt2
         userEmail: "rt2@gmail.com"
+    }, {
+        userID: 7, isAdmin: true, userPass: "$2a$10$btc3Cxd.UPE/hw2/QLWIHO.tETpQGBaYZkkCMTPbFZ/TFsQkUlfUu", //Rt123
+        userEmail: "rt@gmail.com"
     }]
 }
 

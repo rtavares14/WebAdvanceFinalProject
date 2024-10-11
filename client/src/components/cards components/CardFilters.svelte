@@ -9,18 +9,15 @@
     const dispatch = createEventDispatcher();
 
     function handleClearFilters() {
-        // Reset all filter values to their default states
         searchQuery = '';
         filterRating = '';
         filterEnergy = '';
         filterCardType = '';
         filterActionStatus = '';
 
-        // Dispatch the clearFilters event to the parent component
         dispatch('clearFilters');
     }
 
-    // Dispatch updated filter values to the parent whenever they change
     $: searchQuery, dispatch('updateSearchQuery', { value: searchQuery });
     $: filterRating, dispatch('updateFilterRating', { value: filterRating });
     $: filterEnergy, dispatch('updateFilterEnergy', { value: filterEnergy });

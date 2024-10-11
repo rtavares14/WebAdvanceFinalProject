@@ -13,6 +13,7 @@ export function deleteCard(req, res) {
 
     data.cards = data.cards.filter(card => card.id !== cardID);
     res.status(200).json({ message: "Card deleted successfully." });
+    console.log("Card deleted successfully.");
 }
 
 export function updateCard(req, res) {
@@ -55,6 +56,7 @@ export function getBidIDFromCard(req, res) {
     }
 
     res.status(200).json({ bid });
+    console.log("Bid found successfully.");
 }
 
 
@@ -68,6 +70,7 @@ export function getAllBidsFromCard(req, res) {
     }
 
     res.status(200).json({ bids: card.bids });
+    console.log("Bids found successfully.");
 }
 
 export function getCardByID(req, res) {
@@ -80,27 +83,18 @@ export function getCardByID(req, res) {
     }
 
     res.status(200).json({ card });
+    console.log("Card found successfully.");
 }
 
 export function getPopularCards(req, res) {
     const cards = data.cards;
     const dataLength = cards.length;
 
-    const randomIndices = getRandomIndices(5, dataLength);
+    const randomIndices = helper.getRandomIndices(5, dataLength);
     const randomCards = randomIndices.map(index => cards[index]);
 
     res.status(200).json({ popularCards: randomCards });
-}
-
-export function getRandomIndices(amount, max) {
-    const indices = [];
-    while (indices.length < amount) {
-        const index = Math.floor(Math.random() * max);
-        if (!indices.includes(index)) {
-            indices.push(index);
-        }
-    }
-    return indices;
+    console.log("Popular cards found successfully.");
 }
 
 export function getRequestedCards(req, res) {

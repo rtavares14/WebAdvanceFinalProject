@@ -1,6 +1,6 @@
 <script>
     import page from "page";
-    import { tokenShop } from '../shops/tokenShop.js';
+    import { login } from '../api/allAPIRequests.js'; // Import the login function
 
     let email = '';
     let password = '';
@@ -8,34 +8,14 @@
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         error = '';
 
-        try {
-            const response = await fetch('http://localhost:3000/users/tokens', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
+        const result = await login(email, password);
 
-            if (response.ok) {
-                const data = await response.json();
-                const token = data.token;
-
-                localStorage.setItem('token', token);
-                tokenShop.set(token);
-
-                page('/');
-
-            } else {
-                const errorData = await response.json();
-                error = errorData.message || 'Login failed. Please try again.';
-            }
-        } catch (err) {
-            error = 'An error occurred try again later.';
-            console.error('Login error:', err);
+        if (result.success) {
+            page('/');
+        } else {
+            error = result.message;
         }
     };
 </script>
@@ -72,7 +52,3 @@
         <a href="/register" class="text-pokeYellow">Don't have an account? Register now</a>
     </div>
 </div>
-
-<style>
-
-</style>

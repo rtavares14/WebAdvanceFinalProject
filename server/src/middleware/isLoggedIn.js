@@ -11,7 +11,6 @@ const isLoggedIn = (req, res, next) => {
     const jwtToken = token.split(' ')[1];
 
     jwt.verify(jwtToken, secret, (err, decoded) => {
-        console.log('test', err, decoded)
         if (err) {
             return res.status(401).json({ error: 'Invalid token' });
         }

@@ -5,8 +5,6 @@ import * as userController from "../controllers/userController.js"
 
 const userRouter = express.Router()
 
-//when login alrady have id
-
 userRouter.get("/",isLoggedIn,isAdmin,userController.getAllUsers);
 userRouter.get("/cards",isLoggedIn,userController.getWonByID);
 
