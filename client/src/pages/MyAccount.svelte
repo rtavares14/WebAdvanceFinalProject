@@ -35,7 +35,10 @@
                     {/each}
                 </div>
             {:else}
-                <p class="text-center">You haven't won any cards yet.</p>
+                <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-4 mb-6 mt-6 mx-auto text-center" style="max-width: 20rem;">
+                    <h2 class="text-1xl text-white font-bold">You haven't won any cards yet.</h2>
+                    <p>Start bidding, something may happen...</p>
+                </div>
             {/if}
         {:catch fetchError}
             <p class="text-red-500 text-center">Error fetching won cards: {fetchError.message}</p>

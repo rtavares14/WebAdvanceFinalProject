@@ -7,10 +7,19 @@
     {#if bids && bids.length > 0}
         <ul>
             {#each bids as bid}
-                <li>Bid: ${bid.bidAmount} by User {bid.userID}</li>
+                <li class={bid === bids[0] ? 'bg-pokeDarkBlue text-yellow-300 font-bold' : ''}>
+                    Bid: $ {bid.bidAmount} by User {bid.userID}
+                </li>
             {/each}
         </ul>
     {:else}
         <p>No bids available for this card.</p>
     {/if}
 </div>
+
+<style>
+    li {
+        padding: 0.5rem;
+        transition: background-color 0.3s;
+    }
+</style>

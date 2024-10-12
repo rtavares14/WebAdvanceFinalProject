@@ -2,8 +2,13 @@
     import Timer from "../../components/Timer.svelte";
 
     export let cardDetails;
-    export let auctionActive;
     export let onAuctionStatus;
+
+    const now = new Date();
+    const start = new Date(cardDetails.actionStartingDate);
+    const end = new Date(cardDetails.auctionEndDate);
+
+    const auctionActive = now >= start && now <= end;
 
     function handleBidClick() {
         console.log(`Bid placed: $100`);
