@@ -20,7 +20,10 @@
             Edit
         </button>
 
-        <button on:click={() => deleteCard(card.cardID)} class="bg-pokeRed text-white px-2 py-1 rounded hover:bg-red-900">
+        <button on:click={() => {
+        console.log(`Deleting card with ID: ${card.cardID}`); // Log card ID
+        deleteCard(card.cardID);
+    }} class="bg-pokeRed text-white px-2 py-1 rounded hover:bg-red-900">
             Delete
         </button>
     </div>

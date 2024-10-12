@@ -91,6 +91,26 @@ export async function fetchAllCards() {
     }
 }
 
+export async function deleteCard(cardID) {
+    if (confirm('Are you sure you want to delete this card?')) {
+        try {
+            const response = await fetch(`http://localhost:3000/cards/${cardID}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+            if (response.ok) {
+                fetchAllCards();
+            } else {
+                throw new Error(`Failed to delete card: ${response.status}`);
+            }
+        } catch (error) {
+            return { success: false, message: error.message || 'An error occurred. Please try again later.' };
+        }
+    }
+}
+
 
 //login
 export async function login(email, password) {

@@ -407,11 +407,7 @@ export const data = {
         cardType: "Energy",
         energyType: "Water",
         cardRate: 7.5,
-        bids: [{
-            bidID: 1, userID: 6, bidAmount: 80.00, bidDate: new Date("2024-06-06")
-        }, {
-            bidID: 2, userID: 4, bidAmount: 90.00, bidDate: new Date("2024-06-07")
-        },]
+        bids: []
     }],
 
     users: [{

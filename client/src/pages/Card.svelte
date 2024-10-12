@@ -35,7 +35,7 @@
         </div>
 
         <div class="bg-pokeDarkBlue bg-opacity-85 text-pokeDarkBlue rounded-lg shadow-md p-6 flex-shrink-0 w-96">
-            <div class="bid-list-container overflow-y-auto max-h-[35.5rem]"> <!-- Set max height to 60rem -->
+            <div class="bid-list-container overflow-y-auto max-h-[35.5rem] ">
                 {#await bidsPromise}
                     <div class="text-center">
                         <p>Loading bids...</p>

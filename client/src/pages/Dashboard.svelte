@@ -1,28 +1,12 @@
 <script>
     import { fetchAllCards } from "../api/allAPIRequests.js";
+    import { deleteCard } from "../api/allAPIRequests.js";
     import CardRow from '../components/cards components/CardRow.svelte';
 
     let promise;
     let errorMessage = '';
 
     promise = fetchAllCards();
-
-    async function deleteCard(cardID) {
-        if (confirm('Are you sure you want to delete this card?')) {
-            try {
-                const response = await fetch(`http://localhost:3000/cards/${cardID}`, {
-                    method: 'DELETE',
-                });
-                if (response.ok) {
-                    promise = fetchAllCards();
-                } else {
-                    throw new Error(`Failed to delete card: ${response.status}`);
-                }
-            } catch (error) {
-                errorMessage = error.message;
-            }
-        }
-    }
 
     function editCard(cardID) {
         console.log(`Edit card with ID: ${cardID}`);

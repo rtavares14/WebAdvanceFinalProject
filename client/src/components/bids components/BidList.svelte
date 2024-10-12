@@ -2,7 +2,7 @@
     export let bids = [];
 </script>
 
-<div class="bg-pokeYellow bg-opacity-85 text-pokeDarkBlue rounded-lg shadow-md p-6 w-full h-full">
+<div class="bg-pokeYellow bg-opacity-85 text-pokeDarkBlue rounded-lg shadow-md p-6 w-full h-full min-h-[35.5rem]">
     <h2 class="text-xl font-bold mb-4 text-center">All Bids</h2>
     {#if bids && bids.length > 0}
         <ul>

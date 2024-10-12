@@ -3,15 +3,15 @@ import Fuse from "fuse.js";
 import * as helper from "../utils/controllersHelper.js";
 
 export function deleteCard(req, res) {
-    const cardID = req.params.cardID;
+    const cardID = Number(req.params.cardID);
 
-    const card = data.cards.find(card => card.id === cardID);
+    const card = data.cards.find(card => card.cardID === cardID);
 
     if (!card) {
         return res.status(404).json({ error: "Card not found" });
     }
 
-    data.cards = data.cards.filter(card => card.id !== cardID);
+    data.cards = data.cards.filter(card => card.cardID !== cardID);
     res.status(200).json({ message: "Card deleted successfully." });
     console.log("Card deleted successfully.");
 }
