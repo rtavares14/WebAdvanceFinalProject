@@ -52,3 +52,7 @@
         <a href="/register" class="text-pokeYellow">Don't have an account? Register now</a>
     </div>
 </div>
+
+<style>
+
+</style>

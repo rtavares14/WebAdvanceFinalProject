@@ -1,7 +1,7 @@
 <script>
     import { updateCards, constructQueryString } from '../utils/filtersHelper.js';
     import CardFilters from '../components/cards components/CardFilters.svelte';
-    import Card from '../components/cards components/Card.svelte';
+    import Card from '../components/cards components/CardCard.svelte';
     import page from 'page';
 
     let promise;

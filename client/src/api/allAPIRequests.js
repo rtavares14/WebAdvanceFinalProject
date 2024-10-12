@@ -118,4 +118,30 @@ export async function login(email, password) {
 
 
 //register
+export async function registerUser(userEmail, userPass) {
+    try {
+        const response = await fetch('http://localhost:3000/users/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userEmail, userPass })
+        });
 
+        if (response.ok) {
+            const data = await response.json();
+            const token = data.token;
+
+            localStorage.setItem('token', token);
+            tokenShop.set(token);
+
+            return { success: true, token };
+        } else {
+            const errorData = await response.json();
+            return { success: false, message: errorData.message || 'Registration failed.' };
+        }
+    } catch (error) {
+        console.error('Registration error:', error);
+        return { success: false, message: 'An error occurred. Please try again later.' };
+    }
+}

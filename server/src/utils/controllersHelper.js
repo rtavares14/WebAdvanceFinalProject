@@ -1,3 +1,5 @@
+import {data} from "../dummyData/dummyData.js";
+
 export function filterCards(cards, query) {
     const { rating, energy, type, status } = query;
     const now = new Date();
@@ -52,5 +54,17 @@ export function getRandomIndices(amount, max) {
         }
     }
     return indices;
+}
+
+export function getNextUserID() {
+    const sortedUsers = data.users.map(user => user.userID).sort((a, b) => a - b);
+
+    for (let i = 0; i < sortedUsers.length; i++) {
+        if (sortedUsers[i] !== i + 1) {
+            return i + 1;
+        }
+    }
+
+    return sortedUsers.length + 1;
 }
 

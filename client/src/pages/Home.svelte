@@ -1,5 +1,5 @@
 <script>
-    import Card from '../components/cards components/Card.svelte';
+    import Card from '../components/cards components/CardCard.svelte';
     import { fetchPopularCards } from "../api/allAPIRequests.js";
 
     let promise;
