@@ -1,8 +1,11 @@
 <script>
     import Timer from "../../components/Timer.svelte";
+    import NewBid from "../../components/bids components/NewBid.svelte";
 
     export let cardDetails;
     export let onAuctionStatus;
+    export let currentBids; // Pass the current bids to NewBid
+    export let currentUserID; // Pass the current user ID
 
     const now = new Date();
     const start = new Date(cardDetails.actionStartingDate);
@@ -10,9 +13,8 @@
 
     const auctionActive = now >= start && now <= end;
 
-    function handleBidClick() {
-        console.log(`Bid placed: $100`);
-        // Place bid logic here
+    function a() {
+        console.log("a");
     }
 </script>
 
@@ -41,7 +43,7 @@
                     class="px-4 py-2 font-bold text-lg rounded transition duration-200
                 {auctionActive ? 'bg-pokeYellow hover:bg-pokeYellow-dark text-pokeDarkBlue hover:scale-105 shadow-lg' : 'bg-gray-500 text-gray-300 cursor-not-allowed'}"
                     disabled={!auctionActive}
-                    on:click={handleBidClick}
+                    on:click={a}
             >
                 {#if auctionActive}
                     Place a Bid

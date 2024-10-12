@@ -315,6 +315,17 @@ export const data = {
             bidID: 23, userID: 3, bidAmount: 2000.00, bidDate: new Date("2024-10-08")
         },]
     }, {
+        cardID: 88,
+        cardName: "Trainer Gerralt",
+        cardImg: "https://den-cards.pokellector.com/119/Professor-Oak.BS.88.png",
+        actionStartingDate: new Date("2024-11-07T13:03:00"),
+        auctionEndDate: new Date("2024-12-07T13:03:15"),
+        auctionStartingBid: 1000000000000,
+        cardType: "Trainer",
+        energyType: "Human",
+        cardRate: 10,
+        bids: []
+    }, {
         cardID: 96,
         cardName: "Normal Energy",
         cardImg: "https://den-cards.pokellector.com/119/Double-Colorless-Energy.BS.96.png",
@@ -401,17 +412,6 @@ export const data = {
         }, {
             bidID: 2, userID: 4, bidAmount: 90.00, bidDate: new Date("2024-06-07")
         },]
-    }, {
-        cardID: 88,
-        cardName: "Trainer Gerralt",
-        cardImg: "https://den-cards.pokellector.com/119/Professor-Oak.BS.88.png",
-        actionStartingDate: new Date("2024-11-07T13:03:00"),
-        auctionEndDate: new Date("2024-12-07T13:03:15"),
-        auctionStartingBid: 1000000000000,
-        cardType: "Trainer",
-        energyType: "Human",
-        cardRate: 10,
-        bids: []
     }],
 
     users: [{
