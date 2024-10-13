@@ -23,8 +23,8 @@
     </div>
 
     {#await promise}
-        <div class="text-center">
-            <p>Loading cards...</p>
+        <div class="flex justify-center items-center h-48">
+            <div class="loader"></div>
         </div>
     {:then result}
         {#if result.popularCards.length > 0}
@@ -34,14 +34,14 @@
                 {/each}
             </div>
         {:else}
-            <div class="text-center">
-                <p>No popular cards available...</p>
+            <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-4 mb-6 mt-6 mx-auto text-center" style="max-width: 20rem;">
+                <p class="text-1xl text-white font-bold mb-2">No popular cards available...</p>
             </div>
         {/if}
     {:catch error}
-        <div class="text-center">
-            <p>No cards available... Please try again</p>
-            <p class="text-red-500">{error.message}</p>
+        <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-4 mb-6 mt-6 mx-auto text-center" style="max-width: 20rem;">
+            <p class="text-1xl text-white font-bold mb-2">No cards available... Please try again</p>
+            <p class="text-1xl text-red-500 font-bold">{error.message}</p>
         </div>
     {/await}
 </main>

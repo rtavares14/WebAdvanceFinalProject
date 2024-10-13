@@ -24,7 +24,9 @@
 
     <div class="w-full max-w-4xl mx-auto">
         {#await cardsWonPromise}
-            <p class="text-center">Loading won cards...</p>
+            <div class="flex justify-center items-center h-48">
+                <div class="loader"></div>
+            </div>
         {:then data}
             {#if data.wonCards && data.wonCards.length > 0}
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -41,7 +43,10 @@
                 </div>
             {/if}
         {:catch fetchError}
-            <p class="text-red-500 text-center">Error fetching won cards: {fetchError.message}</p>
+            <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-4 mb-6 mt-6 mx-auto text-center" style="max-width: 24rem;">
+                <p class="text-1xl text-white font-bold mb-2">Error fetching won cards... Please try again</p>
+                <p class="text-1xl text-red-500 font-bold">{fetchError.message}</p>
+            </div>
         {/await}
     </div>
 </main>

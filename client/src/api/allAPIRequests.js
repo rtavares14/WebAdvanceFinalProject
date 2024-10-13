@@ -1,11 +1,11 @@
 import {tokenShop} from '../shops/tokenShop.js';
+import {constructQueryString} from "../utils/filtersHelper.js";
 let token;
 tokenShop.subscribe(value => token = value);
 
 //main functions for my requests
 async function getRequest(url, params) {
-    const queryString = new URLSearchParams(window.location.search).toString();
-    const getResponse = await fetch(`http://localhost:3000/${url}?${queryString}`, {
+    const getResponse = await fetch(`http://localhost:3000/${url}`, {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`
@@ -40,6 +40,18 @@ export async function fetchPopularCards() {
 
 
 //cards page
+export async function updateCards(searchQuery, filterRating, filterEnergy, filterCardType, filterActionStatus) {
+    const queryString = constructQueryString(searchQuery, filterRating, filterEnergy, filterCardType, filterActionStatus);
+    const response = await getRequest(`cards?${queryString}`);
+
+    if (response.ok) {
+        const data = await response.json();
+        return data.matchedCards || data;
+    } else {
+        console.error('Error fetching cards:', response.status);
+        throw new Error('Failed to fetch cards');
+    }
+}
 
 
 //card page
@@ -101,7 +113,7 @@ export async function deleteCard(cardID) {
                 }
             });
             if (response.ok) {
-                fetchAllCards();
+                return { success: true };
             } else {
                 throw new Error(`Failed to delete card: ${response.status}`);
             }

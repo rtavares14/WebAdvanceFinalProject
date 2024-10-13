@@ -18,7 +18,7 @@
     }
 </script>
 
-<div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-6">
+<div class="bg-pokeDarkBlue text-white rounded-lg shadow-md p-6">
     {#if cardDetails}
         <h1 class="text-2xl font-bold text-center mb-4">{cardDetails.cardName}</h1>
         <div class="flex justify-center mb-4">

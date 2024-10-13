@@ -1,15 +1,36 @@
 <script>
-    import { fetchAllCards } from "../api/allAPIRequests.js";
-    import { deleteCard } from "../api/allAPIRequests.js";
+    import { fetchAllCards, deleteCard as deleteCardAPI } from "../api/allAPIRequests.js";
     import CardRow from '../components/cards components/CardRow.svelte';
+    import EditCardForm from '../components/cards components/EditCardForm.svelte';
 
     let promise;
     let errorMessage = '';
+    let selectedCard = {};
+    let showEditOverlay = false;
 
     promise = fetchAllCards();
 
-    function editCard(cardID) {
-        console.log(`Edit card with ID: ${cardID}`);
+    function editCard(card) {
+        selectedCard = card;
+        showEditOverlay = true;
+    }
+
+    function closeEditForm() {
+        showEditOverlay = false;
+        selectedCard = {};
+    }
+
+    async function saveEditedCard(updatedCard) {
+        console.log("Save card (to be implemented):", updatedCard);
+    }
+
+    async function deleteCard(cardID) {
+        const deleteResponse = await deleteCardAPI(cardID);
+        if (deleteResponse.success) {
+            promise = fetchAllCards();
+        } else {
+            errorMessage = deleteResponse.message;
+        }
     }
 </script>
 
@@ -25,8 +46,8 @@
 
     <div class="card-container bg-pokeLightBlue rounded-lg p-4" style="max-height: 600px; overflow-y: auto;">
         {#await promise}
-            <div class="text-center">
-                <p>Loading cards...</p>
+            <div class="flex justify-center items-center h-48">
+                <div class="loader"></div>
             </div>
         {:then data}
             {#if errorMessage}
@@ -51,11 +72,17 @@
                 </div>
             {/if}
         {:catch error}
-            <div class="text-center">
-                <p class="text-red-500">Error loading cards: {error.message}</p>
+            <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-4 mb-6 mt-6 mx-auto text-center"
+                 style="max-width: 20rem;">
+                <p class="text-1xl text-white font-bold mb-2">No cards available... Please try again</p>
+                <p class="text-1xl text-red-500 font-bold">{error.message}</p>
             </div>
         {/await}
     </div>
+
+    {#if showEditOverlay}
+        <EditCardForm card={selectedCard} onClose={closeEditForm} onSave={saveEditedCard}/>
+    {/if}
 </main>
 
 <style>

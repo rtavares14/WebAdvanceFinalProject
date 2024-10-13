@@ -16,14 +16,14 @@
         End: {formatDate(card.auctionEndDate)}
     </div>
     <div class="card-actions text-right w-1/4 pr-4">
-        <button on:click={() => editCard(card.cardID)} class="bg-pokeYellow text-pokeDarkBlue px-2 py-1 rounded mr-1 hover:bg-yellow-600">
+        <button on:click={() => editCard(card)} class="bg-pokeYellow text-pokeDarkBlue px-2 py-1 rounded mr-1 hover:bg-yellow-600">
             Edit
         </button>
 
         <button on:click={() => {
-        console.log(`Deleting card with ID: ${card.cardID}`); // Log card ID
-        deleteCard(card.cardID);
-    }} class="bg-pokeRed text-white px-2 py-1 rounded hover:bg-red-900">
+            console.log(`Deleting card with ID: ${card.cardID}`);
+            deleteCard(card.cardID);
+        }} class="bg-pokeRed text-white px-2 py-1 rounded hover:bg-red-900">
             Delete
         </button>
     </div>

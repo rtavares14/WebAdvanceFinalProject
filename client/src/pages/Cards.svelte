@@ -1,5 +1,6 @@
 <script>
-    import { updateCards, constructQueryString } from '../utils/filtersHelper.js';
+    import { constructQueryString } from '../utils/filtersHelper.js';
+    import { updateCards } from "../api/allAPIRequests.js";
     import CardFilters from '../components/cards components/CardFilters.svelte';
     import Card from '../components/cards components/CardCard.svelte';
     import page from 'page';
@@ -54,8 +55,8 @@
     />
 
     {#await promise}
-        <div class="text-center">
-            <p>Loading cards...</p>
+        <div class="flex justify-center items-center h-48">
+            <div class="loader"></div>
         </div>
     {:then cards}
         {#if errorMessage}
@@ -74,8 +75,9 @@
             </div>
         {/if}
     {:catch error}
-        <div class="text-center">
-            <p class="text-red-500">Error loading cards: {error.message}</p>
+        <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-4 mb-6 mt-6 mx-auto text-center" style="max-width: 20rem;">
+            <p class="text-1xl text-white font-bold mb-2">No cards available... Please try again</p>
+            <p class="text-1xl text-red-500 font-bold">{error.message}</p>
         </div>
     {/await}
 </main>
