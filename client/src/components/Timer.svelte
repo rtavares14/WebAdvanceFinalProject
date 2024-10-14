@@ -6,7 +6,7 @@
     let countdown = "";
     let auctionActive = false;
     let intervalID;
-    const dispatch = createEventDispatcher(); // Create event dispatcher
+    const dispatch = createEventDispatcher();
 
     $: if (startDate && endDate) {
         setCountdown();
@@ -22,14 +22,14 @@
         if (now < start) {
             auctionActive = false;
             updateCountdown(start - now);
-            dispatch('auctionStatus', auctionActive); // Notify parent about auction status
+            dispatch('auctionStatus', auctionActive);
 
             intervalID = setInterval(() => {
                 const timeRemaining = start - new Date();
                 if (timeRemaining <= 0) {
                     clearInterval(intervalID);
                     auctionActive = true;
-                    dispatch('auctionStatus', auctionActive); // Auction has started
+                    dispatch('auctionStatus', auctionActive);
                     startAuctionTimer(end);
                 } else {
                     updateCountdown(timeRemaining);
@@ -37,11 +37,11 @@
             }, 1000);
         } else if (now >= start && now <= end) {
             auctionActive = true;
-            dispatch('auctionStatus', auctionActive); // Auction is active
+            dispatch('auctionStatus', auctionActive);
             startAuctionTimer(end);
         } else {
             auctionActive = false;
-            dispatch('auctionStatus', auctionActive); // Auction has ended
+            dispatch('auctionStatus', auctionActive);
             countdown = "Auction has ended.";
         }
     }
@@ -55,7 +55,7 @@
                 clearInterval(intervalID);
                 countdown = "Auction has ended.";
                 auctionActive = false;
-                dispatch('auctionStatus', auctionActive); // Auction has ended
+                dispatch('auctionStatus', auctionActive);
             } else {
                 updateCountdown(timeRemaining);
             }

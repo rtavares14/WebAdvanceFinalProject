@@ -17,19 +17,59 @@ export function deleteCard(req, res) {
 }
 
 export function updateCard(req, res) {
+    const { cardName, cardImg, actionStartingDate, auctionEndDate, auctionStartingBid, cardType, energyType, cardRate } = req.body;
 
+    const cardID = Number(req.params.cardID);
+
+    const card = { cardName, cardImg, actionStartingDate, auctionEndDate, auctionStartingBid, cardType, energyType, cardRate };
+
+    const validation = helper.validateCardData(card);
+
+    if (!validation.valid) {
+        console.log("Card data is not valid.");
+        return res.status(400).json({ message: validation.message });
+    }
+
+    try {
+        const cardIndex = data.cards.findIndex(c => c.cardID === cardID);
+
+        if (cardIndex === -1) {
+            console.log("Card not found. cardIndex:", cardIndex);
+            return res.status(404).json({ message: "Card not found." });
+        }
+
+        data.cards[cardIndex] = {
+            ...data.cards[cardIndex],
+            ...card,
+        };
+
+        res.status(200).json({ message: "Card updated successfully.", card: data.cards[cardIndex] });
+    } catch (error) {
+        console.error("Failed to update card:", error);
+        res.status(500).json({ error: "Failed to update card." });
+    }
 }
 
 
 export function createNewCard(req, res) {
-    const card = {
-        ...req.body,
-        cardID: data.cards.length + 1,
-        bids: []
+    const {cardName, cardImg, actionStartingDate, auctionEndDate, auctionStartingBid, cardType, energyType, cardRate} = req.body;
+    const card = { cardName, cardImg, actionStartingDate, auctionEndDate, auctionStartingBid, cardType, energyType, cardRate };
+
+    const validation = helper.validateCardData(card);
+
+    if (!validation.valid) {
+        console.log("Card data is not valid.");
+        return res.status(400).json({ message: validation.message });
+    }
+
+    const newCard = {
+        cardID: helper.getNextCardID(), cardName, cardImg, actionStartingDate, auctionEndDate, auctionStartingBid, cardType, energyType, cardRate, bids: [],
     };
 
-    data.cards.push(card);
-    res.status(201).json(card);
+    data.cards.push(newCard);
+
+    res.status(201).json(newCard);
+    console.log("Card created successfully.");
 }
 
 

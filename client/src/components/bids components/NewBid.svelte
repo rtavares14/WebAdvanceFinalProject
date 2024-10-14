@@ -1,10 +1,10 @@
 <script>
     //import { createNewCardBid } from "../api/allAPIRequests.js"; // Import the API call
 
-    export let cardID; // The ID of the card being bid on
-    export let currentBids = []; // The list of current bids
-    export let currentUserID; // The ID of the current user
-    export let auctionStartingBid; // Receive the starting bid from parent
+    export let cardID;
+    export let currentBids = [];
+    export let currentUserID;
+    export let auctionStartingBid;
 
     let bidAmount = "";
     let errorMessage = "";

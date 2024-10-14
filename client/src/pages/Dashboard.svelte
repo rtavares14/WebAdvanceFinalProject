@@ -1,17 +1,25 @@
 <script>
-    import { fetchAllCards, deleteCard as deleteCardAPI } from "../api/allAPIRequests.js";
+    import {fetchAllCards, deleteCard as deleteCardAPI,addCard,updateCard} from "../api/allAPIRequests.js";
     import CardRow from '../components/cards components/CardRow.svelte';
-    import EditCardForm from '../components/cards components/EditCardForm.svelte';
+    import EditCardForm from '../components/cards components/Edit&AddCardForm.svelte';
 
     let promise;
     let errorMessage = '';
     let selectedCard = {};
     let showEditOverlay = false;
+    let isNewCard = false;
 
     promise = fetchAllCards();
 
     function editCard(card) {
         selectedCard = card;
+        isNewCard = false;
+        showEditOverlay = true;
+    }
+
+    function addNewCard() {
+        selectedCard = {};
+        isNewCard = true;
         showEditOverlay = true;
     }
 
@@ -21,7 +29,16 @@
     }
 
     async function saveEditedCard(updatedCard) {
-        console.log("Save card (to be implemented):", updatedCard);
+        try {
+            const cardID = updatedCard.cardID;
+            await updateCard(cardID, updatedCard);
+
+            promise = fetchAllCards();
+            closeEditForm();
+        } catch (error) {
+            console.error("Error saving card:", error);
+            errorMessage = error.message || 'Failed to save card';
+        }
     }
 
     async function deleteCard(cardID) {
@@ -35,12 +52,25 @@
 </script>
 
 <main class="container mx-auto p-4 bg-pokeDarkBlue opacity-95 mt-4 rounded-lg">
-    <h1 class="text-3xl text-white font-bold text-center mb-4">Admin Dashboard</h1>
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-3xl text-white font-bold flex-1 text-center pl-20">Admin Dashboard</h1>
+        <button
+                class="bg-pokeLightBlue hover:bg-pokeYellow text-white font-bold py-2 px-4 rounded-full ml-4"
+                on:click={addNewCard}
+                aria-label="Add new card"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                 class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+            </svg>
+        </button>
+    </div>
+
 
     <div class="header-row flex justify-between items-center bg-pokeLightBlue text-white py-2 px-4 rounded-md mb-4 font-semibold">
         <div class="w-1/8 pl-5">Auction ID</div>
-        <div class="w-1/6 pl-5">Auction Name</div>
-        <div class="w-1/4 pr-20">Start/End Date</div>
+        <div class="w-1/6 pl-4">Auction Name</div>
+        <div class="w-1/4 ">Start Date/End Date</div>
         <div class="w-1/8 pr-16">Options</div>
     </div>
 
@@ -81,17 +111,13 @@
     </div>
 
     {#if showEditOverlay}
-        <EditCardForm card={selectedCard} onClose={closeEditForm} onSave={saveEditedCard}/>
+        <EditCardForm card={selectedCard} onClose={closeEditForm} onSave={saveEditedCard} {isNewCard}/>
     {/if}
 </main>
 
 <style>
     .container {
         max-width: 1000px;
-    }
-
-    .card-container {
-        max-height: 600px;
     }
 
     main {

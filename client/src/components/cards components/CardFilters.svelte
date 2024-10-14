@@ -58,6 +58,7 @@
             <option value="Normal">Normal</option>
             <option value="Psychic">Psychic</option>
             <option value="Fighting">Fighting</option>
+            <option value="No Energy">No Energy</option>
         </select>
     </div>
 

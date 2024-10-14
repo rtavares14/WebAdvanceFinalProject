@@ -68,3 +68,39 @@ export function getNextUserID() {
     return sortedUsers.length + 1;
 }
 
+export function getNextCardID() {
+    const sortedCards = data.cards.map(card => card.cardID).sort((a, b) => a - b);
+
+    for (let i = 0; i < sortedCards.length; i++) {
+        if (sortedCards[i] !== i + 1) {
+            return i + 1;
+        }
+    }
+
+    return sortedUsers.length + 1;
+}
+
+export function validateCardData(card) {
+    const { cardName, cardImg, actionStartingDate, auctionEndDate, auctionStartingBid, cardType, energyType, cardRate} = card;
+
+    if (!cardName || !cardImg || !actionStartingDate || !auctionEndDate || !auctionStartingBid || !cardType || !energyType || !cardRate) {
+        return { valid: false, message: 'All fields are required.' };
+    }
+
+    const startDate = new Date(actionStartingDate);
+    const endDate = new Date(auctionEndDate);
+
+    if (endDate <= startDate) {
+        return { valid: false, message: 'End date must be greater than start date.' };
+    }
+
+    if (auctionStartingBid < 20) {
+        return { valid: false, message: 'Starting bid must be a positive number.' };
+    }
+
+    if (cardRate < 0.5 || cardRate > 10 || cardRate % 0.5 !== 0) {
+        return { valid: false, message: 'Card rate must be between 0.5 and 10, in increments of 0.5.' };
+    }
+
+    return { valid: true };
+}

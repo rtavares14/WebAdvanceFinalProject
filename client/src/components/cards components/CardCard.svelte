@@ -1,4 +1,6 @@
 <script>
+    import {handleImageError} from "../../utils/imgErrorHandeller.js";
+
     export let card;
 </script>
 
@@ -8,7 +10,12 @@
             <h2 class="text-xl font-semibold text-center mb-2">{card.cardName}</h2>
 
             <div class="flex justify-center mb-2">
-                <img src={card.cardImg} alt={card.cardName} class="h-32 w-auto object-cover" />
+                <img
+                        src={card.cardImg}
+                        alt={card.cardName}
+                        class="h-56 w-auto object-cover rounded"
+                        on:error={handleImageError}
+                />
             </div>
 
             <div class="text-center">

@@ -322,7 +322,7 @@ export const data = {
         auctionEndDate: new Date("2024-12-07T13:03:15"),
         auctionStartingBid: 1000000000000,
         cardType: "Trainer",
-        energyType: "Human",
+        energyType: "No Energy",
         cardRate: 10,
         bids: []
     }, {

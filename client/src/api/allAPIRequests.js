@@ -19,7 +19,8 @@ async function postRequest(url, body) {
     const postResponse = await fetch(`http://localhost:3000/${url}`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(body)
     });
@@ -27,6 +28,29 @@ async function postRequest(url, body) {
     return postResponse;
 }
 
+async function deleteRequest(url) {
+    const deleteResponse = await fetch(`http://localhost:3000/${url}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    return deleteResponse;
+}
+
+async function patchRequest(url, body) {
+    const patchResponse = await fetch(`http://localhost:3000/${url}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(body)
+    });
+
+    return patchResponse;
+}
 
 //home page
 export async function fetchPopularCards() {
@@ -106,12 +130,7 @@ export async function fetchAllCards() {
 export async function deleteCard(cardID) {
     if (confirm('Are you sure you want to delete this card?')) {
         try {
-            const response = await fetch(`http://localhost:3000/cards/${cardID}`, {
-                method: 'DELETE',
-                headers: {
-                    'Authorization': `Bearer ${token}`
-                }
-            });
+            const response = await deleteRequest(`cards/${cardID}`); // Use deleteRequest here
             if (response.ok) {
                 return { success: true };
             } else {
@@ -123,6 +142,33 @@ export async function deleteCard(cardID) {
     }
 }
 
+export async function addCard(cardData) {
+    try {
+        const response = await postRequest('cards', cardData);
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Failed to add card');
+        }
+
+        return await response.json();
+    } catch (error) {
+        console.error('Error adding card:', error);
+        throw error;
+    }
+}
+
+export async function updateCard(cardID, updatedCard) {
+    try {
+        const response = await patchRequest(`cards/${cardID}`, updatedCard); // Ensure cardID is a string
+        if (!response.ok) {
+            throw new Error(`Error updating card: ${response.statusText}`);
+        }
+        return response.json();
+    } catch (error) {
+        throw new Error(`Error updating card: ${error.message}`);
+    }
+}
 
 //login
 export async function login(email, password) {

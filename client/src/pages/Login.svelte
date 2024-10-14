@@ -1,6 +1,6 @@
 <script>
     import page from "page";
-    import { login } from '../api/allAPIRequests.js'; // Import the login function
+    import { login } from '../api/allAPIRequests.js';
 
     let email = '';
     let password = '';

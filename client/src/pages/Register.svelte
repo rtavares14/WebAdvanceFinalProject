@@ -1,6 +1,6 @@
 <script>
     import page from "page";
-    import { registerUser } from "../api/allAPIRequests.js"; // Import the API function
+    import { registerUser } from "../api/allAPIRequests.js";
 
     let userEmail = '';
     let userPass = '';

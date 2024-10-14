@@ -15,8 +15,8 @@ main {
     border-top: 0.5rem solid #3d7dca;
     border-radius: 90%;
     width: 15rem;
-    height: 15rem;
-    animation: spinner 1.5s linear infinite;
+    height: 55rem;
+    animation: spinner 0.5s linear infinite;
 }
 
 @keyframes spinner {
@@ -26,5 +26,17 @@ main {
     100% {
         transform: rotate(360deg);
     }
+}
+
+.red-dot {
+    background-color:#FB1B1B; /* Use Tailwind colors */
+}
+
+.yellow-dot {
+    background-color: #ffcb05; /* Use Tailwind colors */
+}
+
+.green-dot {
+    background-color:#03C04A; /* Use Tailwind colors */
 }
 
