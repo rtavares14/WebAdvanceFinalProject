@@ -1,5 +1,6 @@
 import {tokenShop} from '../shops/tokenShop.js';
 import {constructQueryString} from "../utils/filtersHelper.js";
+
 let token;
 tokenShop.subscribe(value => token = value);
 
@@ -15,6 +16,17 @@ async function getRequest(url, params) {
     return getResponse;
 }
 
+async function deleteRequest(url) {
+    const deleteResponse = await fetch(`http://localhost:3000/${url}`, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    return deleteResponse;
+}
+
 async function postRequest(url, body) {
     const postResponse = await fetch(`http://localhost:3000/${url}`, {
         method: 'POST',
@@ -26,17 +38,6 @@ async function postRequest(url, body) {
     });
 
     return postResponse;
-}
-
-async function deleteRequest(url) {
-    const deleteResponse = await fetch(`http://localhost:3000/${url}`, {
-        method: 'DELETE',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
-
-    return deleteResponse;
 }
 
 async function patchRequest(url, body) {
@@ -130,50 +131,55 @@ export async function fetchAllCards() {
 export async function deleteCard(cardID) {
     if (confirm('Are you sure you want to delete this card?')) {
         try {
-            const response = await deleteRequest(`cards/${cardID}`); // Use deleteRequest here
+            const response = await deleteRequest(`cards/${cardID}`);
             if (response.ok) {
-                return { success: true };
+                return {success: true};
             } else {
                 throw new Error(`Failed to delete card: ${response.status}`);
             }
         } catch (error) {
-            return { success: false, message: error.message || 'An error occurred. Please try again later.' };
+            return {success: false, message: error.message || 'An error occurred. Please try again later.'};
         }
     }
 }
 
-export async function addCard(cardData) {
+export const addCard = async (newCardData) => {
     try {
-        const response = await postRequest('cards/', cardData);
+        const response = await postRequest("cards", newCardData);
 
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.message || 'Failed to add card');
+            const errorText = await response.text();
+            throw new Error(`Error adding card: ${errorText}`);
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Error adding card:", error);
+        throw error;
+    }
+};
+
+
+export const updateCard = async (cardID, updatedData) => {
+    try {
+        const response = await patchRequest(`cards/${cardID}`, updatedData);
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error('Error updating card: ' + response.statusText);
         }
 
         return await response.json();
     } catch (error) {
-        console.error('Error adding card:', error);
+        console.error("Error updating card:", error);
         throw error;
     }
-}
+};
 
-export async function updateCard(cardID, updatedCard) {
-    try {
-        const response = await patchRequest(`cards/${cardID}`, updatedCard); // Ensure cardID is a string
-        if (!response.ok) {
-            throw new Error(`Error updating card: ${response.statusText}`);
-        }
-        return response.json();
-    } catch (error) {
-        throw new Error(`Error updating card: ${error.message}`);
-    }
-}
 
 //login
 export async function login(email, password) {
     try {
-        const response = await postRequest('users/tokens', { email, password });
+        const response = await postRequest('users/tokens', {email, password});
 
         if (response.ok) {
             const data = await response.json();
@@ -182,13 +188,13 @@ export async function login(email, password) {
             localStorage.setItem('token', token);
             tokenShop.set(token);
 
-            return { success: true, token };
+            return {success: true, token};
         } else {
             const errorData = await response.json();
-            return { success: false, message: errorData.message || 'Login failed. Please try again.' };
+            return {success: false, message: errorData.message || 'Login failed. Please try again.'};
         }
     } catch (error) {
-        return { success: false, message: error.message || 'An error occurred. Please try again later.' };
+        return {success: false, message: error.message || 'An error occurred. Please try again later.'};
     }
 }
 
@@ -196,7 +202,7 @@ export async function login(email, password) {
 //register
 export async function registerUser(userEmail, userPass) {
     try {
-        const response = await postRequest('users/', { userEmail, userPass });
+        const response = await postRequest('users/', {userEmail, userPass});
 
         if (response.ok) {
             const data = await response.json();
@@ -205,12 +211,12 @@ export async function registerUser(userEmail, userPass) {
             localStorage.setItem('token', token);
             tokenShop.set(token);
 
-            return { success: true, token };
+            return {success: true, token};
         } else {
             const errorData = await response.json();
-            return { success: false, message: errorData.message || 'Registration failed.' };
+            return {success: false, message: errorData.message || 'Registration failed.'};
         }
     } catch (error) {
-        return { success: false, message: error.message || 'An error occurred. Please try again later.' };
+        return {success: false, message: error.message || 'An error occurred. Please try again later.'};
     }
 }
