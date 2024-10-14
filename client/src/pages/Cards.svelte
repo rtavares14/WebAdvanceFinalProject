@@ -1,8 +1,8 @@
 <script>
     import { constructQueryString } from '../utils/filtersHelper.js';
     import { updateCards } from "../api/allAPIRequests.js";
-    import CardFilters from '../components/cards components/CardFilters.svelte';
-    import Card from '../components/cards components/CardCard.svelte';
+    import CardFilters from '../components/cards components/cardHelpersUI/CardFilters.svelte';
+    import Card from '../components/cards components/cardUI/CardCard.svelte';
     import page from 'page';
 
     let promise;

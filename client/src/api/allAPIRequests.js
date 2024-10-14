@@ -144,7 +144,7 @@ export async function deleteCard(cardID) {
 
 export async function addCard(cardData) {
     try {
-        const response = await postRequest('cards', cardData);
+        const response = await postRequest('cards/', cardData);
 
         if (!response.ok) {
             const errorData = await response.json();

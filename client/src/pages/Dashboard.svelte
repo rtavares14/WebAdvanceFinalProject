@@ -1,7 +1,7 @@
 <script>
     import {fetchAllCards, deleteCard as deleteCardAPI,addCard,updateCard} from "../api/allAPIRequests.js";
-    import CardRow from '../components/cards components/CardRow.svelte';
-    import EditCardForm from '../components/cards components/Edit&AddCardForm.svelte';
+    import CardRow from '../components/cards components/cardHelpersUI/CardRow.svelte';
+    import EditCardForm from '../components/cards components/cardHelpersUI/Edit&AddCardForm.svelte';
 
     let promise;
     let errorMessage = '';
@@ -30,8 +30,11 @@
 
     async function saveEditedCard(updatedCard) {
         try {
-            const cardID = updatedCard.cardID;
-            await updateCard(cardID, updatedCard);
+            if (isNewCard) {
+                await addCard(updatedCard);
+            } else {
+                await updateCard(updatedCard);
+            }
 
             promise = fetchAllCards();
             closeEditForm();
@@ -70,7 +73,7 @@
     <div class="header-row flex justify-between items-center bg-pokeLightBlue text-white py-2 px-4 rounded-md mb-4 font-semibold">
         <div class="w-1/8 pl-5">Auction ID</div>
         <div class="w-1/6 pl-4">Auction Name</div>
-        <div class="w-1/4 ">Start Date/End Date</div>
+        <div class="w-1/4 ">Start Date/End Date</div> <!-- Centered column -->
         <div class="w-1/8 pr-16">Options</div>
     </div>
 

@@ -1,7 +1,7 @@
 <script>
-    import Timer from "../../components/Timer.svelte";
-    import NewBid from "../../components/bids components/NewBid.svelte";
-    import {handleImageError} from "../../utils/imgErrorHandeller.js";
+    import Timer from "../../Timer.svelte";
+    import NewBid from "../../bids components/NewBid.svelte";
+    import {handleImageError} from "../../../utils/imgErrorHandeller.js";
 
     export let cardDetails;
     export let onAuctionStatus;

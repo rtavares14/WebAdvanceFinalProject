@@ -1,5 +1,5 @@
 <script>
-    import {handleImageError} from "../../utils/imgErrorHandeller.js";
+    import {handleImageError} from "../../../utils/imgErrorHandeller.js";
 
     export let card;
 </script>

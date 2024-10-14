@@ -1,5 +1,5 @@
 <script>
-    import CardDetails from '../components/cards components/CardDetails.svelte';
+    import CardDetails from '../components/cards components/cardUI/CardDetails.svelte';
     import BidList from '../components/bids components/BidList.svelte';
     import { fetchCardDetails } from "../api/allAPIRequests.js";
     import { fetchBids } from "../api/allAPIRequests.js";

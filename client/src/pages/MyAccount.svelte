@@ -1,5 +1,5 @@
 <script>
-    import CardWon from '../components/cards components/CardWon.svelte';
+    import CardWon from '../components/cards components/cardUI/CardWon.svelte';
     import { fetchCardsWon } from "../api/allAPIRequests.js";
 
     let cardsWonPromise;
