@@ -79,25 +79,6 @@ export function createNewCard(req, res) {
     console.log("Card created successfully.");
 }
 
-//Get all bids from the card with the given ID
-export function getBidIDFromCard(req, res) {
-    const cardID = req.params.cardID;
-    const bidID = req.params.bidID;
-    const card = data.cards.find(card => card.cardID === cardID);
-
-    if (!card) {
-        return res.status(StatusCodes.NOT_FOUND).json({ error: "Card not found" });
-    }
-
-    const bid = card.bids.find((bid, index) => index + 1 === bidID);
-
-    if (!bid) {
-        return res.status(StatusCodes.NOT_FOUND).json({ error: "Bid not found" });
-    }
-
-    res.status(StatusCodes.OK).json({ bid });
-    console.log("Bid found successfully.");
-}
 
 // Get all bids from the card with the given ID
 export function getAllBidsFromCard(req, res) {

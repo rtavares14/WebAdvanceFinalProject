@@ -26,7 +26,7 @@ export function loginUser(req, res) {
                 { expiresIn: '10000h' }
             );
 
-            console.log("User logged in successfully."); // Moved log above the return statement
+            console.log("User logged in successfully.");
             return res.json({ token, message: 'Login successful' });
         } else {
             return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Email or Password not found' });

@@ -9,7 +9,6 @@ cardRouter.get("/popular", cardController.getPopularCards);
 cardRouter.get("/",isLoggedIn, cardController.getRequestedCards);
 cardRouter.get("/:cardID",isLoggedIn,cardController.getCardByID);
 cardRouter.get("/:cardID/bids",isLoggedIn,cardController.getAllBidsFromCard);
-cardRouter.get("/:cardID/bids/:bidID",isLoggedIn,cardController.getBidIDFromCard);
 
 cardRouter.post("/",isLoggedIn,isAdmin,cardController.createNewCard);
 

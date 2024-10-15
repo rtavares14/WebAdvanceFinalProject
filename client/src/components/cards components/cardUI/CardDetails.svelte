@@ -63,8 +63,10 @@
         const userConfirmed = confirm(`Are you sure you want to place a bid of $${newBid}?`);
 
         if (userConfirmed) {
+            addBids(cardID,bidAmount);
             alert("Bid placed successfully!");
             bidAmount = "";
+
         } else {
             console.log("Bid placement cancelled.");
             bidAmount = "";
