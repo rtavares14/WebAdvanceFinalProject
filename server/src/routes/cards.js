@@ -11,7 +11,6 @@ cardRouter.get("/:cardID",isLoggedIn,cardController.getCardByID);
 cardRouter.get("/:cardID/bids",isLoggedIn,cardController.getAllBidsFromCard);
 cardRouter.get("/:cardID/bids/:bidID",isLoggedIn,cardController.getBidIDFromCard);
 
-cardRouter.post("/:cardID/bids",isLoggedIn,cardController.createNewCardBid);
 cardRouter.post("/",isLoggedIn,isAdmin,cardController.createNewCard);
 
 cardRouter.patch("/:cardID",isLoggedIn,isAdmin,cardController.updateCard)

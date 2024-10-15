@@ -104,3 +104,39 @@ export function validateCardData(card) {
 
     return { valid: true };
 }
+
+export function validateBid(bidAmount, card, userID) {
+    const now = new Date();
+    const startDate = new Date(card.actionStartingDate);
+    const endDate = new Date(card.auctionEndDate);
+
+    if (startDate > now) {
+        return { isValid: false, message: "Auction has not started yet." };
+    }
+
+    if (endDate <= now) {
+        return { isValid: false, message: "Auction has already ended." };
+    }
+
+    if (bidAmount < card.auctionStartingBid) {
+        return { isValid: false, message: "Bid amount is lower than the starting bid." };
+    }
+
+    const lastBid = card.bids[card.bids.length - 1];
+
+    if (lastBid) {
+        if (bidAmount <= lastBid.bidAmount) {
+            return { isValid: false, message: "Your bid must be higher than the current highest bid." };
+        }
+
+        if (bidAmount > lastBid.bidAmount * 1.3) {
+            return { isValid: false, message: "Your bid cannot exceed 30% of the current highest bid." };
+        }
+
+        if (lastBid.userID === userID) {
+            return { isValid: false, message: "You cannot place consecutive bids. Wait for another user to bid first." };
+        }
+    }
+
+    return { isValid: true };
+}

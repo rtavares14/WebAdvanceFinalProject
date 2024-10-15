@@ -72,13 +72,6 @@ export function createNewCard(req, res) {
     console.log("Card created successfully.");
 }
 
-
-export function createNewCardBid(req, res) {
-
-
-}
-
-
 export function getBidIDFromCard(req, res) {
     const cardID = req.params.cardID;
     const bidID = req.params.bidID;

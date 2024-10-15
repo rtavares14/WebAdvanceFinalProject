@@ -1,5 +1,4 @@
 import page from 'page';
-import { get } from 'svelte/store';
 import { jwtDecode } from "jwt-decode";
 
 export const isAdmin = (ctx, next) => {

@@ -53,6 +53,8 @@ async function patchRequest(url, body) {
     return patchResponse;
 }
 
+
+
 //home page
 export async function fetchPopularCards() {
     const response = await getRequest("cards/popular");
@@ -102,6 +104,22 @@ export async function fetchBids(cardID) {
     } else {
         console.error('Error fetching bids:', response.status);
         return [];
+    }
+}
+
+export async function addBids(cardID,bidAmount) {
+    try {
+        const bidData = { bidAmount };
+        const response = await postRequest(`bids/${cardID}`, bidData);
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Error adding bid: ${errorText}`);
+        }
+        return await response.json();
+    }catch (error) {
+        console.error("Error adding card:", error);
+        throw error;
     }
 }
 
@@ -158,7 +176,6 @@ export const addCard = async (newCardData) => {
     }
 };
 
-
 export const updateCard = async (cardID, updatedData) => {
     try {
         const response = await patchRequest(`cards/${cardID}`, updatedData);
@@ -173,7 +190,7 @@ export const updateCard = async (cardID, updatedData) => {
         console.error("Error updating card:", error);
         throw error;
     }
-};
+}
 
 
 //login

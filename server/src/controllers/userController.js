@@ -76,7 +76,7 @@ export function loginUser(req, res) {
 }
 
 export function getWonByID(req, res) {
-    const userID = parseInt(req.user.userId);
+    const userID = Number(req.user.userId);
     const now = new Date();
 
     try {
