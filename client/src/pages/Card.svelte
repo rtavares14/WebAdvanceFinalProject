@@ -11,6 +11,7 @@
     let bidsPromise;
     let auctionActive = false;
 
+    // Fetch card details and bids if cardID is present in the URL
     $: if (cardID) {
         cardDetailsPromise = fetchCardDetails(cardID);
         bidsPromise = fetchBids(cardID);

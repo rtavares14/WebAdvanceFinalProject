@@ -3,10 +3,12 @@
     export let editCard;
     export let deleteCard;
 
+    // Function to format the date
     function formatDate(isoDateString) {
-        return isoDateString.substring(0, 10); // Get the first 10 characters
+        return isoDateString ? isoDateString.substring(0, 10) : 'N/A';
     }
 
+    // Function to get the auction status
     function getAuctionStatus() {
         const currentDate = new Date();
         const startDate = new Date(card.actionStartingDate);

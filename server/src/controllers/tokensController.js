@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import secret from "../verrySecretDoNotEnter/verrySecret.js";
 import { StatusCodes } from 'http-status-codes';
 
+// Login user with the given email and password
 export function loginUser(req, res) {
     const { email, password } = req.body;
 

@@ -2,7 +2,7 @@
     import pokeball from '../assets/pokeballLogo.png';
     import page from 'page';
     import {jwtDecode} from "jwt-decode";
-    import {tokenShop} from '../shops/tokenShop.js';
+    import {removeToken, tokenShop} from '../shops/tokenShop.js';
 
     export let active;
 
@@ -15,8 +15,7 @@
     });
 
     function logout() {
-        tokenShop.set(null);
-        localStorage.removeItem('token');
+        removeToken();
         page.redirect('/');
     }
 </script>

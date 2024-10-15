@@ -14,6 +14,7 @@
         token = value;
 
         if (token) {
+            // Decode the token to get the user's ID and admin status
             const decodedToken = jwtDecode(token);
             isAdmin = decodedToken?.isAdmin || false;
             userID = decodedToken?.userId || null;

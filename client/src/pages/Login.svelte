@@ -6,6 +6,7 @@
     let password = '';
     let error = '';
 
+    // Function to handle login form submission
     const handleSubmit = async (event) => {
         event.preventDefault();
         error = '';

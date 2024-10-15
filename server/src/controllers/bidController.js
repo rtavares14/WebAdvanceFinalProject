@@ -4,6 +4,7 @@ import StatusCodes from "http-status-codes";
 
 let bidsIDFake = 6;
 
+// Create a new bid for a card
 export function createNewCardBid(req, res) {
     const cardID = Number(req.params.cardID);
     const userID = Number(req.user.userId);

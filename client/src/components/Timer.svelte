@@ -12,6 +12,7 @@
         setCountdown();
     }
 
+    // Function to set the countdown
     function setCountdown() {
         clearInterval(intervalID);
 
@@ -46,6 +47,7 @@
         }
     }
 
+    // Function to start the auction timer
     function startAuctionTimer(end) {
         const now = new Date();
         updateCountdown(end - now);
@@ -62,6 +64,7 @@
         }, 1000);
     }
 
+    // Function to update the countdown
     function updateCountdown(time) {
         const days = Math.floor(time / (1000 * 60 * 60 * 24));
         const hours = Math.floor((time % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));

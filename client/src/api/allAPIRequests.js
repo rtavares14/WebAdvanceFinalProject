@@ -5,6 +5,8 @@ let token;
 tokenShop.subscribe(value => token = value);
 
 //main functions for my requests
+//GET, DELETE, POST, PATCH
+//all requests are async functions
 async function getRequest(url, params) {
     const getResponse = await fetch(`http://localhost:3000/${url}`, {
         method: 'GET',
@@ -55,7 +57,7 @@ async function patchRequest(url, body) {
 
 
 
-//home page
+//home page - popular cards
 export async function fetchPopularCards() {
     const response = await getRequest("cards/popular");
     if (response.ok) {
@@ -66,7 +68,7 @@ export async function fetchPopularCards() {
 }
 
 
-//cards page
+//cards page - search, filter
 export async function updateCards(searchQuery, filterRating, filterEnergy, filterCardType, filterActionStatus) {
     const queryString = constructQueryString(searchQuery, filterRating, filterEnergy, filterCardType, filterActionStatus);
     const response = await getRequest(`cards?${queryString}`);
@@ -81,7 +83,7 @@ export async function updateCards(searchQuery, filterRating, filterEnergy, filte
 }
 
 
-//card page
+//card page - card details, bids
 export async function fetchCardDetails(cardID) {
     const response = await getRequest(`cards/${cardID}`);
     if (response.ok) {
@@ -124,7 +126,7 @@ export async function addBids(cardID,bidAmount) {
 }
 
 
-//account page
+//account page - won cards
 export async function fetchCardsWon() {
     const response = await getRequest("users/cards");
     if (response.ok) {
@@ -136,7 +138,7 @@ export async function fetchCardsWon() {
 }
 
 
-//dashboard
+//dashboard page - all cards (admin) - delete, add, update
 export async function fetchAllCards() {
     const response = await getRequest("cards");
     if (response.ok) {
@@ -193,7 +195,7 @@ export const updateCard = async (cardID, updatedData) => {
 }
 
 
-//login
+//login page
 export async function login(email, password) {
     try {
         const response = await postRequest('tokens', {email, password});
@@ -216,7 +218,7 @@ export async function login(email, password) {
 }
 
 
-//register
+//register page
 export async function registerUser(userEmail, userPass) {
     try {
         const response = await postRequest('users/', {userEmail, userPass});

@@ -8,6 +8,7 @@
     import { createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher();
 
+    // Function to clear all filters
     function handleClearFilters() {
         searchQuery = '';
         filterRating = '';

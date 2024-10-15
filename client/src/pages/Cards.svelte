@@ -13,6 +13,7 @@
     let filterActionStatus = '';
     let errorMessage = '';
 
+    // Function to update the cards based on the filters
     function updatePromise() {
         page(`/cards?${constructQueryString(searchQuery, filterRating, filterEnergy, filterCardType, filterActionStatus)}`);
         promise = updateCards(searchQuery, filterRating, filterEnergy, filterCardType, filterActionStatus);
@@ -37,7 +38,7 @@
     updatePromise();
 </script>
 
-<main class="container mx-auto p-4">
+<main class="container mx-auto p-4 transform-scale">
     <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-4 mb-6 mt-12 mx-auto text-center" style="max-width: 100rem;">
         <p class="text-2xl font-bold">Check out all of our cards currently being auctioned!</p>
         <p class="mt-2 text-lg"> Discover a variety of unique cards, their energy types, ratings, and auction statuses.</p>
@@ -81,3 +82,10 @@
         </div>
     {/await}
 </main>
+
+<style>
+    .transform-scale {
+        transform: scale(0.9);
+        transform-origin: top;
+    }
+</style>

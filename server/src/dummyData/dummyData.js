@@ -1,3 +1,9 @@
+/**
+ * All my data to this website is stored in this file.
+ * I have a data object that contains two arrays: cards and users.
+ *The cards array contains all the cards that are being auctioned
+ *The users array contains all the users that have registered to the website.
+ */
 export const data = {
     cards: [{
         cardID: 1,
@@ -325,7 +331,7 @@ export const data = {
         energyType: "Water",
         cardRate: 10,
         bids: []
-    },{
+    }, {
         cardID: 88,
         cardName: "Trainer Gerralt",
         cardImg: "https://den-cards.pokellector.com/119/Professor-Oak.BS.88.png",
@@ -445,7 +451,10 @@ export const data = {
     }]
 }
 
-// Function to add months to the auctionEndDate of each card
+/**
+ * Function to add months to the auctionEndDate of each card
+ * I created this to test my auctions not to change the date every time I needed to test
+ */
 function addMonthsToAuctionEndDate(months) {
     data.cards.forEach(card => {
         const newEndDate = new Date(card.auctionEndDate);

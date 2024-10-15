@@ -7,11 +7,14 @@
     let confirmPassword = '';
     let error = '';
 
+    //Function to validate email address using regex pattern
     const validateEmail = (email) => {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailPattern.test(email);
     };
 
+    // Function to handle registration form submission
+    // Validates email, password and confirm password fields
     const handleRegister = async (event) => {
         event.preventDefault();
         error = '';

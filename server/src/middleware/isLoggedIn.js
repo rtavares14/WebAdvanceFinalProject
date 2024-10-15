@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import secret from "../verrySecretDoNotEnter/verrySecret.js";
 
+// This middleware function checks if the user is logged in by verifying the token.
 const isLoggedIn = (req, res, next) => {
     const token = req.get('Authorization');
 

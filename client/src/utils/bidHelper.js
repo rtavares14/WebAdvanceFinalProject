@@ -1,3 +1,10 @@
+/**
+ * Validates a new bid based on the current bids, user, and auction rules.
+ * @param {number} newBid - The amount of the new bid.
+ * @param {Array} currentBids - The list of current bids on the auction.
+ * @param {string} currentUserID - The ID of the current user placing the bid.
+ * @returns {boolean} True if the bid is valid, false otherwise.
+ */
 export function isBidValid(newBid, currentBids, currentUserID) {
     if (!newBid || isNaN(newBid) || newBid <= 0) {
         alert("Please enter a valid number for your bid.");

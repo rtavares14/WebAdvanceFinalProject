@@ -7,6 +7,7 @@ import { StatusCodes } from 'http-status-codes';
 
 const saltRounds = 10;
 
+// Create a new user with the given email and password
 export async function createUser(req, res) {
     let { userEmail, userPass } = req.body;
 
@@ -48,6 +49,7 @@ export async function createUser(req, res) {
     }
 }
 
+// Get all auctions that the user has won
 export function getWonByID(req, res) {
     const userID = Number(req.user.userId);
     const now = new Date();

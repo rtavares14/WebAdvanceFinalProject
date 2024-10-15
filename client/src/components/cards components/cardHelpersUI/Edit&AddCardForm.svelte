@@ -32,6 +32,7 @@
         }
     }
 
+    // Function to validate the form
     function validateForm() {
         let isValid = true;
 

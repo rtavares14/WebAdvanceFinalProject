@@ -8,11 +8,11 @@
     $: cardsWonPromise = fetchCardsWon();
 </script>
 
-<main class="container mx-auto p-4">
+<main class="container mx-auto  transform-scale">
     <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-4 mb-6 mt-12 mx-auto text-center"
          style="max-width: 45rem;">
         <h2 class="text-3xl font-bold mb-4">Obtain Cards</h2>
-        <p class="text-lg">All the cards obtain by you, congratulations!</p>
+        <p class="text-lg">All the cards obtained by you, congratulations!</p>
 
         <div class="mt-4">
             <a href="/cards"
@@ -54,5 +54,9 @@
 <style>
     .grid {
         justify-items: center;
+    }
+
+    .transform-scale {
+        transform: scale(0.9);
     }
 </style>

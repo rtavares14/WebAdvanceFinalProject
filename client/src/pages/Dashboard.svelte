@@ -11,23 +11,27 @@
 
     promise = fetchAllCards();
 
+    // Function to edit a card
     function editCard(card) {
         selectedCard = card;
         isNewCard = false;
         showEditOverlay = true;
     }
 
+    // Function to add a new card
     function addNewCard() {
         selectedCard = {};
         isNewCard = true;
         showEditOverlay = true;
     }
 
+    // Function to close the edit form
     function closeEditForm() {
         showEditOverlay = false;
         selectedCard = {};
     }
 
+    // Function to save the edited card
     async function saveEditedCard(updatedCard) {
         try {
             if (isNewCard) {
@@ -46,6 +50,7 @@
         }
     }
 
+    // Function to delete a card from the data
     async function deleteCard(cardID) {
         const deleteResponse = await deleteCardAPI(cardID);
         if (deleteResponse.success) {

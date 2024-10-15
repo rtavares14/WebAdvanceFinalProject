@@ -3,6 +3,7 @@ import Fuse from "fuse.js";
 import * as helper from "../utils/controllersHelper.js";
 import { StatusCodes } from 'http-status-codes';
 
+// Delete card with the given ID
 export function deleteCard(req, res) {
     const cardID = Number(req.params.cardID);
     const card = data.cards.find(card => card.cardID === cardID);
@@ -16,6 +17,7 @@ export function deleteCard(req, res) {
     console.log("Card deleted successfully.");
 }
 
+// Update card with the given ID
 export function updateCard(req, res) {
     const { cardName, cardImg, actionStartingDate, auctionEndDate, auctionStartingBid, cardType, energyType, cardRate } = req.body;
     const cardID = Number(req.params.cardID);
@@ -47,6 +49,7 @@ export function updateCard(req, res) {
     }
 }
 
+// Create a new card with the given data
 export function createNewCard(req, res) {
     const {cardName, cardImg, actionStartingDate, auctionEndDate, auctionStartingBid, cardType, energyType, cardRate} = req.body;
     const card = {cardName, cardImg, actionStartingDate, auctionEndDate, auctionStartingBid, cardType, energyType, cardRate};
@@ -76,6 +79,7 @@ export function createNewCard(req, res) {
     console.log("Card created successfully.");
 }
 
+//Get all bids from the card with the given ID
 export function getBidIDFromCard(req, res) {
     const cardID = req.params.cardID;
     const bidID = req.params.bidID;
@@ -95,6 +99,7 @@ export function getBidIDFromCard(req, res) {
     console.log("Bid found successfully.");
 }
 
+// Get all bids from the card with the given ID
 export function getAllBidsFromCard(req, res) {
     const cardID = Number(req.params.cardID);
     const card = data.cards.find(card => card.cardID === cardID);
@@ -107,6 +112,7 @@ export function getAllBidsFromCard(req, res) {
     console.log("Bids found successfully.");
 }
 
+// Get card by ID
 export function getCardByID(req, res) {
     const cardID = Number(req.params.cardID);
     const card = data.cards.find(card => card.cardID === cardID);
@@ -119,6 +125,7 @@ export function getCardByID(req, res) {
     console.log("Card found successfully.");
 }
 
+// Get popular cards for the home page (5 random cards)
 export function getPopularCards(req, res) {
     const cards = data.cards;
     const dataLength = cards.length;
@@ -130,6 +137,7 @@ export function getPopularCards(req, res) {
     console.log("Popular cards found successfully.");
 }
 
+// Get all cards that match the search query
 export function getRequestedCards(req, res) {
     const query = req.query.search;
     let filteredCards = data.cards;
