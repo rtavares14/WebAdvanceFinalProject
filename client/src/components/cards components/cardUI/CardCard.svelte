@@ -47,11 +47,4 @@
         transition: transform 0.3s ease-in-out;
     }
 
-    img {
-        transition: transform 0.3s ease;
-    }
-
-    img:hover {
-        transform: scale(1.1);
-    }
 </style>

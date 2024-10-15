@@ -1,33 +1,30 @@
-import {data} from "../dummyData/dummyData.js" ;
+import { data } from "../dummyData/dummyData.js";
 import Fuse from "fuse.js";
 import * as helper from "../utils/controllersHelper.js";
+import { StatusCodes } from 'http-status-codes';
 
 export function deleteCard(req, res) {
     const cardID = Number(req.params.cardID);
-
     const card = data.cards.find(card => card.cardID === cardID);
 
     if (!card) {
-        return res.status(404).json({ error: "Card not found" });
+        return res.status(StatusCodes.NOT_FOUND).json({ error: "Card not found" });
     }
 
     data.cards = data.cards.filter(card => card.cardID !== cardID);
-    res.status(200).json({ message: "Card deleted successfully." });
+    res.status(StatusCodes.OK).json({ message: "Card deleted successfully." });
     console.log("Card deleted successfully.");
 }
 
 export function updateCard(req, res) {
     const { cardName, cardImg, actionStartingDate, auctionEndDate, auctionStartingBid, cardType, energyType, cardRate } = req.body;
-
     const cardID = Number(req.params.cardID);
-
     const card = { cardName, cardImg, actionStartingDate, auctionEndDate, auctionStartingBid, cardType, energyType, cardRate };
-
     const validation = helper.validateCardData(card);
 
     if (!validation.valid) {
         console.log("Card data is not valid.");
-        return res.status(400).json({ message: validation.message });
+        return res.status(StatusCodes.BAD_REQUEST).json({ message: validation.message });
     }
 
     try {
@@ -35,7 +32,7 @@ export function updateCard(req, res) {
 
         if (cardIndex === -1) {
             console.log("Card not found. cardIndex:", cardIndex);
-            return res.status(404).json({ message: "Card not found." });
+            return res.status(StatusCodes.NOT_FOUND).json({ message: "Card not found." });
         }
 
         data.cards[cardIndex] = {
@@ -43,79 +40,82 @@ export function updateCard(req, res) {
             ...card,
         };
 
-        res.status(200).json({ message: "Card updated successfully.", card: data.cards[cardIndex] });
+        res.status(StatusCodes.OK).json({ message: "Card updated successfully.", card: data.cards[cardIndex] });
     } catch (error) {
         console.error("Failed to update card:", error);
-        res.status(500).json({ error: "Failed to update card." });
+        res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: "Failed to update card." });
     }
 }
 
-
 export function createNewCard(req, res) {
     const {cardName, cardImg, actionStartingDate, auctionEndDate, auctionStartingBid, cardType, energyType, cardRate} = req.body;
-    const card = { cardName, cardImg, actionStartingDate, auctionEndDate, auctionStartingBid, cardType, energyType, cardRate };
-
+    const card = {cardName, cardImg, actionStartingDate, auctionEndDate, auctionStartingBid, cardType, energyType, cardRate};
     const validation = helper.validateCardData(card);
 
     if (!validation.valid) {
         console.log("Card data is not valid.");
-        return res.status(400).json({ message: validation.message });
+        return res.status(StatusCodes.BAD_REQUEST).json({ message: validation.message });
     }
 
     const newCard = {
-        cardID: helper.getNextCardID(), cardName, cardImg, actionStartingDate, auctionEndDate, auctionStartingBid, cardType, energyType, cardRate, bids: [],
+        cardID: helper.getNextCardID(),
+        cardName,
+        cardImg,
+        actionStartingDate,
+        auctionEndDate,
+        auctionStartingBid,
+        cardType,
+        energyType,
+        cardRate,
+        bids: [],
     };
 
     data.cards.push(newCard);
 
-    res.status(201).json(newCard);
+    res.status(StatusCodes.CREATED).json(newCard);
     console.log("Card created successfully.");
 }
 
 export function getBidIDFromCard(req, res) {
     const cardID = req.params.cardID;
     const bidID = req.params.bidID;
-
     const card = data.cards.find(card => card.cardID === cardID);
 
     if (!card) {
-        return res.status(404).json({ error: "Card not found" });
+        return res.status(StatusCodes.NOT_FOUND).json({ error: "Card not found" });
     }
 
     const bid = card.bids.find((bid, index) => index + 1 === bidID);
 
     if (!bid) {
-        return res.status(404).json({ error: "Bid not found" });
+        return res.status(StatusCodes.NOT_FOUND).json({ error: "Bid not found" });
     }
 
-    res.status(200).json({ bid });
+    res.status(StatusCodes.OK).json({ bid });
     console.log("Bid found successfully.");
 }
 
-
 export function getAllBidsFromCard(req, res) {
     const cardID = Number(req.params.cardID);
-
     const card = data.cards.find(card => card.cardID === cardID);
 
     if (!card) {
-        return res.status(404).json({ error: "Card not found" });
+        return res.status(StatusCodes.NOT_FOUND).json({ error: "Card not found" });
     }
 
-    res.status(200).json({ bids: card.bids });
+    res.status(StatusCodes.OK).json({ bids: card.bids });
     console.log("Bids found successfully.");
 }
 
 export function getCardByID(req, res) {
     const cardID = Number(req.params.cardID);
-
     const card = data.cards.find(card => card.cardID === cardID);
 
     if (!card) {
-        return res.status(404).json({ error: "Card not found" });
+        return res.status(StatusCodes.NOT_FOUND).json({ error: "Card not found" });
     }
 
-    res.status(200).json({ card });
+    res.status(StatusCodes.OK).json({ card });
     console.log("Card found successfully.");
 }
 
@@ -126,7 +126,7 @@ export function getPopularCards(req, res) {
     const randomIndices = helper.getRandomIndices(5, dataLength);
     const randomCards = randomIndices.map(index => cards[index]);
 
-    res.status(200).json({ popularCards: randomCards });
+    res.status(StatusCodes.OK).json({ popularCards: randomCards });
     console.log("Popular cards found successfully.");
 }
 
@@ -143,11 +143,10 @@ export function getRequestedCards(req, res) {
 
         const fuse = new Fuse(data.cards, options);
         const result = fuse.search(query);
-
         filteredCards = result.map(r => r.item);
     }
 
     filteredCards = helper.filterCards(filteredCards, req.query);
 
-    res.status(200).json({ matchedCards: filteredCards });
+    res.status(StatusCodes.OK).json({ matchedCards: filteredCards });
 }

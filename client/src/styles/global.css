@@ -4,19 +4,32 @@ body {
     background-position: center;
     background-attachment: fixed;
     overflow-y: auto;
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.15);
+    z-index: -1;
+    pointer-events: none;
 }
 
 main {
-    margin-top: 2rem;
+    margin-top: 1rem;
 }
 
 .loader {
-    border: 0.5rem solid #003a70;
-    border-top: 0.5rem solid #3d7dca;
+    border: 0.3rem solid #003a70;
+    border-top: 0.3rem solid #3d7dca;
     border-radius: 90%;
-    width: 15rem;
-    height: 55rem;
-    animation: spinner 0.5s linear infinite;
+    width: 4rem;
+    height: 4rem;
+    animation: spinner 1s linear infinite;
 }
 
 @keyframes spinner {
@@ -29,14 +42,14 @@ main {
 }
 
 .red-dot {
-    background-color:#FB1B1B; /* Use Tailwind colors */
+    background-color:#FB1B1B;
 }
 
 .yellow-dot {
-    background-color: #ffcb05; /* Use Tailwind colors */
+    background-color: #ffcb05;
 }
 
 .green-dot {
-    background-color:#03C04A; /* Use Tailwind colors */
+    background-color:#03C04A;
 }
 

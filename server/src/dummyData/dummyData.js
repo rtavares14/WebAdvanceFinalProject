@@ -315,6 +315,17 @@ export const data = {
             bidID: 23, userID: 3, bidAmount: 2000.00, bidDate: new Date("2024-10-08")
         },]
     }, {
+        cardID: 87,
+        cardName: "Kingler",
+        cardImg: "https://www.pokemonkaart.nl/wp-content/uploads/Fossil_Kingler.jpg",
+        actionStartingDate: new Date("2024-12-07T13:03:00"),
+        auctionEndDate: new Date("2024-12-022T13:03:15"),
+        auctionStartingBid: 1000000000000,
+        cardType: "Pokemon",
+        energyType: "Water",
+        cardRate: 10,
+        bids: []
+    },{
         cardID: 88,
         cardName: "Trainer Gerralt",
         cardImg: "https://den-cards.pokellector.com/119/Professor-Oak.BS.88.png",

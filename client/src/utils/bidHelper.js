@@ -1,5 +1,4 @@
-// helper.js
-export function isBidValid(newBid, currentBids) {
+export function isBidValid(newBid, currentBids, currentUserID) {
     if (!newBid || isNaN(newBid) || newBid <= 0) {
         alert("Please enter a valid number for your bid.");
         return false;
@@ -22,10 +21,10 @@ export function isBidValid(newBid, currentBids) {
         return false;
     }
 
-   //if (currentBids[currentBids.length - 1]?.userID === currentUserID) {
-        //alert("You cannot place consecutive bids. Wait for another user to bid first.");
-       // return false;
-    //}
+   if (currentBids[0]?.userID === currentUserID) {
+        alert("You cannot place consecutive bids. Wait for another user to bid first.");
+       return false;
+   }
 
     return true;
 }

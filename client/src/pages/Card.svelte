@@ -56,8 +56,8 @@
             {/await}
         </div>
 
-        <div class="bg-pokeDarkBlue bg-opacity-95 text-pokeDarkBlue rounded-lg shadow-md p-6 flex-shrink-0 w-96">
-            <div class="bid-list-container overflow-y-auto max-h-[39.5rem] ">
+        <div class="bg-pokeDarkBlue bg-opacity-95 text-pokeDarkBlue rounded-lg shadow-md p-6 flex-shrink-0 w-96 max-h-[37.5rem]">
+            <div class="bid-list-container overflow-y-auto max-h-[34.5rem] ">
                 {#await bidsPromise}
                     <div class="flex justify-center items-center h-48">
                         <div class="loader"></div>
@@ -75,3 +75,7 @@
         </div>
     </div>
 </main>
+
+<style>
+
+</style>

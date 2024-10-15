@@ -160,11 +160,17 @@
         padding: 2rem;
         border-radius: 1rem;
         width: 25rem;
+        max-height: 75vh;
+        overflow-y: auto;
     }
-
     p.text-red-500 {
         font-size: 0.875rem;
         margin-top: -0.75rem;
         margin-bottom: 0.75rem;
+    }
+
+    .flex {
+        justify-content: space-between;
+        margin-top: 1rem;
     }
 </style>

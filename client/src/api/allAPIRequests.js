@@ -196,7 +196,7 @@ export const updateCard = async (cardID, updatedData) => {
 //login
 export async function login(email, password) {
     try {
-        const response = await postRequest('users/tokens', {email, password});
+        const response = await postRequest('tokens', {email, password});
 
         if (response.ok) {
             const data = await response.json();

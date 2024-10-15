@@ -7,10 +7,9 @@
     promise = fetchPopularCards();
 </script>
 
-<main class="container mx-auto p-4">
-
-    <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-4 mb-6 mt-12 mx-auto text-center"
-         style="max-width: 45rem;">
+<main class="container mx-auto p-1 transform-scale">
+    <div class="bg-pokeDarkBlue bg-opacity-85 text-white rounded-lg shadow-md p-4 mb-4 mt-6 mx-auto text-center"
+         style="max-width: 40rem;">
         <h2 class="text-2xl font-bold mb-4">Popular Cards</h2>
         <p class="text-lg">Check out the most popular cards being bid on right now.</p>
 
@@ -50,5 +49,9 @@
     a:hover {
         transform: scale(1.05);
         transition: transform 0.3s ease-in-out;
+    }
+
+    .transform-scale {
+        transform: scale(0.9);
     }
 </style>
