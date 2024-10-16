@@ -1,6 +1,7 @@
 import { data } from "../dummyData/dummyData.js";
 import * as helper from "../utils/controllersHelper.js";
 import StatusCodes from "http-status-codes";
+import { broadcastBidUpdate } from './cardController.js';
 
 let bidsIDFake = 6;
 
@@ -30,7 +31,7 @@ export function createNewCardBid(req, res) {
     };
 
     card.bids.push(bid);
-
+    broadcastBidUpdate(bid);
     res.status(StatusCodes.CREATED).json({ message: "Bid created successfully.", bid });
     console.log("Bid created successfully.");
 }

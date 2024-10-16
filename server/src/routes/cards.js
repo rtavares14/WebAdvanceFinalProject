@@ -10,6 +10,9 @@ cardRouter.get("/",isLoggedIn, cardController.getRequestedCards);
 cardRouter.get("/:cardID",isLoggedIn,cardController.getCardByID);
 cardRouter.get("/:cardID/bids",isLoggedIn,cardController.getAllBidsFromCard);
 
+// New SSE route for bid updates
+cardRouter.get("/bids/stream", cardController.getBidUpdates);
+
 cardRouter.post("/",isLoggedIn,isAdmin,cardController.createNewCard);
 
 cardRouter.patch("/:cardID",isLoggedIn,isAdmin,cardController.updateCard)

@@ -2,6 +2,7 @@ import { data } from "../dummyData/dummyData.js";
 import Fuse from "fuse.js";
 import * as helper from "../utils/controllersHelper.js";
 import { StatusCodes } from 'http-status-codes';
+let sseClients = [];
 
 // Delete card with the given ID
 export function deleteCard(req, res) {
@@ -79,7 +80,6 @@ export function createNewCard(req, res) {
     console.log("Card created successfully.");
 }
 
-
 // Get all bids from the card with the given ID
 export function getAllBidsFromCard(req, res) {
     const cardID = Number(req.params.cardID);
@@ -138,4 +138,31 @@ export function getRequestedCards(req, res) {
     filteredCards = helper.filterCards(filteredCards, req.query);
 
     res.status(StatusCodes.OK).json({ matchedCards: filteredCards });
+}
+
+
+// SSE endpoint to send real-time bid updates
+export function getBidUpdates(req, res) {
+    // Set headers to keep the connection alive for SSE
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache');
+    res.setHeader('Connection', 'keep-alive');
+    res.flushHeaders();
+
+    const clientId = Date.now();
+    const newClient = { id: clientId, res };
+
+    // Add the new client to the list
+    sseClients.push(newClient);
+
+    // Remove client when they close the connection
+    req.on('close', () => {
+        sseClients = sseClients.filter(client => client.id !== clientId);
+        res.end();
+    });
+}
+
+// Function to broadcast bid updates to all connected clients
+export function broadcastBidUpdate(newBid) {
+    sseClients.forEach(client => client.res.write(`data: ${JSON.stringify(newBid)}\n\n`));
 }

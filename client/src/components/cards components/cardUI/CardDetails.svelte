@@ -5,16 +5,17 @@
     import {addBids} from "../../../api/allAPIRequests.js";
     import {tokenShop} from "../../../shops/tokenShop.js";
     import {jwtDecode} from "jwt-decode";
+    import {createEventDispatcher, onDestroy} from "svelte";
 
     let token = null;
     let isAdmin = false;
     let userID = null;
+    const dispatch = createEventDispatcher();
 
     $: tokenShop.subscribe(value => {
         token = value;
 
         if (token) {
-            // Decode the token to get the user's ID and admin status
             const decodedToken = jwtDecode(token);
             isAdmin = decodedToken?.isAdmin || false;
             userID = decodedToken?.userId || null;
@@ -29,17 +30,29 @@
     export let onAuctionStatus;
     export let currentBids = [];
 
-    const now = new Date();
     let auctionActive = false;
 
     let bidAmount = "";
 
-
-    $: if (cardDetails) {
-        const start = new Date(cardDetails.actionStartingDate);
-        const end = new Date(cardDetails.auctionEndDate);
-        auctionActive = now >= start && now <= end;
+    // Function to check auction status
+    function checkAuctionStatus() {
+        const now = new Date(); // Get the current time dynamically
+        if (cardDetails) {
+            const start = new Date(cardDetails.actionStartingDate);
+            const end = new Date(cardDetails.auctionEndDate);
+            auctionActive = now >= start && now <= end;
+        }
     }
+
+    // Set an interval to keep checking the auction status every second
+    const auctionStatusInterval = setInterval(() => {
+        checkAuctionStatus();
+    }, 1000); // Check every second
+
+    // Clear the interval when the component is destroyed to prevent memory leaks
+    onDestroy(() => {
+        clearInterval(auctionStatusInterval);
+    });
 
     function handleBidSubmit() {
         if (isAdmin) {
@@ -63,10 +76,15 @@
         const userConfirmed = confirm(`Are you sure you want to place a bid of $${newBid}?`);
 
         if (userConfirmed) {
-            addBids(cardID,bidAmount);
-            alert("Bid placed successfully!");
-            bidAmount = "";
-
+            addBids(cardID, bidAmount)
+                .then(() => {
+                    bidAmount = "";
+                    dispatch('refreshBids');
+                })
+                .catch(error => {
+                    console.error("Error placing bid:", error);
+                    alert("There was an error placing your bid.");
+                });
         } else {
             console.log("Bid placement cancelled.");
             bidAmount = "";
@@ -102,7 +120,7 @@
 
             <button
                     class="px-3 py-1.5 font-bold text-lg rounded transition duration-200
-                    {auctionActive ? 'bg-pokeYellow hover:bg-pokeYellow-dark text-pokeDarkBlue hover:scale-105 shadow-lg' : 'bg-gray-500 text-gray-300 cursor-not-allowed'}"
+                {auctionActive ? 'bg-pokeYellow hover:bg-pokeYellow-dark text-pokeDarkBlue hover:scale-105 shadow-lg' : 'bg-gray-500 text-gray-300 cursor-not-allowed'}"
                     disabled={!auctionActive}
                     on:click={handleBidSubmit}
             >
@@ -115,6 +133,7 @@
                     placeholder="Enter bid amount"
                     class="ml-3 p-2 py-2 rounded bg-pokeYellow text-pokeDarkBlue no-underline"
                     min={currentBids.length > 0 ? currentBids[0]?.bidAmount + 1 : cardDetails.auctionStartingBid}
+                    disabled={!auctionActive}
             />
         </div>
     {:else}
