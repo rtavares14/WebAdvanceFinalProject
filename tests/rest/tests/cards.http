@@ -1,0 +1,194 @@
+### Successful test: check response status is 200 and number of popular cards
+GET http://localhost:3000/cards/popular
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(Array.isArray(response.body.popularCards), "Expected popularCards to be an array");
+        client.assert(response.body.popularCards.length === 5, "Five cards expected, got a different amount");
+    });
+%}
+
+### Successful test: check cards
+GET http://localhost:3000/cards
+Content-Type: application/json
+Authorization: Bearer {{tokenUSR}}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(Array.isArray(response.body.matchedCards), "Response body should be an array");
+        client.assert(response.body.matchedCards.length > 0, "Should return at least one card");
+    });
+%}
+
+### Successful test: check response for specific card
+GET http://localhost:3000/cards/2
+Content-Type: application/json
+Authorization: Bearer {{tokenUSR}}
+
+> {%
+    client.test("Request executed successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.card.cardID === 2, "Card ID should be 2");
+        client.assert(response.body.card.cardName, "Card name should be present");
+    });
+%}
+
+### Successful test: check card creation
+POST http://localhost:3000/cards
+Content-Type: application/json
+Authorization: Bearer {{tokenADM}}
+
+{
+  "cardName": "New Card",
+  "cardImg": "http://example.com/image.png",
+  "actionStartingDate": "2024-11-01T00:00:00.000Z",
+  "auctionEndDate": "2024-11-10T00:00:00.000Z",
+  "auctionStartingBid": 500,
+  "cardType": "Pokemon",
+  "energyType": "Fire",
+  "cardRate": 5
+}
+
+> {%
+    client.test("Card created successfully", function() {
+        client.assert(response.status === 201, "Response status is not 201");
+        client.assert(response.body.cardName === "New Card", "Card name should match");
+    });
+%}
+
+### Bad test: check card creation not an ADMIN
+POST http://localhost:3000/cards
+Content-Type: application/json
+Authorization: Bearer {{tokenUSR}}
+
+{
+  "cardName": "New Card",
+  "cardImg": "http://example.com/image.png",
+  "actionStartingDate": "2024-11-01T00:00:00.000Z",
+  "auctionEndDate": "2024-11-10T00:00:00.000Z",
+  "auctionStartingBid": 500,
+  "cardType": "Pokemon",
+  "energyType": "Fire",
+  "cardRate": 5
+}
+
+> {%
+    client.test("User is not admin", function() {
+        client.assert(response.status === 403, "Response status is not 403");
+        client.assert(response.body.error === "User is not admin.", "Expected 'User is not admin.' error not found");
+    });
+%}
+
+### Bad test: attempt to add a card with missing fields
+POST http://localhost:3000/cards
+Content-Type: application/json
+Authorization: Bearer {{tokenADM}}
+
+{
+  "cardName": "Incomplete Card",
+  "cardImg": "http://example.com/image.png"
+}
+
+> {%
+    client.test("Add card with missing fields", function() {
+        client.assert(response.status === 400, "Response status is not 400");
+        client.assert(response.body.message.includes("All fields are required."), "Expected validation error not found");
+    });
+%}
+
+### Bad test: get bids from a non-existent card
+GET http://localhost:3000/cards/999/bids
+Content-Type: application/json
+Authorization: Bearer {{tokenUSR}}
+
+> {%
+    client.test("Get bids from non-existent card", function() {
+        client.assert(response.status === 404, "Response status is not 404");
+        client.assert(response.body.error === "Card not found", "Expected error message not found");
+    });
+%}
+
+### Bad test: edit a card that does exist with missing fields
+PATCH http://localhost:3000/cards/2
+Content-Type: application/json
+Authorization: Bearer {{tokenADM}}
+
+{
+  "cardName": "Updated Card"
+}
+
+> {%
+    client.test("Edit existing card with missing fields", function() {
+        client.assert(response.status === 400, "Response status is not 400");
+
+        // Check for the actual error message returned by the backend
+        client.assert(response.body.message.includes("All fields are required."), "Expected validation error not found");
+    });
+%}
+
+
+### Bad test: attempt to add a card with invalid dates
+POST http://localhost:3000/cards
+Content-Type: application/json
+Authorization: Bearer {{tokenADM}}
+
+{
+  "cardName": "Invalid Date Card",
+  "cardImg": "http://example.com/image.png",
+  "actionStartingDate": "2024-11-10T00:00:00.000Z",
+  "auctionEndDate": "2024-11-05T00:00:00.000Z",
+  "auctionStartingBid": 500,
+  "cardType": "Pokemon",
+  "energyType": "Fire",
+  "cardRate": 5
+}
+
+> {%
+    client.test("Add card with end date before start date", function() {
+        client.assert(response.status === 400, "Response status is not 400");
+
+        // Check if the message exists in the response
+        const errorMessage = response.body.message || response.body.error || "No error message returned";
+
+        // Update the expected message to match the actual validation message
+        client.assert(errorMessage.includes("End date must be after start date"), "Expected validation error not found");
+    });
+%}
+
+### Successful test: check card deletion
+DELETE http://localhost:3000/cards/5
+Content-Type: application/json
+Authorization: Bearer {{tokenADM}}
+
+> {%
+    client.test("Card deleted successfully", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.message === "Card deleted successfully.", "Unexpected message on deletion");
+    });
+%}
+
+### Bad test: delete a card not a ADMIN
+DELETE http://localhost:3000/cards/5
+Content-Type: application/json
+Authorization: Bearer {{tokenUSR}}
+
+> {%
+    client.test("User is not admin", function() {
+        client.assert(response.status === 403, "Response status is not 403");
+        client.assert(response.body.error === "User is not admin.", "Expected 'User is not admin.' error not found");
+    });
+%}
+
+### Bad test: delete a non-existent card
+DELETE http://localhost:3000/cards/999
+Content-Type: application/json
+Authorization: Bearer {{tokenADM}}
+
+> {%
+    client.test("Delete non-existent card", function() {
+        client.assert(response.status === 404, "Response status is not 404");
+        client.assert(response.body.error === "Card not found", "Expected error message not found");
+    });
+%}

@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 
 import tokens from './routes/tokens.js';
-import bids from "./routes/bids.js";
 import cards from "./routes/cards.js";
 import users from "./routes/users.js";
 
@@ -15,7 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/tokens', tokens);
-app.use('/bids', bids);
 app.use('/cards', cards);
 app.use('/users', users);
 

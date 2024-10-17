@@ -100,7 +100,7 @@ export const data = {
         cardName: "Mewtwo",
         cardImg: "https://den-cards.pokellector.com/119/Mewtwo.BS.10.png",
         actionStartingDate: new Date("2024-10-05T00:00:00"),
-        auctionEndDate: new Date("2024-10-21T20:38:40"),
+        auctionEndDate: new Date("2024-10-17T11:41:30"),
         auctionStartingBid: 7500.00,
         cardType: "Pokemon",
         energyType: "Psychic",

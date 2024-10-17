@@ -1,0 +1,62 @@
+### Bad test: attempt to create a user with an existing email
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "userEmail": "Tavasres@gmail.com",
+  "userPass": "Tavares321"
+}
+
+> {%
+    client.test("User already exists", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body.message.includes("User already exists."), "Expected user already exists error not found");
+    });
+%}
+
+### Bad test: attempt to create a user with a missing email
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "userPass": "ValidPassword123"
+}
+
+> {%
+    client.test("Missing email", function() {
+        client.assert(response.status === 400, "Response status is not 400");
+        client.assert(response.body.message.includes("Email and password are required."), "Expected missing email error not found");
+    });
+%}
+
+### Bad test: attempt to create a user with a missing password
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "userEmail": "newuser@example.com"
+}
+
+> {%
+    client.test("Missing password", function() {
+        client.assert(response.status === 400, "Response status is not 400");
+        client.assert(response.body.message.includes("Email and password are required."), "Expected missing password error not found");
+    });
+%}
+
+### Bad test: attempt to create a user with a password that is too short
+POST http://localhost:3000/users
+Content-Type: application/json
+
+{
+  "userEmail": "shortpassword@example.com",
+  "userPass": "123"
+}
+
+> {%
+    client.test("Password too short", function() {
+        client.assert(response.status === 402, "Response status is not 402");
+        client.assert(response.body.error === "Password must be at least 6 characters.", "Expected short password error not found");
+    });
+%}
+

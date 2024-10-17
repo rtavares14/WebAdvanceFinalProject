@@ -1,0 +1,85 @@
+### Successful Login Test: Check Response Status is 200
+POST http://localhost:3000/tokens/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "gt@gmail.com",
+  "password": "Gt123"
+}
+
+> {%
+    client.test("Response status is 200", function() {
+        client.assert(response.status === 200, "Expected status 200, but got " + response.status);
+    });
+
+    client.test("Token is present in the response", function() {
+        client.assert(response.body.token !== undefined, "Token not found in the response.");
+    });
+
+    client.global.set("tokenADM", response.body.token);
+%}
+
+### Successful Login Test: Check Response Status is 200
+POST http://localhost:3000/tokens/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "rt14@gmail.com",
+  "password": "Rt14"
+}
+
+> {%
+    client.test("Response status is 200", function() {
+        client.assert(response.status === 200, "Expected status 200, but got " + response.status);
+    });
+
+    client.test("Token is present in the response", function() {
+        client.assert(response.body.token !== undefined, "Token not found in the response.");
+    });
+
+    client.global.set("tokenUSR", response.body.token);
+%}
+
+### Unsuccessful Login Test: Invalid Email
+POST http://localhost:3000/tokens/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "invalidemail@gmail.com",
+  "password": "Gt123"
+}
+
+> {%
+    client.test("Response status is 404", function() {
+        client.assert(response.status === 404, "Expected status 404, but got " + response.status);
+    });
+
+    client.test("Error message for invalid email", function() {
+        client.assert(response.body.message === 'Email or Password not found', "Expected error message for invalid email.");
+    });
+%}
+
+### Unsuccessful Login Test: Invalid Password
+POST http://localhost:3000/tokens/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "gt@gmail.com",
+  "password": "wrongpassword"
+}
+
+> {%
+    client.test("Response status is 401", function() {
+        client.assert(response.status === 401, "Expected status 401, but got " + response.status);
+    });
+
+    client.test("Error message for invalid password", function() {
+        client.assert(response.body.message === 'Email or Password not found', "Expected error message for invalid password.");
+    });
+%}
+
+

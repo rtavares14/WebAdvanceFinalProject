@@ -112,7 +112,7 @@ export async function fetchBids(cardID) {
 export async function addBids(cardID,bidAmount) {
     try {
         const bidData = { bidAmount };
-        const response = await postRequest(`bids/${cardID}`, bidData);
+        const response = await postRequest(`cards/${cardID}/bids`, bidData);
 
         if (!response.ok) {
             const errorText = await response.text();
@@ -128,7 +128,7 @@ export async function addBids(cardID,bidAmount) {
 
 //account page - won cards
 export async function fetchCardsWon() {
-    const response = await getRequest("users/cards");
+    const response = await getRequest("users/me/cards");
     if (response.ok) {
         return response.json();
     } else {
