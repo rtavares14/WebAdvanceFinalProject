@@ -8,10 +8,16 @@ import users from "./routes/users.js";
 const app = express()
 const port = 3000
 
-app.use(cors({origin: 'http://localhost:5173'}));
+app.use(
+    //allowing all origins for now
+    cors({
+        origin: ['http://localhost:5173','http://localhost:4173'],
+        credentials: true,
+    })
+);
 
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/tokens', tokens);
 app.use('/cards', cards);

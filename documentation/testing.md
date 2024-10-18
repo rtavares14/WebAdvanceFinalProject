@@ -42,7 +42,7 @@ Then go to [front-end package.json](../client/package.json) and click `dev` to s
 Then go to [back-end package.json](../server/package.json) and click `dev (1)` to start the back-end.
 After that you can start the tests and the website should be running.
 
-Website should be running on `http://localhost:3000/`
+Website should be running on `http://localhost:4173/`
 
 ### Test Case 1
 Name: User can view 5 auctions on the main page. <br>
