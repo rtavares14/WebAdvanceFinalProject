@@ -19,8 +19,6 @@ export const data = {
             bidID: 1, userID: 3, bidAmount: 200.00, bidDate: new Date("2024-06-06")
         }, {
             bidID: 2, userID: 4, bidAmount: 250.00, bidDate: new Date("2024-06-07")
-        }, {
-            bidID: 3, userID: 5, bidAmount: 275.00, bidDate: new Date("2024-07-07")
         },]
     }, {
         cardID: 2,
@@ -419,12 +417,14 @@ export const data = {
         cardName: "Water Energy",
         cardImg: "https://den-cards.pokellector.com/119/Water-Energy.BS.102.png",
         actionStartingDate: new Date("2024-10-07T13:03:00"),
-        auctionEndDate: new Date("2024-10-07T13:03:15"),
+        auctionEndDate: new Date("2025-10-07T13:03:15"),
         auctionStartingBid: 75.00,
         cardType: "Energy",
         energyType: "Water",
         cardRate: 7.5,
-        bids: []
+        bids: [{
+            bidID: 27, userID: 6, bidAmount: 102.00, bidDate: new Date("2024-10-10")
+        },]
     }],
 
     users: [{

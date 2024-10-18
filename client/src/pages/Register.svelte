@@ -29,8 +29,8 @@
             return;
         }
 
-        if (userPass.length < 8) {
-            error = 'Password must be at least 8 characters long.';
+        if (userPass.length < 3) {
+            error = 'Password must be at least 3 characters long.';
             return;
         }
 

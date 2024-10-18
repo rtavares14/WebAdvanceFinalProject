@@ -3,7 +3,7 @@ import * as helper from "../utils/controllersHelper.js";
 import StatusCodes from "http-status-codes";
 import { broadcastBidUpdate } from './cardController.js';
 
-let bidsIDFake = 6;
+let bidsIDFake = 27;
 
 // Create a new bid for a card
 export function createNewCardBid(req, res) {

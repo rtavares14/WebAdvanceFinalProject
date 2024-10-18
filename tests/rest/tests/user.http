@@ -3,23 +3,24 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "userEmail": "Tavasres@gmail.com",
+  "userEmail": "rt14@gmail.com",
   "userPass": "Tavares321"
 }
 
 > {%
     client.test("User already exists", function() {
-        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.status === 409, "Response status is not 409 " + response.status);
         client.assert(response.body.message.includes("User already exists."), "Expected user already exists error not found");
     });
 %}
 
 ### Bad test: attempt to create a user with a missing email
+//OOPPSSSSSS 1 ester egg here
 POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "userPass": "ValidPassword123"
+  "userPass": "Gerralt save the exactly techno song you are listening ATM and them show me"
 }
 
 > {%
@@ -34,13 +35,13 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "userEmail": "newuser@example.com"
+  "userEmail": "Gerralt@Gerralt.Gerralt"
 }
 
 > {%
     client.test("Missing password", function() {
         client.assert(response.status === 400, "Response status is not 400");
-        client.assert(response.body.message.includes("Email and password are required."), "Expected missing password error not found");
+        client.assert(response.body.message.includes("Email and password are required."), "error not found");
     });
 %}
 
@@ -49,14 +50,40 @@ POST http://localhost:3000/users
 Content-Type: application/json
 
 {
-  "userEmail": "shortpassword@example.com",
-  "userPass": "123"
+  "userEmail": "Gerralt@Gerralt.Gerralt",
+  "userPass": "gt"
 }
 
 > {%
     client.test("Password too short", function() {
-        client.assert(response.status === 402, "Response status is not 402");
-        client.assert(response.body.error === "Password must be at least 6 characters.", "Expected short password error not found");
+        client.assert(response.status === 409, "Response status is not 409 " + response.status );
+        client.assert(response.body.message.includes ("Password must be at least 3 characters long."), "error not found");
     });
 %}
 
+### Successful test: User with no won bids
+GET http://localhost:3000/users/me/cards
+Content-Type: application/json
+Authorization: Bearer {{tokenUSR2}}
+
+> {%
+    client.test("User has no won bids", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(typeof response.body.wonCards === 'object', "wonCards should be an object");
+        client.assert(Object.keys(response.body.wonCards).length === 0, "Expected 0 won cards");
+        client.assert(response.body.message.includes("No won cards found for this user."), "Expected 'No won cards found' message not found");
+    });
+%}
+
+### Successful test: User with won bids
+GET http://localhost:3000/users/me/cards
+Content-Type: application/json
+Authorization: Bearer {{tokenUSR1}}
+
+> {%
+    client.test("User has won bids", function() {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(typeof response.body.wonCards === 'object', "wonCards should be an object");
+        client.assert(Object.keys(response.body.wonCards).length > 0, "Expected more then 0 won cards");
+    });
+%}

@@ -1,4 +1,5 @@
-### Successful Login Test: Check Response Status is 200
+### Successful Login Test: Check Response Status is 200 amd token is present in the response
+//user login (admin)
 POST http://localhost:3000/tokens/
 Content-Type: application/json
 Accept: application/json
@@ -9,8 +10,8 @@ Accept: application/json
 }
 
 > {%
-    client.test("Response status is 200", function() {
-        client.assert(response.status === 200, "Expected status 200, but got " + response.status);
+    client.test("Response STTS is 200", function() {
+        client.assert(response.status === 200, "Expected STTS 200, but got " + response.status);
     });
 
     client.test("Token is present in the response", function() {
@@ -20,7 +21,8 @@ Accept: application/json
     client.global.set("tokenADM", response.body.token);
 %}
 
-### Successful Login Test: Check Response Status is 200
+### Successful Login Test: Check Response STTS is 200 amd token is present in the response
+//user login (client-2 won auctions)
 POST http://localhost:3000/tokens/
 Content-Type: application/json
 Accept: application/json
@@ -31,55 +33,96 @@ Accept: application/json
 }
 
 > {%
-    client.test("Response status is 200", function() {
-        client.assert(response.status === 200, "Expected status 200, but got " + response.status);
+    client.test("Response STTS is 200", function() {
+        client.assert(response.status === 200, "Expected STTS 200, but got " + response.status);
     });
 
     client.test("Token is present in the response", function() {
         client.assert(response.body.token !== undefined, "Token not found in the response.");
     });
 
-    client.global.set("tokenUSR", response.body.token);
+    client.global.set("tokenUSR1", response.body.token);
 %}
 
-### Unsuccessful Login Test: Invalid Email
+### Successful Login Test: Check Response STTS is 200 amd token is present in the response
+//user login (client-0 won ausctions)
 POST http://localhost:3000/tokens/
 Content-Type: application/json
 Accept: application/json
 
 {
-  "email": "invalidemail@gmail.com",
+  "email": "rt6@gmail.com",
+  "password": "Rt6"
+}
+
+> {%
+    client.test("Response STTS is 200", function() {
+        client.assert(response.status === 200, "Expected STTS 200, but got " + response.status);
+    });
+
+    client.test("Token is present in the response", function() {
+        client.assert(response.body.token !== undefined, "Token not found in the response.");
+    });
+
+    client.global.set("tokenUSR2", response.body.token);
+%}
+
+### Bad Login Test: Invalid Email
+POST http://localhost:3000/tokens/
+Content-Type: application/json
+Accept: application/json
+
+{
+  "email": "gT@gmail.com",
   "password": "Gt123"
 }
 
 > {%
-    client.test("Response status is 404", function() {
-        client.assert(response.status === 404, "Expected status 404, but got " + response.status);
+    client.test("Response STTS is 404", function() {
+        client.assert(response.status === 404, "Expected STTS 404, but got " + response.status);
     });
 
-    client.test("Error message for invalid email", function() {
-        client.assert(response.body.message === 'Email or Password not found', "Expected error message for invalid email.");
+    client.test("Error message for bad email", function() {
+        client.assert(response.body.message === 'Email or Password not found', "error for invalid data.");
     });
 %}
 
-### Unsuccessful Login Test: Invalid Password
+### Bad Login Test: Invalid Password
 POST http://localhost:3000/tokens/
 Content-Type: application/json
 Accept: application/json
 
 {
   "email": "gt@gmail.com",
-  "password": "wrongpassword"
+  "password": "Gt321"
 }
 
 > {%
-    client.test("Response status is 401", function() {
-        client.assert(response.status === 401, "Expected status 401, but got " + response.status);
+    client.test("Response STTS is 401", function() {
+        client.assert(response.status === 401, "Expected STTS 401, but got " + response.status);
     });
 
-    client.test("Error message for invalid password", function() {
-        client.assert(response.body.message === 'Email or Password not found', "Expected error message for invalid password.");
+    client.test("Error message for bad password", function() {
+        client.assert(response.body.message === 'Email or Password not found', "error for invalid data.");
     });
 %}
 
+### Bad Login Test: Invalid Email and Password
+POST http://localhost:3000/tokens/
+Content-Type: application/json
+Accept: application/json
 
+{
+  "email": "gT@gmail.com",
+  "password": "Gt321"
+}
+
+> {%
+    client.test("Response STTS is 404", function() {
+        client.assert(response.status === 404, "Expected STTS 404, but got " + response.status);
+    });
+
+    client.test("Error message for bad password and email", function() {
+        client.assert(response.body.message === 'Email or Password not found', "error for invalid data.");
+    });
+%}

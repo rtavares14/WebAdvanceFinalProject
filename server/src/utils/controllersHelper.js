@@ -161,6 +161,11 @@ export function validateBid(bidAmount, card, userID) {
         return { isValid: false, message: "Bid is less than the starting bid." };
     }
 
+    const user = data.users.find(user => user.userID === userID);
+    if (user && user.isAdmin) {
+        return { isValid: false, message: "Admin cannot place a bid." };
+    }
+
     const lastBid = card.bids[card.bids.length - 1];
 
     if (lastBid) {
