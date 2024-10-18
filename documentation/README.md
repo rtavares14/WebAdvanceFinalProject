@@ -34,3 +34,13 @@ Here, I will explain some of the features I've implemented, the reasons behind t
 - 2 of them can be found in my front end pages.
 - 1 of them can be found in my back end pages more into the testing section.
 - I hope you enjoy finding them!
+
+## Commit History
+- As we talked about my commits i decided to chose the most unique and unhinged commit messages for you to see.
+- I hope you enjoy them as much as I did writing them. (I did not enjoy writing them) i was going crazy while doing them.
+
+![alt text](../documentation/images/funnyCommits/img.png)<br>
+![alt text](../documentation/images/funnyCommits/img_1.png)<br>
+![alt text](../documentation/images/funnyCommits/img_2.png)<br>
+![alt text](../documentation/images/funnyCommits/img_3.png)<br>
+![alt text](../documentation/images/funnyCommits/img_4.png)<br>
