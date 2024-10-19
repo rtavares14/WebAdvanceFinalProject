@@ -1,4 +1,4 @@
-### Successful Login Test: Check Response Status is 200 amd token is present in the response
+### Successful Login Test: Check Response Status is 200 amd token is present in the response ADMIN
 //user login (admin)
 POST http://localhost:3000/tokens/
 Content-Type: application/json
@@ -21,7 +21,7 @@ Accept: application/json
     client.global.set("tokenADM", response.body.token);
 %}
 
-### Successful Login Test: Check Response STTS is 200 amd token is present in the response
+### Successful Login Test: Check Response STTS is 200 amd token is present in the response USER 1
 //user login (client-2 won auctions)
 POST http://localhost:3000/tokens/
 Content-Type: application/json
@@ -44,7 +44,7 @@ Accept: application/json
     client.global.set("tokenUSR1", response.body.token);
 %}
 
-### Successful Login Test: Check Response STTS is 200 amd token is present in the response
+### Successful Login Test: Check Response STTS is 200 amd token is present in the response USER 2
 //user login (client-0 won ausctions)
 POST http://localhost:3000/tokens/
 Content-Type: application/json

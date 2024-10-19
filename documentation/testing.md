@@ -38,8 +38,8 @@ The table below shows an overview of which test covers which non-functional requ
 ## Test plan
 PREREQUISITE FOR TESTS: The website is launched and running for the tests to be executed.
 Run the website by performing `npm install` for both the `front-end (client)` and `backend (server)`.
-Then go to [front-end package.json](../client/package.json) and click `dev` to start the front-end.
-Then go to [back-end package.json](../server/package.json) and click `dev (1)` to start the back-end.
+Then go to [front-end package.json](../client/package.json) and click `start` to start the front-end.
+Then go to [back-end package.json](../server/package.json) and click `start (1)` to start the back-end.
 After that you can start the tests and the website should be running.
 
 Website should be running on `http://localhost:4173/`
